@@ -4,10 +4,27 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+        screens: {
+            'xs': '325px',
+          },
+        boxShadow: {
+            'inner-banner': 'inset 0 500px 130px rgba(0, 0, 0, 0.45)',
+        },
+        padding: {
+            '26': '104px',
+          },
+        width: {
+        '128': '32rem',
+        }
+    },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin'),
+    // require('flowbite-typography')
+  ],
 }
 
