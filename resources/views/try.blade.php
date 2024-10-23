@@ -30,9 +30,16 @@
                 </button>
             </div>
             <form action="/" method="get">
+
                 <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
-                    <input type="date" name="date" id="date" class=" border rounded p-4 border-gray-500">
-                    <input type="time" id="end-time" value="14:00" class=" border rounded p-4 border-gray-500">
+                    <div class="relative">
+                        <input type="date" id="rent_date" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="username" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pilih Tanggal</label>
+                    </div>
+                    <div class="relative">
+                        <input type="time" id="rent_time" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="username" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Jam Sewa</label>
+                    </div>
                 </div>
                 <div class="flex justify-end ">
                     <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Ketersediaan</button>

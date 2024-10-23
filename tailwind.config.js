@@ -18,8 +18,14 @@ export default {
             '26': '104px',
           },
         width: {
-        '128': '32rem',
-        }
+            '128': '32rem',
+        },
+        fontSize: {
+            56: '56px'
+        },
+        margin: {
+            '17.5': '70px',
+        },
     },
   },
   plugins: [

@@ -13,21 +13,22 @@
         <div class="w-128">
             <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
             <div class=" space-y-4 mb-12">
-                <a href="/" class="flex space-x-1">
+                <a href="/login" class="flex space-x-1">
                     <img src="{{ Storage::url('images/arrow_left.svg') }}" alt=""><span>Back to login</span>
                 </a>
                 <h4 class="text-4xl font-bold">Forgot your password?</h4>
                 <p class="text-base">Don’t worry, happens to all of us. Enter your email below to recover your password</p>
             </div>
 
-            <form action="/">
+            <form action="{{ route('login.authentication') }}" method="POST">
+                @csrf
                 <div class="space-y-6 mb-8">
                     <div class="relative">
-                        <input type="text" id="username" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="username" placeholder="username" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
                         <label for="username" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Username</label>
                     </div>
                     <div class="relative ">
-                        <input type="number" id="number" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <input type="text" name="no_telp" placeholder="no_telp" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label for="number" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Number</label>
                     </div>
                 </div>
