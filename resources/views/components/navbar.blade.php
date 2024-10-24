@@ -8,9 +8,9 @@
             </div>
             <div class="hidden md:block">
                 <div class="flex items-baseline space-x-4">
-                    <x-navlink href="/jadwalLapangan" :active="request()->is('jadwalLapangan')">Jadwal Lapangan</x-navlink>
+                    <x-navlink href="/field-schedule" :active="request()->is('jadwalLapangan')">Jadwal Lapangan</x-navlink>
                     <x-navlink href="/sparing" :active="request()->is('posts')">Sparing</x-navlink>
-                    <x-navlink href="/artikel" :active="request()->is('about')">Artikel</x-navlink>
+                    <x-navlink href="/article" :active="request()->is('about')">Artikel</x-navlink>
                 </div>
             </div>
 
