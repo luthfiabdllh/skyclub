@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -13,7 +14,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::all();
+        return view('article.index', compact('articles'));
     }
 
     /**
@@ -21,7 +23,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -29,7 +31,20 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'photo' => 'required|image|max:5000',
+        ]);
+        $image = $request->photo;
+        $image->storeAs('public/article-images', $image->hashName());
+        Article::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'photo' => $image->hashName(),
+            'created_by' => Auth::user()->id,
+        ]);
+        return redirect()->route('article.index')->withSuccess('Berhasil Menambahkan Artikel');
     }
 
     /**
@@ -37,7 +52,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.show', compact('article'));
     }
 
     /**
@@ -45,7 +60,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit', compact('article'));
     }
 
     /**
@@ -53,7 +68,13 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $validation = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'photo' => 'image'
+        ]);
+        Article::where('id', $article->id)->update($validation);
+        return redirect()->route('article.index')->withSuccess('Artikel Berhasil Dihapus');
     }
 
     /**
@@ -61,6 +82,17 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('article.index')->withSuccess('Artikel Berhasil Dihapus');
+    }
+
+    public function userIndex()
+    {
+        return view('article.userIndex');
+    }
+
+    public function userShow(Article $article)
+    {
+        return view('article.userShow', compact('article'));
     }
 }

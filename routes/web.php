@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\auth\SetPasswordController;
@@ -25,3 +26,13 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->midd
 Route::post('/forgot-password', [ForgotPasswordController::class, 'validateData'])->middleware('guest')->name('forgotPassword.validate');
 Route::get('/set-password/{id}', [SetPasswordController::class, 'edit'])->middleware('password.forgot')->name('setPassword.edit');
 Route::put('/set-password/{id}', [SetPasswordController::class, 'update'])->name('setPassword.update');
+
+// Route Article Admin
+Route::prefix('/admin')->middleware('admin')->group(function () {
+    Route::resource('/article', ArticleController::class);
+});
+
+//Route Article Umum
+Route::get('/article', [ArticleController::class, 'userIndex']);
+Route::get('/article/{id}', [ArticleController::class, 'userShow']);
+
