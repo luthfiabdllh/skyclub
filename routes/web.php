@@ -7,8 +7,8 @@ use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 
 
-Route::get('/try', function () {
-    return view('detailsewa');
+Route::get('/', function () {
+    return view('articles');
 });
 
 //Route Register

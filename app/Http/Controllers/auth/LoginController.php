@@ -24,7 +24,7 @@ class LoginController extends Controller
             return redirect()->intended('/');
         }
         // pesan error ketika login gagal, akan balik ke halaman login;
-        return back()->with('error', 'Login Gagal');
+        return back()->with('errorLogin', 'Login Gagal');
     }
     public function logout(Request $request)
     {
