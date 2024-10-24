@@ -10,18 +10,18 @@
 <body class="h-full">
     <x-navbar></x-navbar>
 
-    <div class="min-h-full px-16">
+    <div class="min-h-full px-16 my-12">
         {{-- gallery --}}
-        <div class="grid grid-cols-3 grid-flow-col gap-4 mt-10" style="height: 670px">
+        <div class="grid grid-cols-3 grid-flow-col gap-4" style="height: 670px">
             <div class=" col-span-2 row-span-2 bg-cover rounded-s-3xl" style="background-image: url({{ Storage::url('images/album_1.svg') }});"></div>
             <div class="bg-cover rounded-tr-3xl " style="background-image: url({{ Storage::url('images/album_2.svg') }});"></div>
             <div class="relative bg-cover rounded-br-3xl " style="background-image: url({{ Storage::url('images/album_3.svg') }});">
                 <a href="/" class="absolute bottom-5 right-5 bg-red-600 rounded px-4 py-2 font-semibold text-white ">Lihat Semua Foto</a>
             </div>
         </div>
-
-        <div class=" inline-flex space-x-1 my-12">
-            <div class="w-fit">
+        {{-- cart & desc --}}
+        <div class="flex justify-between my-12">
+            <div style="width: 812px">
                 <div class=" space-y-1">
                     <h1 class=" text-4.5xl font-bold">SKY CLUB MINI SOCCER</h1>
                     <div class="flex space-x-1">
@@ -88,6 +88,8 @@
                         <a href="/" class="border border-red-400 rounded p-2 font-semibold text-red-500">Lihat Semua Fasilitas</a>
                     </div>
                 </div>
+                <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
+
             </div>
             <div class="border px-5 py-8 bg-white rounded-2xl max-h-fit space-y-7" style="width: 490px">
                 <div>
@@ -124,8 +126,54 @@
             </div>
         </div>
 
-
+            {{-- customer testimoni --}}
+        <div class=" space-y-10">
+            <div >
+                <h2 class="text-4xl font-bold">Customer Testimonials</h2>
+                <h6 class="text-lg">Kesan dari kawan kawan SKY CLUB</h6>
+            </div>
+            <div class="grid grid-cols-3 gap-8">
+                @for ($x = 0; $x < 3; $x++)
+                <div class=" space-y-8">
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                        <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                        </svg>
+                    </div>
+                    <p>"Lapangan di SKY CLUB sangat nyaman dan aman. Permukaannya rata, jadi permainan berjalan lebih lancar. Saya sangat puas dengan kualitasnya!"</p>
+                    <div>
+                        <img class=" rounded-full w-14 mb-4"  src="{{ Storage::url('images/profile.svg') }}" alt="">
+                        <p class="text-base font-bold">Budi Santoso</p>
+                        <p class="text-base">Pemain Komunitas</p>
+                    </div>
+                </div>
+                @endfor
+            </div>
+            <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
+            <div class="rounded-lg border border-gray-300">
+                <div class=" grid p-12 space-y-8">
+                    <div>
+                        <p class="text-3xl font-bold">Lokasi Venue</p>
+                        <p class="text-xl font-bold">Jalan Raya Palsu No. 123,  Kota Bogor, Jawa Barat, 16111</p>
+                    </div>
+                    <iframe class="w-full h-[27rem]" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7906.299606239549!2d110.36796849553049!3d-7.77393531109345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a584a6eaf7cbb%3A0x294cd98559dc9c8c!2sSekolah%20Vokasi%20UGM!5e0!3m2!1sid!2sid!4v1729779883264!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <x-bottom></x-bottom>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>

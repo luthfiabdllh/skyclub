@@ -16,8 +16,9 @@ class ForgotPasswordController extends Controller
     {
         $user = User::where('username', $request->username)->first();
         if ($user->no_telp == $request->no_telp) {
+            session(['forgot_password_user_id' => $user->id]);
             return redirect()->route('setPassword.edit', $user->id)->with('success_set_password', 'Silahkan masukan password baru');
         }
-        return back()->with('error', 'Username dan No Telphone yang anda masukan salah');
+        return back()->with('errorForgot', 'Username dan No Telphone yang anda masukan salah');
     }
 }

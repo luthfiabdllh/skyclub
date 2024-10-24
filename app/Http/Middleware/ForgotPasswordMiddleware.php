@@ -16,7 +16,7 @@ class ForgotPasswordMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Session::has('success_set_password')) {
+        if (Session::has('forgot_password_user_id')) {
             return $next($request);
         }
         return redirect()->route('login.index');
