@@ -78,7 +78,7 @@
                 <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Create Account</button>
             </form>
             <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center mt-4">
-                Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</a>
+                Already have an account? <a href="{{ route('login.index') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login</a>
             </p>
             <div class="flex items-center mt-10">
                 <div class="flex-grow border-t border-gray-200"></div>

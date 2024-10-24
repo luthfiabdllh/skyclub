@@ -40,7 +40,7 @@
                               <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                             </div>
                         </div>
-                        <a href="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                        <a href="{{ route('forgotPassword.index') }}" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                     </div>
                 </div>
                 <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Sign in</button>

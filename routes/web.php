@@ -8,7 +8,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 
 
 Route::get('/try', function () {
-    return view('detailsewa');
+    return view('try');
 });
 
 //Route Register
