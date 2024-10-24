@@ -9,45 +9,31 @@
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 <body class="p-26">
-    @if (session()->has('errorLogin'))
-        <h1>Salah akun hehe</h1>
-    @endif
     <div class="flex justify-between center">
-
         <div class="w-128">
             <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
             <div class=" space-y-4 mb-12">
-                <h4 class="text-4xl font-bold"> Login</h4>
-                <p class="text-base">Login untuk akses akun SKY CLUB anda</p>
+                <a href="/login" class="flex space-x-1">
+                    <img src="{{ Storage::url('images/arrow_left.svg') }}" alt=""><span>Back to login</span>
+                </a>
+                <h4 class="text-4xl font-bold">Forgot your password?</h4>
+                <p class="text-base">Don’t worry, happens to all of us. Enter your email below to recover your password</p>
             </div>
+
             <form action="{{ route('login.authentication') }}" method="POST">
                 @csrf
-                <div class="space-y-6 mb-10">
+                <div class="space-y-6 mb-8">
                     <div class="relative">
                         <input type="text" name="username" placeholder="username" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
                         <label for="username" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Username</label>
                     </div>
                     <div class="relative ">
-                        <input type="password" name="password" placeholder="password" required class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"/>
-                        <label for="password" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Password</label>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                              <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
-                            </div>
-                            <div class="ml-3 text-sm">
-                              <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
-                            </div>
-                        </div>
-                        <a href="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                        <input type="text" name="no_telp" placeholder="no_telp" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                        <label for="number" class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Number</label>
                     </div>
                 </div>
-                <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Sign in</button>
+                <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Submit</button>
             </form>
-            <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center mt-4">
-                Don’t have an account <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign Up</a>
-            </p>
             <div class="flex items-center mt-10">
                 <div class="flex-grow border-t border-gray-200"></div>
                 <span class="px-4 text-gray-400">atau masuk dengan</span>
@@ -72,4 +58,3 @@
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 </html>
-
