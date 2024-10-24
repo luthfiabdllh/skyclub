@@ -26,6 +26,9 @@ export default {
         margin: {
             '17.5': '70px',
         },
+        fontSize: {
+            '4.5xl': '40px',
+          }
     },
   },
   plugins: [
