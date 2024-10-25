@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('team')->nullable();
             $table->text('address')->nullable();
             $table->enum('role', ['penyewa', 'admin'])->default('penyewa');
+            $table->date('date_of_birth')->nullable();
+            $table->string('profile_photo')->nullable();
             $table->string('password');
             $table->timestamps();
         });
