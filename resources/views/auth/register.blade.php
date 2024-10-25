@@ -26,7 +26,7 @@
 </head>
 <body class="p-26">
     <div class="flex justify-between center">
-        <div class="w-128">
+        <div class=" w-600px">
             <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
             <div class=" space-y-4 mb-12">
                 <h4 class="text-4xl font-bold">Sign up</h4>

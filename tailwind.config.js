@@ -32,6 +32,8 @@ export default {
           },
         width:{
             '765px' : '765px',
+            '512px' : '512px',
+            '600px' : '600px'
         },
     },
   },

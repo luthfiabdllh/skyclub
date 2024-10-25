@@ -19,14 +19,22 @@
                         <a href="{{ route('login.index')}}" class="rounded-md px-5 py-2 text-sm font-medium bg-gray-200">Masuk</a>
                         <a href="{{ route('register.index') }}" class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white">Daftar</a>
                     </div> --}}
-                    <div class="ml-4 flex items-center md:ml-6">
-                        <button type="button" class="relative rounded-full p-1 text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <div class="ml-4 flex items-center space-x-4 md:ml-6">
+                        <button type="button" class="relative rounded-full p-1 text-gray-400 hover:text-black ">
                             <span class="sr-only">View notifications</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                             </svg>
                         </button>
-
+                        <div class="flex items-center space-x-2">
+                            <button type="button" class="relative flex max-w-xs items-center border-e-2 border-red-600 text-sm pr-3">
+                                <span class="sr-only">Cart</span>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+                                  </svg>
+                                <span class="ml-2 font-normal">Keranjang</span>
+                            </button>
+                        </div>
                         <!-- Profile dropdown -->
                         <div class="relative ml-3" x-data="{ isOpen: false }">
                             <div class="flex items-center space-x-2">
