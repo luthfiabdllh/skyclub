@@ -12,7 +12,7 @@
 
 <body class="p-26">
     <div class="flex justify-between center">
-        <div class="w-128">
+        <div class=" w-512px">
             <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
             <div class=" space-y-4 mb-12">
                 <a href="/login" class="flex space-x-1">
