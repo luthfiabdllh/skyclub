@@ -27,8 +27,12 @@ export default {
             '17.5': '70px',
         },
         fontSize: {
+            '56': '56px',
             '4.5xl': '40px',
-          }
+          },
+        width:{
+            '765px' : '765px',
+        },
     },
   },
   plugins: [

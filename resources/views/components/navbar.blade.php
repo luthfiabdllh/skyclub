@@ -16,8 +16,8 @@
             <div class="hidden md:block">
                 <div class="ml-4 flex items-center md:ml-6">
                     <div class="flex items-baseline space-x-2">
-                        <a href="/" class="rounded-md px-5 py-2 text-sm font-medium bg-gray-200">Masuk</a>
-                        <a href="/" class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white">Daftar</a>
+                        <a href="{{ route('login.index')}}" class="rounded-md px-5 py-2 text-sm font-medium bg-gray-200">Masuk</a>
+                        <a href="{{ route('register.index') }}" class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white">Daftar</a>
                     </div>
                 </div>
             </div>
