@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\SparingController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
@@ -39,3 +40,6 @@ Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('artic
 
 // Field Schedule
 Route::get('/field-schedule', [FieldScheduleController::class, 'index']);
+
+//sparring
+Route::get('sparing', [SparingController::class, 'index']);
