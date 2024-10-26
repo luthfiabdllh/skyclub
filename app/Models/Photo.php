@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Photo extends Model
 {
     use HasFactory;
-    protected $with = ['fields'];
+    protected $with = ['field'];
     public function field(): BelongsTo
     {
         return $this->belongsTo(Field::class);
