@@ -11,18 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
+        Schema::create('user_infos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique()->nullable();
-            $table->string('username')->unique();
+            $table->string('email')->unique();
             $table->string('no_telp')->unique();
             $table->string('team')->nullable();
-            $table->text('address')->nullable();
-            $table->enum('role', ['penyewa', 'admin'])->default('penyewa');
-            $table->date('date_of_birth')->nullable();
-            $table->string('profile_photo')->nullable();
-            $table->string('password');
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_infos');
     }
 };
