@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+    protected $with = ['user'];
 
     public function user()
     {

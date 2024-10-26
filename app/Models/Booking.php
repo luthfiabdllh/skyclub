@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Booking extends Model
 {
     use HasFactory;
-    // protected $with = ['user', 'vouchers', 'user_infos'];
+    protected $with = ['user', 'vouchers', 'user_infos'];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

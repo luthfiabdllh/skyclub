@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ListBooking extends Model
 {
     use HasFactory;
+    protected $with = ['bookings', 'fields'];
     public function booking(): BelongsTo
     {
         return $this->belongsTo(Booking::class);
