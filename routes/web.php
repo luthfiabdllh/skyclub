@@ -2,14 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\SparingController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('try');
 });
 
 //Route Register
@@ -33,6 +35,11 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 });
 
 //Route Article Umum
-Route::get('/article', [ArticleController::class, 'userIndex']);
-Route::get('/article/{id}', [ArticleController::class, 'userShow']);
+Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
+Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
 
+// Field Schedule
+Route::get('/field-schedule', [FieldScheduleController::class, 'index']);
+
+//sparring
+Route::get('sparing', [SparingController::class, 'index']);

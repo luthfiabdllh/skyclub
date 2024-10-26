@@ -18,7 +18,7 @@ class RegisterController extends Controller
             'name' => 'required',
             'username' => 'required|unique:user',
             'no_telp' => 'required|unique:user',
-            'email' => 'email|unique|user',
+            'email' => 'email|unique:user',
             'team' => '',
             'address' => '',
             'date_of_birth' => 'date',
