@@ -12,7 +12,7 @@
     <div class="min-h-full px-16">
         <div class="grid grid-cols-2">
             <div class="flex flex-col align">
-
+                
             </div>
             <div></div>
         </div>
