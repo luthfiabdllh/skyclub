@@ -108,6 +108,10 @@
                 </div>
             </div>
         </article>
+
+        <div>
+            
+        </div>
     </div>
     <x-bottom></x-bottom>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
