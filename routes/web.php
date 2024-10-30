@@ -8,10 +8,10 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
-
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
-    return view('try');
+    return view('pembayaranBerhasil');
 });
 
 //Route Register
@@ -40,6 +40,9 @@ Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('artic
 
 // Field Schedule
 Route::get('/field-schedule', [FieldScheduleController::class, 'index']);
+
+//booking
+Route::get('/payments', [BookingController::class, 'index'])->name('booking.index');
 
 //sparring
 Route::get('sparing', [SparingController::class, 'index']);

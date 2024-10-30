@@ -12,7 +12,7 @@ class ListBooking extends Model
     protected $with = ['booking', 'field'];
     public function booking(): BelongsTo
     {
-        return $this->belongsTo(Booking::class);
+        return $this->belongsTo(Booking::class, 'id_booking', 'id');
     }
 
     public function field(): BelongsTo
