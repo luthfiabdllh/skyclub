@@ -15,7 +15,7 @@
     <div class="min-h-full px-16 my-12">
         {{-- gallery --}}
         <div class="grid grid-cols-3 grid-flow-col gap-4" style="height: 670px">
-            <div class=" col-span-2 row-span-2 bg-cover rounded-s-3xl"
+                <div class=" col-span-2 row-span-2 bg-cover rounded-s-3xl"
                 style="background-image: url({{ Storage::url('images/album_1.svg') }});"></div>
             <div class="bg-cover rounded-tr-3xl "
                 style="background-image: url({{ Storage::url('images/album_2.svg') }});"></div>
