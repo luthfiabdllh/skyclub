@@ -10,7 +10,7 @@
 <body class="h-full">
     <x-navbar></x-navbar>
     <div class="min-h-full px-16">
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 mt-20">
             <div class="grid grid-cols-1 content-between w-[420px]">
                 <div class=" space-y-8">
                     <p>artikel / isi</p>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg">
+        <article class="mt-28 mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint sit, voluptate perferendis nemo cum ipsa cupiditate odit. Est odio et vitae quod at? Excepturi expedita amet deserunt animi perspiciatis possimus!
             Nostrum quidem ratione, reprehenderit ducimus eius incidunt nemo at commodi? Officiis ratione voluptates libero provident molestias aspernatur dolorem odio non. A quidem eveniet optio quis quos fugit architecto sequi soluta?
             Itaque, voluptas dolorem? Corrupti assumenda culpa nobis neque autem nulla excepturi molestiae provident recusandae perspiciatis? Cum at dolore perferendis quisquam, ipsa consectetur quas nihil iusto, ab cumque sequi doloribus vel?
@@ -98,7 +98,6 @@
                     </div>
                 </div>
             </div>
-
             <hr class="h-px my-10 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="flex space-x-4">
                 <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
@@ -108,6 +107,42 @@
                 </div>
             </div>
         </article>
+
+
+        {{-- blog --}}
+        <div class="mt-28 mb-20">
+            <div class="flex justify-between ">
+                <div class="space-y-4">
+                    <h6 class="text-base font-bold">Artikel</h6>
+                    <h1 class="text-5xl font-bold">Artikel Serupa</h1>
+                    <h5 class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+                </div>
+                <div class=" self-end">
+                    <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</button>
+                </div>
+            </div>
+            <div class="flex justify-between pt-20" >
+                @for ($x = 0; $x < 3; $x++)
+                    <div class="border" style="width: 416px">
+                        <img src="{{ Storage::url('images/blog-image.svg') }}" alt="">
+                        <div class=" flex-col p-6 space-y-6">
+                            <div class="max-w-sm space-y-2">
+                                <p class=" text-sm font-semibold">Pertandingan</p>
+                                <h4 class=" text-2xl font-bold">Persija vs Areama FC</h4>
+                                <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</p>
+                            </div>
+                            <div class="flex space-x-4">
+                                <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
+                                <div>
+                                    <p class=" font-semibold">Jamal Sigh</p>
+                                    <p>11 Jan 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endfor
+            </div>
+        </div>
     </div>
     <x-bottom></x-bottom>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>

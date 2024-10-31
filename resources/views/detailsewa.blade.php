@@ -15,16 +15,12 @@
     <div class="min-h-full px-16 my-12">
         {{-- gallery --}}
         <div class="grid grid-cols-3 grid-flow-col gap-4" style="height: 670px">
-            <div class=" col-span-2 row-span-2 bg-cover rounded-s-3xl"
-                style="background-image: url({{ Storage::url('images/album_1.svg') }});"></div>
-            <div class="bg-cover rounded-tr-3xl "
-                style="background-image: url({{ Storage::url('images/album_2.svg') }});"></div>
-            <div class="relative bg-cover rounded-br-3xl "
-                style="background-image: url({{ Storage::url('images/album_3.svg') }});">
-                <a href="/"
-                    class="absolute bottom-5 right-5 bg-red-600 rounded px-4 py-2 font-semibold text-white ">Lihat Semua
-                    Foto</a>
+            <div class=" col-span-2 row-span-2 bg-cover rounded-s-3xl" style="background-image: url({{ Storage::url('images/album_1.svg') }});"></div>
+            <div class="bg-cover rounded-tr-3xl " style="background-image: url({{ Storage::url('images/album_2.svg') }});"></div>
+            <div class="relative bg-cover rounded-br-3xl " style="background-image: url({{ Storage::url('images/album_3.svg') }});">
+                <a href="/" class="absolute bottom-5 right-5 bg-red-600 rounded px-4 py-2 font-semibold text-white ">Lihat Semua Foto</a>
             </div>
+
         </div>
         {{-- cart & desc --}}
         <div class="flex justify-between my-12">
@@ -217,6 +213,25 @@
 
     <x-bottom></x-bottom>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script>
+        const zoomImage = document.getElementById('zoomImage');
+
+        // Listen for mouse movement on the image container
+        zoomImage.parentElement.addEventListener('mousemove', (e) => {
+            // Get the position of the mouse relative to the image
+            const rect = zoomImage.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+            // Update the transform origin based on mouse position
+            zoomImage.style.transformOrigin = `${x}% ${y}%`;
+        });
+
+        // Reset transform origin when mouse leaves
+        zoomImage.parentElement.addEventListener('mouseleave', () => {
+            zoomImage.style.transformOrigin = 'center center';
+        });
+    </script>
 </body>
 
 </html>
