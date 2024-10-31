@@ -18,7 +18,16 @@ export default {
             '26': '104px',
           },
         width: {
+            '79' : '316px',
             '128': '32rem',
+            '765px' : '765px',
+            '512px' : '512px',
+            '600px' : '600px',
+            'banner-profile' : '1232px'
+        },
+        height: {
+            '45' : '180px',
+            'banner-profile' : '350px'
         },
         fontSize: {
             56: '56px'
@@ -30,11 +39,7 @@ export default {
             '56': '56px',
             '4.5xl': '40px',
           },
-        width:{
-            '765px' : '765px',
-            '512px' : '512px',
-            '600px' : '600px'
-        },
+
     },
   },
   plugins: [
