@@ -15,11 +15,11 @@
             </div>
 
             <div class="hidden md:block">
-                <div class="ml-4 flex items-center md:ml-6">
+                <div class="flex">
                     @auth
-                        <div class="ml-4 flex items-center md:ml-6">
+                        <div class="flex items-center space-x-3 self-center">
                             <button type="button"
-                                class="relative rounded-full p-1 text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                class="relative rounded-full p-1 text-black focus:outline-none">
                                 <span class="sr-only">View notifications</span>
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" aria-hidden="true">
@@ -33,7 +33,7 @@
                                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
                                       </svg>
-                                    <span class="ml-2 font-normal">Keranjang</span>
+                                    <span class="ml-2 text-base">Keranjang</span>
                                 </button>
                             </div>
                             <!-- Profile dropdown -->
@@ -78,7 +78,6 @@
                                 class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white">Daftar</a>
                         </div>
                     @endauth
-            
                 </div>
             </div>
 
