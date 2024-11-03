@@ -11,7 +11,7 @@ use App\Http\Controllers\auth\ForgotPasswordController;
 
 
 Route::get('/', function () {
-    return view('profileUser');
+    return view('profiles.profile');
 });
 
 //Route Register
