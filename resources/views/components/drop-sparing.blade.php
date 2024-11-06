@@ -1,4 +1,4 @@
-<div  x-data="{ open: false }" class="min-h-full bg-gray-200 shadow rounded-lg">
+<div  x-data="{ open: false, cancelSparingModal: false }" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
             <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
@@ -99,10 +99,22 @@
                 <a href="" class="my-3 px-6 py-3 bg-yellow-200 text-red-700 font-bold rounded-lg">Konfirmasi</a>
             </div>
             <div>
-                <a href="" class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Batalkan</a>
+                <button @click="cancelSparingModal = true" class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Batalkan</button>
             </div>
             <div class="bg-cover rounded-full overflow-hidden group size-16">
                 <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Modal -->
+    <div x-show="cancelSparingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="bg-white p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Batalkan Pemesanan</h2>
+            <p>Apakah Anda yakin ingin membatalkan pemesanan ini?</p>
+            <div class="mt-4 flex justify-end">
+                <button @click="cancelSparingModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Tutup</button>
+                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Batalkan</button>
             </div>
         </div>
     </div>

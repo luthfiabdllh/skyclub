@@ -105,6 +105,16 @@
                     <p>Change</p>
                 </a>
             </div>
+            <div class="flex justify-between items-center">
+                <div class="space-y2">
+                    <p class="">Nama Tim</p>
+                    <p class=" font-semibold text-xl">Football Fc</p>
+                </div>
+                <a class="px-6 border-2 border-red-500 self-stretch items-center flex rounded-lg space-x-1" href="/">
+                    <img src="{{ asset('assets/icons/icon-change.svg') }}" alt="">
+                    <p>Change</p>
+                </a>
+            </div>
         </div>
     </div>
 
