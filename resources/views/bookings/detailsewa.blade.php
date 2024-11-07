@@ -122,16 +122,17 @@
                     &#8250;
                 </button>
 
-                <!-- Date Picker -->
-                <div class="relative">
-                    <label>
-                        <input type="date" x-model="selectedDate" @change="goToSelectedDate" class="absolute opacity-0 w-full h-full cursor-pointer">
+                <div class="border-l border-gray-400 h-8 my-auto"></div>
+
+               <!-- Date Picker -->
+                <div class="relative w-14 cursor-pointer">
+                    <label class="flex items-center justify-center">
+                        <input type="date" x-model="selectedDate" @change="goToSelectedDate" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 text-gray-500 hover:text-gray-700">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-6 0h6m2 2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h12z" />
                         </svg>
                     </label>
                 </div>
-
             </div>
 
             <!-- Time Slot -->

@@ -72,37 +72,51 @@
 
     <!-- Cancel Modal -->
     <div x-show="cancelBookingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4">Batalkan Pemesanan</h2>
-            <p>Apakah Anda yakin ingin membatalkan pemesanan ini?</p>
-            <div class="mt-4 flex justify-end">
-                <button @click="cancelBookingModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Tutup</button>
-                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Batalkan</button>
+        <div class="bg-white p-6 rounded-lg justify-center flex flex-col text-center">
+            <h2 class="text-xl font-bold mb-4 font-2xl">Yakin ingin batalkan pesanan?</h2>
+            <p>Konfirmasi Pembatalan Pemesanan Anda</p>
+            <div class="mt-4 flex justify-center">
+                <button @click="cancelBookingModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Kembali</button>
+                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Ya, Batalkan</button>
             </div>
         </div>
     </div>
 
     <!-- Schedule Modal -->
     <div x-show="scheduleModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4">Ubah Jadwal</h2>
-            <p>Form untuk mengubah jadwal pemesanan.</p>
-            <div class="mt-4 flex justify-end">
-                <button @click="scheduleModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Tutup</button>
-                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Simpan</button>
+        <form action="" method="POST" class="bg-white p-4 rounded-lg w-80">
+            @csrf
+            <div>
+                <label for="nama_tim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Tim</label>
+                <input type="text" id="nama_tim" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan nama tim" required />
             </div>
-        </div>
+            <div>
+                <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Singkat</label>
+                <input type="text" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan deskripsi singkat" required />
+            </div>
+            <div class="mt-4 flex justify-end">
+                <button @click="scheduleModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded-lg">Save</button>
+            </div>
+        </form>
     </div>
 
     <!-- Sparing Modal -->
     <div x-show="sparingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4">Jadikan Sparing</h2>
-            <p>Apakah Anda yakin ingin menjadikan pengguna ini sebagai sparing?</p>
-            <div class="mt-4 flex justify-end">
-                <button @click="sparingModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Tutup</button>
-                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Jadikan Sparing</button>
+        <form action="" method="POST" class="bg-white p-4 rounded-lg w-80">
+            @csrf
+            <div class="mb-6">
+                <label for="nama_tim" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Tim</label>
+                <input type="text" id="nama_tim" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan nama tim"/>
             </div>
-        </div>
+            <div class="mb-6">
+                <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi Singkat</label>
+                <input type="text" id="deskripsi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Masukan deskripsi singkat"/>
+            </div>
+            <div class="flex justify-end">
+                <button @click="sparingModal = false" type="button" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded-lg">Save</button>
+            </div>
+        </form>
     </div>
 </div>

@@ -22,7 +22,7 @@
             </button>
         </div>
         <form action="/" method="get">
-        
+
 
             <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
                 <div class="relative">
@@ -43,7 +43,7 @@
     {{-- content 1 --}}
     <x-fasility-carousel/>
 
-    {{-- Content 3 --}}
+    {{-- Content 2 --}}
     <div class="pt-44 flex justify-between space-x-20">
         <div class="content-center">
             <h1 class="text-5xl font-bold mb-6">Sewa lapangan dengan cepat dan mudah.</h1>
@@ -52,13 +52,58 @@
         </div>
         <img class="rounded-3xl" src="{{ Storage::url('images/content-2.svg') }}" alt="image-content">
     </div>
-    <div class="pt-44 flex justify-between space-x-20">
+
+    <div class="mt-44 flex justify-between space-x-20">
         <img class="rounded-3xl" src="{{ Storage::url('images/content-2.svg') }}" alt="image-content">
         <div class="content-center">
             <h1 class="text-5xl font-bold mb-6">Sudah punya team tapi gak tau mau lawan siapa?</h1>
             <h6 class="text-base mb-8">SKY CLUB punya solusinya! Ikuti komunitas sparing kami dan temukan lawan tanding yang seimbang. Tingkatkan skill dan nikmati pertandingan seru dengan berbagai tim di sini!</h6>
             <a href="/" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white">Lihat Selengkapnya</a>
         </div>
+    </div>
+
+
+    {{-- testimonial --}}
+    <div class=" text-center space-y-6 mt-24 mb-16">
+        <h1 class="font-bold text-5xl">Testimonial</h1>
+        <p class=" text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </div>
+
+    <div x-data="carousel()" class="relative max-w-full overflow-hidden">
+        <!-- Previous Button -->
+        <button @click="prevSlide"
+                class="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                  </svg>
+        </button>
+
+        <!-- Slider Container -->
+        <div class="flex transition-transform duration-500" :style="`transform: translateX(-${currentSlide * (100 / visibleCards)}%)`">
+            <template x-for="(slide, index) in slides" :key="index">
+                <div class="flex-shrink-0 w-full sm:w-1/3 p-8">
+                    <div class="border border-gray-200 rounded-lg bg-white p-6 space-y-6">
+                        <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        <p class="text-gray-600" x-text="slide.text"></p>
+                        <div class="flex space-x-4">
+                            <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
+                            <div>
+                                <p class=" font-semibold" x-text="slide.name"></p>
+                                <p class="text-gray-500 text-sm" x-text="slide.club"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Next Button -->
+        <button @click="nextSlide"
+                class="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                  </svg>
+        </button>
     </div>
 
     {{-- blog --}}
@@ -92,6 +137,68 @@
         <div class="flex justify-end pt-20">
             <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</button>
         </div>
+
+        
     </div>
 
+    <script>
+        function carousel() {
+            return {
+                currentSlide: 0,
+                visibleCards: 3,
+                slides: [
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    {
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        name: "Allan Raditya Hutomo",
+                        club: "Jaya Club",
+                        image: "profile1.jpg"
+                    },
+                    // Add more slides as needed
+                ],
+                get totalSlides() {
+                    return this.slides.length;
+                },
+                prevSlide() {
+                    if (this.currentSlide > 0) {
+                        this.currentSlide--;
+                    }
+                },
+                nextSlide() {
+                    if (this.currentSlide < this.totalSlides - this.visibleCards) {
+                        this.currentSlide++;
+                    }
+                }
+            };
+        }
+    </script>
 @endsection
