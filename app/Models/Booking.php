@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Booking extends Model
 {
     use HasFactory;
-    protected $with = ['user', 'voucher', 'userInfo'];
+    protected $with = ['rentedBy', 'voucher', 'userInfo'];
     protected $guarded = [];
-    public function user(): BelongsTo
+    public function rentedBy(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'rented_by');
     }
     public function listBooking(): HasMany
     {

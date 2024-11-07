@@ -92,7 +92,7 @@ class ArticleController extends Controller
         // foreach ($articles as $article) {
         //     dd($article->user->name);
         // }
-        return view('article.userIndex', compact('articles'));
+        return view('articles.userIndex', compact('articles'));
     }
 
     public function userShow(Article $article)

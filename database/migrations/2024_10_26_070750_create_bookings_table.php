@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('order_date');
             $table->enum('status', ['accept', 'pending', 'failed', 'canceled']);
+            $table->string('uploud_payment')->nullable();
             $table->foreignId('rented_by')->constrained('user')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('approved_by')->nullable()->constrained('user')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('id_voucher')->nullable()->constrained('vouchers')->onUpdate('restrict')->onDelete('restrict');

@@ -11,10 +11,15 @@
 
 <body class="h-full">
     <x-navbar></x-navbar>
+    @php
+        $harga_total = $booking_cart['total'];
+        $voucher = $booking_cart['voucher'];
+        $list_schedules = $booking_cart['list_schedules'];
+    @endphp
     <div class="min-h-full px-16 my-12">
         <div class=" grid grid-cols-2 gap-10">
             <div>
-                <h2 class=" font-bold text-3xl mb-4">Detail Pembayran</h2>
+                <h2 class=" font-bold text-3xl mb-4">Detail Pembayaran</h2>
                 <h4 class=" font-bold text-2xl mb-5">Lapangan Mini Soccer SKY CLUB</h4>
                 <div class="flex items-center mb-4">
                     <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -30,19 +35,21 @@
                 <h4 class=" font-bold text-2xl">Lapangan Mini Soccer SKY CLUB</h4>
                 <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
                 <div class="space-y-1">
-                    @for ($x = 0; $x < 3; $x++)
+                    @foreach ($list_schedules as $schedule)
                         <div>
                             <div class="flex items-center">
                                 <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full dark:bg-gray-400"></span>
-                                <p>Selasa, 8 September 2024</p>
+                                <p>{{ $schedule['date'] }}</p>
                             </div>
                             <div
                                 class="flex items-center justify-between border-s-8 border-red-600 bg-white p-2.5 font-bold text-base rounded-xl">
-                                <p>14.00 - 16.00</p>
-                                <p>Rp. 100.000,00</p>
+                                <p>{{ str_pad($schedule['session'] - 1, 2, '0', STR_PAD_LEFT) . ':00 - ' . str_pad($schedule['session'], 2, '0', STR_PAD_LEFT) . ':00' }}
+                                </p>
+                                {{-- <p>{{ $schedule['session'] < 9 ? '0'.$schedule['session']+1.":00" : $schedule['session']+1.":00" }}</p> --}}
+                                <p>{{ 'Rp. ' . $schedule['price'] }}</p>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
                 <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
                 <div class="flex justify-between mb-4">
@@ -66,7 +73,7 @@
                         <input id="default-radio-1" type="radio" value="" name="default-radio"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-radio-1" class="ms-2 font-medium text-gray-900 dark:text-gray-300 ">Rp.
-                            5.000,00</label>
+                            {{ $harga_total }}</label>
                     </div>
                 </div>
 
@@ -98,29 +105,29 @@
                     <div class=" text-base space-y-1">
                         <div class="flex items-center justify-between">
                             <p>Biaya Sewa</p>
-                            <p>Rp. 1.000.000</p>
+                            <p>Rp. {{ $harga_total }}</p>
                         </div>
-                        <div class="flex items-center justify-between">
+                        {{-- <div class="flex items-center justify-between">
                             <p>Biaya Tambahan</p>
                             <p>Rp. 0</p>
-                        </div>
+                        </div> --}}
                         <div class="flex items-center justify-between">
                             <p>Potongan Voucher</p>
-                            <p>Rp. 300.000</p>
+                            <p>Rp. {{ $voucher }}</p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p>Biaya Transaksi</p>
-                            <p>Rp. 5000</p>
+                            <p>Rp. 0</p>
                         </div>
                     </div>
                     <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
                     <div class="flex items-center justify-between">
                         <p class=" font-bold text-2xl">Total</p>
-                        <p class=" font-bold">Rp. 705.000</p>
+                        <p class=" font-bold">Rp. {{ $harga_total - $voucher }}</p>
                     </div>
                 </div>
 
-                <form action="{{ route('schedule.scheduleValidate') }}" method="POST">
+                <form action="{{ route('booking.store') }}" method="POST">
                     @csrf
                     <button
                         class="w-full py-3 border-2 bg-red-600 text-center text-2xl rounded-xl font-bold text-white flex items-center justify-center">

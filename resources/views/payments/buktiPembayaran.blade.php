@@ -12,9 +12,13 @@
 <body class="min-h-full">
     <x-navbar></x-navbar>
     @php
-        $max_payment = $booking_cart['order_date']->addMinutes(5);
-        $diffInSeconds = now()->diffInSeconds($max_payment);
-        dd($diffInSeconds);
+        $max_payment = $booking_cart['order_date']->copy()->addMinutes(5)->setTimezone('Asia/Jakarta');
+        if ($max_payment->greaterThan(now())) {
+            $diffInSeconds = (int) -$max_payment->diffInSeconds(now());
+        } else {
+            $diffInSeconds = 0;
+        }
+        // dd($diffInSeconds);
     @endphp
     <div class="my-10" x-data="countdownTimer({{ $diffInSeconds }})">
         {{-- <div class="my-10" x-data="countdownTimer(5 * 60)"> --}}
@@ -28,10 +32,10 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
-                    <p x-text="formattedTime">5:00</p>
+                    <p x-text="formattedTime"></p>
                 </div>
                 <p class=" text-lg">Kirim Bukti Pembayaran Sebelum</p>
-                <p class=" text-lg">Rabu, 18 September 2024 18:44</p>
+                <p class=" text-lg">{{ $max_payment }}</p>
             </div>
             <div class="p-3 border border-gray-500 rounded-lg text-lg">
                 <div class="flex justify-between items-center">
@@ -58,7 +62,7 @@
                 <div class="flex justify-between items-center">
                     <div class=" space-y-1">
                         <p>Total Tagihan</p>
-                        <p class=" font-bold">Rp. 705.000</p>
+                        <p class=" font-bold">Rp. {{ $booking_cart['total'] }}</p>
                     </div>
                     <a href="/" class="font-semibold">Lihat Detail</a>
                 </div>
@@ -80,15 +84,19 @@
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)
                             </p>
                         </div>
-                        <input id="dropzone-file" type="file" class="hidden" name="photo" />
                     </label>
                 </div>
             </div>
-            <button
-                class="w-full py-3 border-2 bg-red-600 text-center text-2xl rounded-xl font-bold text-white flex items-center justify-center">
-                <img src="{{ Storage::url('images/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
-                Kirim
-            </button>
+            <form action="{{ route('booking.paymentUploudValidate') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <input id="dropzone-file" type="file" class="hidden" name="photo" />
+                <button
+                    class="w-full py-3 border-2 bg-red-600 text-center text-2xl rounded-xl font-bold text-white flex items-center justify-center">
+                    <img src="{{ Storage::url('images/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
+                    Kirim
+                </button>
+            </form>
         </div>
     </div>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
