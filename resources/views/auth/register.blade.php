@@ -2,7 +2,7 @@
 @section('content')
     {{-- form Register --}}
     <div class=" w-600px">
-        <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
+        <img class="mb-9" src="{{ asset('assets/icons/icon_auth.svg') }}" alt="">
         <div class=" space-y-4 mb-12">
             <h4 class="text-4xl font-bold">Sign up</h4>
             <p class="text-base">Let’s get you all st up so you can access your personal account.</p>
@@ -10,10 +10,10 @@
         <form action="{{ route('register.store') }}" method="POST">
             @csrf
             <div class="space-y-6 mb-10">
-                <div class="flex space-x-6">
+                <div class="sm:flex sm:space-x-6">
                     <div class="relative w-full">
                         <input type="text" name="name" placeholder="name"
-                            class="w-full block px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600
+                            class="w-full block px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 mb-6 sm:mb-0
                             @error('name')
                                 bg-red-50 border  focus:ring-red-500 dark:bg-gray-700 p-2.5 dark:placeholder-red-500
                             @enderror"
@@ -41,10 +41,10 @@
                     </div>
                 </div>
 
-                <div class="flex space-x-6">
+                <div class="sm:flex sm:space-x-6">
                     <div class="relative w-full">
                         <input type="email" name="email" placeholder="email"
-                            class="w-full block px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600
+                            class="w-full block px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 mb-6 sm:mb-0
                             @error('email')
                                 bg-red-50 border placeholder-red-700 focus:ring-red-500 dark:bg-gray-700  p-2.5 dark:placeholder-red-500
                             @enderror"
@@ -121,13 +121,13 @@
         </div>
         <div class="flex mt-10 space-x-4 ">
             <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ Storage::url('images/facebook.svg') }}" alt="">
+                <img class="mx-auto" src="{{ asset('assets/icons/facebook.svg') }}" alt="">
             </div>
             <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ Storage::url('images/google.svg') }}" alt="">
+                <img class="mx-auto" src="{{ asset('assets/icons/google.svg') }}" alt="">
             </div>
             <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ Storage::url('images/apple.svg') }}" alt="">
+                <img class="mx-auto" src="{{ asset('assets/icons/apple.svg') }}" alt="">
             </div>
         </div>
     </div>

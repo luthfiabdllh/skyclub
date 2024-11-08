@@ -3,7 +3,7 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <img src="{{ Storage::url('images/logo.svg') }}" alt="Sky Club">
+                    <img src="{{ asset('assets/icons/logo.svg') }}" alt="Sky Club">
                 </div>
             </div>
             <div class="hidden md:block">

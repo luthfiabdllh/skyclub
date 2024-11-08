@@ -2,7 +2,7 @@
 @section('content')
     {{-- form forgot password --}}
     <div class=" w-512px">
-        <img class="mb-9" src="{{ Storage::url('images/icon_auth.svg') }}" alt="">
+        <img class="mb-9" src="{{ asset('assets/icons/icon_auth.svg') }}" alt="">
         <div class=" space-y-4 mb-12">
             <a href="{{ route('login.index') }}" class="flex space-x-1">
                 <img src="{{ Storage::url('images/arrow_left.svg') }}" alt=""><span>Back to login</span>
@@ -60,17 +60,6 @@
             <div class="flex-grow border-t border-gray-200"></div>
             <span class="px-4 text-gray-400">atau masuk dengan</span>
             <div class="flex-grow border-t border-gray-200"></div>
-        </div>
-        <div class="flex mt-10 space-x-4 ">
-            <div class=" border w-full py-4 border-black">
-                <img class="mx-auto" src="{{ Storage::url('images/facebook.svg') }}" alt="">
-            </div>
-            <div class=" border w-full py-4 border-black">
-                <img class="mx-auto" src="{{ Storage::url('images/google.svg') }}" alt="">
-            </div>
-            <div class=" border w-full py-4 border-black">
-                <img class="mx-auto" src="{{ Storage::url('images/apple.svg') }}" alt="">
-            </div>
         </div>
     </div>
     {{-- Carousel --}}

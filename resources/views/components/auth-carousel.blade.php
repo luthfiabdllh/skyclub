@@ -1,5 +1,5 @@
 <div x-data="{ activeSlide: 0, slides: ['{{ Storage::url('images/album_1.svg') }}', '{{ Storage::url('images/album_2.svg') }}', '{{ Storage::url('images/album_3.svg') }}'] }"
-        x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000)" class="relative w-2/5 bg-cover overflow-hidden">
+        x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000)" class="relative w-2/5 bg-cover overflow-hidden container hidden lg:block">
     <!-- Carousel Slide -->
 
     <div class="items-stretch bg-cover rounded-xl overflow-hidden w-full h-full">

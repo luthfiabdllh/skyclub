@@ -1,4 +1,4 @@
-<div x-data="{ open: false, cancelBookingModal: false, scheduleModal: false, sparingModal: false }" class="min-h-full bg-gray-200 shadow rounded-lg">
+<div x-data="{ open: false, cancelBookingModal: false, scheduleModal: false, sparingModal: false, proofTransfer: false}" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
             <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
@@ -65,8 +65,20 @@
                 </div>
             </div>
         </div>
-        <div class="bg-cover rounded-xl overflow-hidden group w-79 h-45">
-            <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+        <div class="space-y-4">
+            <h4 class=" font-bold font-sm">Bukti Transfer</h4>
+            <button @click="proofTransfer = true" class="bg-cover rounded-xl overflow-hidden group w-79 h-45">
+                <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            </button>
+        </div>
+    </div>
+
+    <!-- Proof Transfer Modal -->
+    <div x-show="proofTransfer" @click.away="proofTransfer = false" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div @click.stop class="bg-white p-2 rounded-lg justify-center flex flex-col text-center">
+            <div class="bg-cover rounded-lg overflow-hidden group w-79 h-45">
+                <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            </div>
         </div>
     </div>
 
