@@ -126,9 +126,10 @@
                         &#8250;
                     </button>
 
+                    <div class="border-l border-gray-400 h-8 my-auto"></div>
                     <!-- Date Picker -->
-                    <div class="relative">
-                        <label>
+                    <div class="relative w-14 cursor-pointer">
+                        <label class="flex items-center justify-center">
                             <input type="date" x-model="selectedDate" @change="goToSelectedDate"
                                 class="absolute opacity-0 w-full h-full cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

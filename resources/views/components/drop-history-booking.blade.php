@@ -1,4 +1,4 @@
-<div  x-data="{ open: false , ratingBookingModal: false}" class="min-h-full bg-gray-200 shadow rounded-lg">
+<div  x-data="{ open: false , ratingBookingModal: false, rating: 5, review: ''}" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
             <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
@@ -74,13 +74,38 @@
 
     <!-- Rating Modal -->
     <div x-show="ratingBookingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white p-6 rounded-lg">
-            <h2 class="text-xl font-bold mb-4">Batalkan Pemesanan</h2>
-            <p>Apakah Anda yakin ingin membatalkan pemesanan ini?</p>
-            <div class="mt-4 flex justify-end">
-                <button @click="ratingBookingModal = false" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Tutup</button>
-                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Batalkan</button>
+        <div @click.stop class="bg-white rounded-lg shadow-lg w-135 p-6">
+
+            <div class="flex items-center space-x-2">
+                <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
+                    <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+                </div>
+                <div class="">
+                    <p class="text-lg font-semibold">Lapangan Mini Soccer SKY CLUB</p>
+                    <div>
+                        <div class="text-sm text-gray-500">Bagaimana kualitas lapangan ini secara keseluruhan?</div>
+                        <div class="flex items-center mt-2">
+                            <!-- Star rating (maximum 5 stars) -->
+                            <template x-for="n in 5" :key="n">
+                                <svg @click="rating = n" :class="rating >= n ? 'text-yellow-400' : 'text-gray-300'" class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
+                                  </svg>
+                            </template>
+                            <div class="ml-2 text-gray-600"
+                            x-text="rating >= 5 ? 'Sangat Baik' : rating >= 4 ? 'Baik' : rating >= 3 ? 'Cukup Baik' : rating >= 2 ? 'Buruk' : 'Sangat Buruk'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <label for="review" class="block text-sm text-gray-600">Berikan ulasan untuk lapangan ini</label>
+                <textarea id="review" x-model="review" placeholder="Tulis review Anda mengenai lapangan ini..." class="w-full mt-2 p-2 border border-gray-300 rounded-md h-40 overflow-hidden"></textarea>
+            </div>
+            <div class="mt-4 flex justify-end space-x-2">
+                <button @click="ratingBookingModal = false" class="px-4 py-2 bg-gray-300 text-black rounded-md">Cancel</button>
+                <button @click="ratingBookingModal = false; alert('Saved review: ' + review + ', Rating: ' + rating)" class="px-4 py-2 bg-red-500 text-white rounded-md">Save</button>
             </div>
         </div>
     </div>
+
 </div>
