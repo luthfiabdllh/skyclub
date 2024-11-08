@@ -8,6 +8,6 @@ class SparingController extends Controller
 {
     public function index()
     {
-        return view('sparing');
+        return view('bookings.sparing');
     }
 }

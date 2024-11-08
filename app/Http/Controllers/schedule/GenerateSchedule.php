@@ -28,7 +28,7 @@ class GenerateSchedule
         // mencari jadwal yang sudah dibooking dengan status accept
         $bookings = ListBooking::whereRelation('booking', function ($query) {
             $query
-                ->where('status', 'accept');
+                ->whereIn('status', ['accept', 'pending']);
         })->get();
 
         //generate schedule
@@ -44,5 +44,6 @@ class GenerateSchedule
             }
         }
         return collect($field_schedules)->chunk(7);
+        // dd(collect($field_schedules)->chunk(7));
     }
 }

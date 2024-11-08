@@ -10,6 +10,7 @@ class ListBooking extends Model
 {
     use HasFactory;
     protected $with = ['booking', 'field'];
+    protected $guarded = [];
     public function booking(): BelongsTo
     {
         return $this->belongsTo(Booking::class, 'id_booking', 'id');

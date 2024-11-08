@@ -8,10 +8,11 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
-
+use App\Http\Controllers\BookingController;
+use App\Models\Booking;
 
 Route::get('/', function () {
-    return view('profiles.profile');
+    return view('index');
 });
 
 //Route Register
@@ -38,8 +39,41 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
 Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
 
-// Field Schedule
-Route::get('/field-schedule', [FieldScheduleController::class, 'index']);
+// Field Schedule (halaman pilih jadwal untuk dipesan)
+Route::get('/field-schedule', [FieldScheduleController::class, 'index'])->name('schedule.index');
+Route::post('field-schedule', [FieldScheduleController::class, 'scheduleValidate'])->name('schedule.scheduleValidate');
+
+// Booking & Pembayaran
+Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
+Route::post('/payment', [BookingController::class, 'store'])->name('booking.store');
+Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
+Route::put('/payment/uploud', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
+Route::get('/payment/success', [BookingController::class, 'paymentSuccess'])->name('booking.paymentSuccess');
 
 //sparring
-Route::get('sparing', [SparingController::class, 'index']);
+Route::get('/sparing', [SparingController::class, 'index'])->name('sparing.index');
+
+
+////////////////////////////////////////////////////////////
+Route::get('/notifikasi', function () {
+    return view('profiles.notifikasi');
+});
+Route::get('/profile-user', function () {
+    return view('profiles.profileUser');
+});
+Route::get('/profile', function () {
+    return view('');
+});
+// Route::get('/detail-bayar', function () {
+//     return view('detailPembayaran');
+// });
+// Route::get('/bukti-bayar', function () {
+//     return view('buktiPembayaran');
+// });
+// Route::get('/sparing', function () {
+//     return view('sparing');
+// });
+// Route::get('/bayar-berhasil', function () {
+//     return view('pembayaranBerhasil');
+// });
+///////////////////////////////////////////////////////////
