@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
 use App\Jobs\UpdateBookingStatus;
+use Illuminate\Support\Facades\DB;
 use App\Notifications\ApproveBooking;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
@@ -44,6 +45,9 @@ class BookingController extends Controller
 
             $admins = User::where('role', 'admin')->get();
             Notification::send($admins, new ApproveBooking($booking, $booking_cart['total'], $field));
+            DB::table('jobs')
+                ->where('available_at', '>', now())
+                ->delete();
             $request->session()->forget('cart');
             return redirect()->route('booking.paymentSuccess');
         }

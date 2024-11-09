@@ -9,6 +9,7 @@ use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileUserController;
 use App\Models\Booking;
 
 Route::get('/', function () {
@@ -20,7 +21,7 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register.in
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 //Route Login
-Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login.index');
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'authentication'])->middleware('guest')->name('login.authentication');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
@@ -41,7 +42,7 @@ Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('artic
 
 // Field Schedule (halaman pilih jadwal untuk dipesan)
 Route::get('/field-schedule', [FieldScheduleController::class, 'index'])->name('schedule.index');
-Route::post('field-schedule', [FieldScheduleController::class, 'scheduleValidate'])->name('schedule.scheduleValidate');
+Route::post('field-schedule', [FieldScheduleController::class, 'scheduleValidate'])->middleware('auth')->name('schedule.scheduleValidate');
 
 // Booking & Pembayaran
 Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
@@ -52,17 +53,21 @@ Route::get('/payment/success', [BookingController::class, 'paymentSuccess'])->na
 
 //sparring
 Route::get('/sparing', [SparingController::class, 'index'])->name('sparing.index');
+// Route::get('/profile', [ProfileUserController::class, 'show'])->name('sparing.index');
+
+// profile
+Route::get('/profile-user/{id}', [ProfileUserController::class, 'show'])->name('profile.show');
 
 
 ////////////////////////////////////////////////////////////
-Route::get('/notifikasi', function () {
+Route::get('/notification', function () {
     return view('profiles.notifikasi');
 });
 Route::get('/profile-user', function () {
-    return view('profiles.profileUser');
+    return view('profiles.profile');
 });
 Route::get('/profile', function () {
-    return view('');
+    return view('profiles.profile');
 });
 // Route::get('/detail-bayar', function () {
 //     return view('detailPembayaran');

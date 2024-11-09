@@ -17,11 +17,14 @@ class ApproveBooking extends Notification
     protected $booking;
     protected $total;
     protected $field;
-    public function __construct($booking, $total, $field)
+    protected $type;
+
+    public function __construct($booking, $total, $field, $type = "admin_approve_booking")
     {
         $this->booking = $booking;
         $this->total = $total;
         $this->field = $field;
+        $this->type = $type;
     }
 
     /**
@@ -62,7 +65,8 @@ class ApproveBooking extends Notification
             'no_telp' => $this->booking->rentedBy->no_telp,
             'email' => $this->booking->rentedBy->email,
             'total' => $this->total,
-            'field' => $this->field->name
+            'field' => $this->field->name,
+            'type' => $this->type,
         ];
     }
 }
