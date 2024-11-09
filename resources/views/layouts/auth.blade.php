@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
-<body class="p-12">
+<body class="sm:p-12 p-6">
 
     <main class="flex justify-around">
         @yield('content')
