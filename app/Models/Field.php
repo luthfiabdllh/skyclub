@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Field extends Model
 {
     use HasFactory;
+    public function getFormattedPriceAttribute()
+    {
+        return 'Rp ' . number_format($this->attributes['price'], 0, ',', '.');
+    }
     public function listBooking(): HasMany
     {
         return $this->hasMany(ListBooking::class);

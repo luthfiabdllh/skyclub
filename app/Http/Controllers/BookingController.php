@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BookingCreated;
+use App\Events\PaymentUplouded;
 use App\Models\User;
 use App\Models\Field;
 use App\Models\Booking;
@@ -34,20 +36,18 @@ class BookingController extends Controller
     // validasi uploud bukti pembayaran
     public function paymentUploudValidate(Request $request)
     {
+        $request->validate([
+            'photo' => 'required|image|max:2000'
+        ]);
         $booking_cart = $request->session()->get('cart', []);
         $max_payment = $booking_cart['order_date']->copy()->addMinutes(5)->setTimezone('Asia/Jakarta');
         if ($max_payment->greaterThan(now())) {
             $booking = Booking::find($booking_cart['id_booking']);
-            $path = $request->photo->getClientOriginalName();
+            $path = $request->photo->store('/payments', 'local');
             $booking->uploud_payment = $path;
             $booking->save();
             $field = Field::find(1);
-
-            $admins = User::where('role', 'admin')->get();
-            Notification::send($admins, new ApproveBooking($booking, $booking_cart['total'], $field));
-            DB::table('jobs')
-                ->where('available_at', '>', now())
-                ->delete();
+            PaymentUplouded::dispatch($booking, $booking_cart['total'], $field);
             $request->session()->forget('cart');
             return redirect()->route('booking.paymentSuccess');
         }
@@ -83,20 +83,14 @@ class BookingController extends Controller
                     'id_voucher' => $id_voucher,
                 ]);
             }
-            foreach ($list_booking as $booking) {
-                // dd($booking['date']);
-                ListBooking::create([
-                    'date' => $booking['date'],
-                    'session' => $booking['session'],
-                    'id_booking' => $newBooking->id,
-                    'id_field' => 1
-                ]);
+            foreach ($list_booking as $schedule) {
+                // create listBooking
+                BookingCreated::dispatch($newBooking, $schedule);
             }
+            UpdateBookingStatus::dispatch($newBooking->id)->delay(now()->addMinutes(5));
             $booking_cart['id_booking'] = $newBooking->id;
             $booking_cart['order_date'] = now();
             $request->session()->put('cart', $booking_cart);
-            // dd($booking_cart);
-            UpdateBookingStatus::dispatch($newBooking->id)->delay(now()->addMinutes(5));
         }
         // $request->session()->forget('cart');
         return redirect()->route('booking.paymentUploud');

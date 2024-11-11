@@ -36,6 +36,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class, 'rented_by');
     }
+    public function sparingCreated(): HasMany
+    {
+        return $this->hasMany(Sparing::class, 'created_by');
+    }
+    public function sparingOtherTeam(): HasMany
+    {
+        return $this->hasMany(Sparing::class, 'other_team');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

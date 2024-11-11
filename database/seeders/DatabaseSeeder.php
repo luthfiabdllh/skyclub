@@ -8,6 +8,7 @@ use App\Models\Field;
 use App\Models\Photo;
 use App\Models\Article;
 use App\Models\Booking;
+use App\Models\Sparing;
 use App\Models\Voucher;
 use App\Models\Facility;
 use App\Models\ListBooking;
@@ -85,7 +86,7 @@ class DatabaseSeeder extends Seeder
             $booking->save();
 
             // Create list bookings
-            ListBooking::factory()->create([
+            $list_booking = ListBooking::factory()->create([
                 'id_booking' => $booking->id,
                 'id_field' => $field->id,
                 'date' => fake()->dateTimeBetween('now', '+1 month')

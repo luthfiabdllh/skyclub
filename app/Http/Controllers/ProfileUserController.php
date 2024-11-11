@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\ListBooking;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -37,7 +39,11 @@ class ProfileUserController extends Controller
     public function show(User $user)
     {
         $data_user = $user;
-        return view('profiles.profile', compact('data_user'));
+        $bookings = Booking::where('rented_by', $data_user->id)->latest()->get();
+        // dd($bookings[0]->listBooking);
+        // $booking->listBooking()->listBooking->session;
+        // $list_schedule = ListBooking::where('id_booking', $booking->id)->get();
+        return view('profiles.profile', compact(['data_user', 'bookings']));
     }
 
     /**

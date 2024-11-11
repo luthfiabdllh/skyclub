@@ -9,6 +9,7 @@ use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileUserController;
 use App\Models\Booking;
 
@@ -50,22 +51,24 @@ Route::post('/payment', [BookingController::class, 'store'])->name('booking.stor
 Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
 Route::put('/payment/uploud', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
 Route::get('/payment/success', [BookingController::class, 'paymentSuccess'])->name('booking.paymentSuccess');
+Route::get('/payment/image/{filename}', [FileController::class, 'getPaymentUploud'])->name('booking.paymentImage');
 
 //sparring
 Route::get('/sparing', [SparingController::class, 'index'])->name('sparing.index');
+Route::post('/sparing', [SparingController::class, 'store'])->name('sparing.store');
 // Route::get('/profile', [ProfileUserController::class, 'show'])->name('sparing.index');
 
 // profile
-Route::get('/profile-user/{id}', [ProfileUserController::class, 'show'])->name('profile.show');
+Route::get('/profile-user/{user}', [ProfileUserController::class, 'show'])->name('profile.show');
 
 
 ////////////////////////////////////////////////////////////
 Route::get('/notification', function () {
     return view('profiles.notifikasi');
 });
-Route::get('/profile-user', function () {
-    return view('profiles.profile');
-});
+// Route::get('/profile-user', function () {
+//     return view('profiles.profile');
+// });
 Route::get('/profile', function () {
     return view('profiles.profile');
 });
