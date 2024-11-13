@@ -11,7 +11,10 @@
 <body class="h-full">
     <x-navbar></x-navbar>
 
-    <main class="min-h-full px-26 my-10">
+    {{-- <main class="min-h-full px-26 my-10">
+        @yield('content')
+    </main> --}}
+    <main class="min-h-full md:px-10 lg:px-18 xl:px-26">
         @yield('content')
     </main>
 

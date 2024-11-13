@@ -143,7 +143,7 @@
                 </div>
 
                 <!-- Time Slot -->
-                <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="grid grid-cols-6 gap-4 mb-4">
                     <template x-for="(slot, index) in timeSlots" :key="index">
                         <div :class="{
                             'bg-gray-200 text-gray-400': !slot.available || slotInCart(
@@ -153,8 +153,8 @@
                             @click="toggleSlotSelection(slot)"
                             class="p-4 bg-white shadow rounded-md cursor-pointer text-center"
                             :style="{ pointerEvents: slot.available && !slotInCart(slot) ? 'auto' : 'none' }">
-                            <div class="text-xs font-medium" x-text="slot.duration + ' Menit'"></div>
-                            <div class="text-lg font-semibold" x-text="slot.time"></div>
+                            <div class="text-sm font-medium" x-text="slot.duration + ' Menit'"></div>
+                            <div class="text-xs font-semibold" x-text="slot.time"></div>
                             <div class="text-sm font-medium" x-text="slot.available ? slot.price : 'Booked'"></div>
                         </div>
                     </template>
