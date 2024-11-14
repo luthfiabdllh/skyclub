@@ -25,6 +25,6 @@ class RegisterController extends Controller
             'password' => 'required|confirmed'
         ]);
         User::create($user);
-        return redirect()->route('login.index')->withSuccess('Register Berhasil!, Silahkan Login Terlebih Dahulu');
+        return redirect()->route('login')->withSuccess('Register Berhasil!, Silahkan Login Terlebih Dahulu');
     }
 }

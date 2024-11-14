@@ -10,7 +10,7 @@
             <div class="p-8 rounded-lg border border-gray-500">
                 <div class="mb-8">
                     <div class="flex space-x-4 items-center mb-4">
-                        <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
+                        <img class=" rounded-full" src="{{ asset('assets/icons/profile.svg') }}" alt="">
                         <p class="font-semibold text-2xl">{{ $sparing->createdBy->team }}</p>
                     </div>
                     <p class="mb-6 text-lg">{{ $sparing->description }}</p>
@@ -47,8 +47,11 @@
                         </div>
                     </div>
                 </div>
-                <a href="/" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white text-base">Ayo
-                    Sparing</a>
+                <form action="{{ route('sparing.request', $sparing->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white text-base">Ayo
+                        Sparing</button>
+                </form>
             </div>
         @empty
             <p>Tidak ada sparing</p>

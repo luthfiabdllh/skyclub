@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sparing extends Model
 {
@@ -14,9 +16,9 @@ class Sparing extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    public function otherTeam(): BelongsTo
+    public function request(): HasMany
     {
-        return $this->belongsTo(User::class, 'other_team');
+        return $this->hasMany(SparingRequest::class, 'id_sparing');
     }
     public function listBooking(): BelongsTo
     {

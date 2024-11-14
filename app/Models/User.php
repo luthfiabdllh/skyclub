@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -40,9 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Sparing::class, 'created_by');
     }
-    public function sparingOtherTeam(): HasMany
+    public function sparingRequest(): HasMany
     {
-        return $this->hasMany(Sparing::class, 'other_team');
+        return $this->hasMany(SparingRequest::class, 'id_user');
     }
 
     /**

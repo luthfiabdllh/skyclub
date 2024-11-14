@@ -166,9 +166,14 @@
                 @endforelse
             </div>
             <div x-show="activeBookingTab === 'sparing'" class="mt-8 space-y-10">
-                @for ($x = 0; $x < 3; $x++)
+                @forelse ($request_sparing as $sparing)
+                    <x-drop-sparing :sparing="$sparing" />
+                @empty
+                    <p>Tidak ada riwayat sparing</p>
+                @endforelse
+                {{-- @for ($x = 0; $x < 3; $x++)
                     <x-drop-sparing />
-                @endfor
+                @endfor --}}
             </div>
             <div x-show="activeBookingTab === 'finish'" class="mt-8 space-y-10">
                 @for ($x = 0; $x < 2; $x++)
