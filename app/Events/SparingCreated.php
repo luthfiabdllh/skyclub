@@ -15,6 +15,7 @@ class SparingCreated
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $team_name;
     public $id_user;
+    // public $sparing;
 
     /**
      * Create a new event instance.
@@ -23,6 +24,7 @@ class SparingCreated
     {
         $this->id_user = $id;
         $this->team_name = $team_name;
+        // $this->sparing = $sparing;
     }
 
     /**

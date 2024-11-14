@@ -10,7 +10,7 @@ class ForgotPasswordController extends Controller
 {
     public function index()
     {
-        return view('auth.password');
+        return view('auth.forgot-password');
     }
     public function validateData(Request $request)
     {

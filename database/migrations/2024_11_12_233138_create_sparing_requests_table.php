@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sparings', function (Blueprint $table) {
+        Schema::create('sparing_requests', function (Blueprint $table) {
             $table->id();
-            $table->text('description')->nullable();
-            $table->enum('status_sparing', ['pending', 'done']);
-            $table->foreignId('created_by')->constrained('user')->onUpdate('cascade');
-            $table->foreignId('id_list_booking')->constrained('list_bookings')->onUpdate('cascade');
+            $table->foreignId('id_sparing')->constrained('sparings');
+            $table->foreignId('id_user')->constrained('user');
+            $table->enum('status_request', ['waiting', 'accepted', 'rejected']);
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sparings');
+        Schema::dropIfExists('sparing_requests');
     }
 };

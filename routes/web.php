@@ -56,7 +56,9 @@ Route::get('/payment/image/{filename}', [FileController::class, 'getPaymentUplou
 //sparring
 Route::get('/sparing', [SparingController::class, 'index'])->name('sparing.index');
 Route::post('/sparing', [SparingController::class, 'store'])->name('sparing.store');
-// Route::get('/profile', [ProfileUserController::class, 'show'])->name('sparing.index');
+Route::post('/sparing/request/{sparing}', [SparingController::class, 'addRequest'])->name('sparing.request');
+Route::put('/sparing/accept/{sparing_req}', [SparingController::class, 'acceptRequest'])->name('sparing.accept');
+Route::put('/sparing/reject/{sparing_req}', [SparingController::class, 'rejectRequest'])->name('sparing.reject');
 
 // profile
 Route::get('/profile-user/{user}', [ProfileUserController::class, 'show'])->name('profile.show');

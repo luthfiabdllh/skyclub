@@ -12,7 +12,7 @@ class SetPasswordController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('auth.set_password', compact('user'));
+        return view('auth.set-password', compact('user'));
     }
     public function update(Request $request, $id)
     {
@@ -22,6 +22,6 @@ class SetPasswordController extends Controller
         $password['password'] = Hash::make($password['password']);
         User::where('id', $id)->update($password);
         session()->forget('forgot_password_user_id');
-        return redirect()->route('login.index')->withSuccess('Update Password berhasil, silahkan login!');
+        return redirect()->route('login')->withSuccess('Update Password berhasil, silahkan login!');
     }
 }

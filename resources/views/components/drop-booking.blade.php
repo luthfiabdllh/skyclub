@@ -37,7 +37,7 @@
                 </div>
                 <div class=" space-y-1">
                     <h6 class="font-semibold text-sm">Alamat</h6>
-                    <p>{{ $booking->rentedBy->address }}</p>
+                    <p>{{ $booking->rentedBy->address ?? '-' }}</p>
                     {{-- <p>123 Sample St.Sydney</p> --}}
                 </div>
                 <div>
@@ -69,8 +69,10 @@
                     <p>{{ $booking->rentedBy->email }}</p>
                 </div>
                 <div>
-                    <button @click="sparingModal = true"
-                        class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Jadikan Sparing</button>
+                    @if (!$sesi->sparing && $booking->status !== 'accept')
+                        <button @click="sparingModal = true"
+                            class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Jadikan Sparing</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -132,6 +134,7 @@
     </div>
 
     <!-- Sparing Modal -->
+
     <div x-show="sparingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <form action="{{ route('sparing.store') }}" method="POST" class="bg-white p-4 rounded-lg w-80">
             @csrf
@@ -157,4 +160,5 @@
             </div>
         </form>
     </div>
+
 </div>
