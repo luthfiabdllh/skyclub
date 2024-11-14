@@ -11,6 +11,7 @@ export default {
                 screens: {
                         'xxs': '325px',
                         'xs': '560px',
+                        'xxl': '1550px',
                     },
                 boxShadow: {
                         'inner-banner': 'inset 0 500px 130px rgba(0, 0, 0, 0.45)',

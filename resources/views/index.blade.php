@@ -13,7 +13,7 @@
     </div>
 
     {{-- selector --}}
-    <div class="relative z-10 lg:-mt-34 -mt-20 bg-white mx-32 py-4 pl-8 pr-4 rounded-xl shadow flex flex-col space-y-6">
+    <div class="relative mx-auto z-10 lg:-mt-34 -mt-20 bg-white w-9/12 py-4 pl-8 pr-4 rounded-xl shadow flex flex-col space-y-6">
         <div class=" flex items-start text-base font-semibold px-3.5">
             <button class="active:border-b-4 border-red-600 mr-8 cursor-pointer">
                 Sewa Lapangan
@@ -139,61 +139,84 @@
         <p class=" text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
 
-    <div x-data="carousel()" class="relative max-w-full overflow-hidden hidden lg:block">
-        <!-- Previous Button -->
-        <button @click="prevSlide"
-                class="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
-                  </svg>
-        </button>
+    <div x-data="carousel()">
+        <div class="relative max-w-full overflow-hidden hidden lg:block">
+            <!-- Previous Button -->
+            <button @click="prevSlide"
+                    class="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                      </svg>
+            </button>
 
-        <!-- Slider Container -->
-        <div class="flex transition-transform duration-500" :style="`transform: translateX(-${currentSlide * (100 / visibleCards)}%)`">
-            <template x-for="(slide, index) in slides" :key="index">
-                <div class="flex-shrink-0 w-full sm:w-1/3 p-8">
-                    <div class="border border-gray-200 rounded-lg bg-white p-6 space-y-6">
-                        <div class="text-yellow-500 text-left">⭐⭐⭐⭐⭐</div>
-                        <p class="text-gray-600 text-left" x-text="slide.text"></p>
-                        <div class="flex space-x-4">
-                            <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
-                            <div>
-                                <p class=" font-semibold text-left" x-text="slide.name"></p>
-                                <p class="text-gray-500 text-sm text-left" x-text="slide.club"></p>
+            <!-- Slider Container -->
+            <div class="flex transition-transform duration-500" :style="`transform: translateX(-${currentSlide * (100 / visibleCards)}%)`">
+                <template x-for="(slide, index) in slides" :key="index">
+                    {{-- rating card --}}
+                    <div class="flex-shrink-0 w-full sm:w-1/3 p-8">
+                        <div @click="ratingModal = true;  selectedSlide = slide" class="border border-gray-200 rounded-lg bg-white p-6 space-y-6                            hover:shadow-xl transform hover:-translate-y-1 transition duration-300 cursor-pointer">
+                            <div class="text-yellow-500 text-left">⭐⭐⭐⭐⭐</div>
+                            <p class="text-gray-600 text-left" x-text="slide.text"></p>
+                            <div class="flex space-x-4">
+                                <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
+                                <div>
+                                    <p class=" font-semibold text-left" x-text="slide.name"></p>
+                                    <p class="text-gray-500 text-sm text-left" x-text="slide.club"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </template>
-        </div>
+                </template>
+            </div>
 
-        <!-- Next Button -->
-        <button @click="nextSlide"
-                class="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
-                  </svg>
-        </button>
-    </div>
+            <!-- Next Button -->
+            <button @click="nextSlide"
+                    class="absolute right-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                      </svg>
+            </button>
 
-
-    <div class="mx-10 lg:hidden block">
-        @for ($x = 0; $x < 3; $x++)
-        <div class=" border-b-2 border-gray-200 bg-white py-6 space-y-6 text-left">
-            <div class="flex space-x-4">
-                <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
-                <div>
-                    <p class=" font-semibold">Allan Raditya Hutomo</p>
-                    <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+            <!-- Rating Modal -->
+            <div x-show="ratingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 ">
+                <div @click.away="ratingModal = false" class="bg-white p-6 rounded-lg shadow-lg w-8/12">
+                    <div class="flex justify-end">
+                        <button @click="ratingModal = false" class="hover:text-gray-900 text-gray-400 rounded-lg p-2">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-yellow-500 text-left mb-4">⭐⭐⭐⭐⭐</div>
+                    <p class="text-gray-600 text-left mb-4" x-text="selectedSlide?.text"></p>
+                    <div class="flex space-x-4 mb-4">
+                        <img class="rounded-full w-12 h-12" :src="`{{ asset('assets/images/') }}/${selectedSlide?.image}`" alt="">
+                        <div>
+                            <p class="font-semibold text-left" x-text="selectedSlide?.name"></p>
+                            <p class="text-gray-500 text-sm text-left" x-text="selectedSlide?.club"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p class="text-gray-600"">Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!</p>
         </div>
-        @endfor
 
-        {{-- pagination --}}
+        <div class="mx-10 lg:hidden block">
+            <template x-for="(slide, index) in slides" :key="index">
+            <div class=" border-b-2 border-gray-200 bg-white py-6 space-y-6 text-left ">
+                    <div class="flex space-x-4">
+                        <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
+                        <div>
+                            <p class=" font-semibold" x-text="slide.name">Allan Raditya Hutomo</p>
+                            <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600" x-text="slide.text"></p>
+                </div>
+            </template>
+
+            {{-- pagination --}}
+        </div>
     </div>
-
 
     {{-- blog --}}
     <div class="mt-20 mx-10">
@@ -204,7 +227,7 @@
         </div>
         <div class="flex lg:flex-row flex-col justify-between mt-10 lg:space-y-0 space-y-6 gap-8" >
             @for ($x = 0; $x < 3; $x++)
-            <div class="lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:block flex">
+            <div class="lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:block flex hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
                 <a href="#" class="w-full h-full bg-cover hidden xs:inline">
                     <img class="lg:rounded-bl-none lg:rounded-t-lg  rounded-l-lg object-cover" src="{{ asset('assets/icons/content-2.svg')}}" alt="" />
                 </a>
@@ -231,7 +254,7 @@
         </div>
 
         <div class="flex justify-end my-10">
-            <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</button>
+            <a href="/article" type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</a>
         </div>
 
     <script>
@@ -247,7 +270,7 @@
                         image: "profile1.jpg"
                     },
                     {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya! lorem ipsassafasf",
                         name: "Allan Raditya Hutomo",
                         club: "Jaya Club",
                         image: "profile1.jpg"
@@ -290,7 +313,9 @@
                     if (this.currentSlide < this.totalSlides - this.visibleCards) {
                         this.currentSlide++;
                     }
-                }
+                },
+                selectedSlide: null,
+                ratingModal: false,
             };
         }
     </script>
