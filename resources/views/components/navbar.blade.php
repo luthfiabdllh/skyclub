@@ -2,9 +2,9 @@
     <div class="mx-auto px-6 sm:px-6 lg:px-8 ">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
-                <div class="flex-shrink-0">
+                <a class="flex-shrink-0" href="/">
                     <img src="{{ asset('assets/icons/logo.svg') }}" alt="Sky Club">
-                </div>
+                </a>
             </div>
             <div class="hidden md:block">
                 <div class="flex items-baseline space-x-4">
