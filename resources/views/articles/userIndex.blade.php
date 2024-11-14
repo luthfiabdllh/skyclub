@@ -110,50 +110,51 @@
         </div>
         @endfor
     </div>
-
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('carousel', () => ({
-                currentSlide: 0,
-                slides: [
-                    {
-                        image: '{{ asset('assets/images/album_3.svg') }}',
-                        title: 'Keuntungan menyewa lapangan Mini Soccer',
-                        description: 'Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman...',
-                        profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
-                        author: 'Jamal Sigh',
-                        date: 'Jun 25, 2025'
-                    },
-                    {
-                        image: '{{ asset('assets/images/album_2.svg') }}',
-                        title: 'Pertandingan Persija vs Areama FC',
-                        description: 'Pertandingan seru antara Persija dan Areama FC di stadion Sky Club. Kedua tim bermain dengan sangat baik dan saling menghargai...',
-                        profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
-                        author: 'Jamal Sigh',
-                        date: 'Jun 25, 2025'
-                    },
-                    {
-                        image: '{{ asset('assets/images/album_1.svg') }}',
-                        title: 'Kemenangan Telak Arema FC',
-                        description: 'Arema FC berhasil memenangkan pertandingan melawan Persija dengan skor telak 3-0. Arema FC berhasil memenangkan pertandingan melawan Persija dengan skor telak 3-0...',
-                        profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
-                        author: 'Jamal Sigh',
-                        date: 'Jun 25, 2025',
-                    },
-                ],
-                nextSlide() {
-                    if (this.currentSlide < this.slides.length - 1) {
-                        this.currentSlide++;
-                    } else {
-                        this.currentSlide = 0;
-                    }
+@endsection
+@section('script')
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('carousel', () => ({
+            currentSlide: 0,
+            slides: [
+                {
+                    image: '{{ asset('assets/images/album_3.svg') }}',
+                    title: 'Keuntungan menyewa lapangan Mini Soccer',
+                    description: 'Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman...',
+                    profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
+                    author: 'Jamal Sigh',
+                    date: 'Jun 25, 2025'
                 },
-                startAutoSlide() {
-                    setInterval(() => {
-                        this.nextSlide();
-                    }, 12000);
+                {
+                    image: '{{ asset('assets/images/album_2.svg') }}',
+                    title: 'Pertandingan Persija vs Areama FC',
+                    description: 'Pertandingan seru antara Persija dan Areama FC di stadion Sky Club. Kedua tim bermain dengan sangat baik dan saling menghargai...',
+                    profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
+                    author: 'Jamal Sigh',
+                    date: 'Jun 25, 2025'
+                },
+                {
+                    image: '{{ asset('assets/images/album_1.svg') }}',
+                    title: 'Kemenangan Telak Arema FC',
+                    description: 'Arema FC berhasil memenangkan pertandingan melawan Persija dengan skor telak 3-0. Arema FC berhasil memenangkan pertandingan melawan Persija dengan skor telak 3-0...',
+                    profileImage: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png',
+                    author: 'Jamal Sigh',
+                    date: 'Jun 25, 2025',
+                },
+            ],
+            nextSlide() {
+                if (this.currentSlide < this.slides.length - 1) {
+                    this.currentSlide++;
+                } else {
+                    this.currentSlide = 0;
                 }
-            }))
-        })
-    </script>
+            },
+            startAutoSlide() {
+                setInterval(() => {
+                    this.nextSlide();
+                }, 12000);
+            }
+        }))
+    })
+</script>
 @endsection

@@ -228,7 +228,7 @@
 
     {{-- blog --}}
     <div class="mt-20 mx-10">
-        <div class="grid grid-row-1 space-y-4 content-center">
+        <div class="grid grid-row-1 space-y-4 content-center text-left">
             <h6 class="text-base font-bold">Blog</h6>
             <h1 class="text-5xl font-bold">Apa Yang Baru</h1>
             <h5 class="text-base">Berikut adalah artikel-artikel terkait SKY CLUB</h5>
@@ -264,66 +264,66 @@
         <div class="flex justify-end my-10">
             <a href="/article" type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</a>
         </div>
-
-    <script>
-        function carousel() {
-            return {
-                currentSlide: 0,
-                visibleCards: 3,
-                slides: [{
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya! lorem ipsassafasf",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    {
-                        text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                        name: "Allan Raditya Hutomo",
-                        club: "Jaya Club",
-                        image: "profile1.jpg"
-                    },
-                    // Add more slides as needed
-                ],
-                get totalSlides() {
-                    return this.slides.length;
+@endsection
+@section('script')
+<script>
+    function carousel() {
+        return {
+            currentSlide: 0,
+            visibleCards: 3,
+            slides: [{
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
                 },
-                prevSlide() {
-                    if (this.currentSlide > 0) {
-                        this.currentSlide--;
-                    }
+                {
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya! lorem ipsassafasf",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
                 },
-                nextSlide() {
-                    if (this.currentSlide < this.totalSlides - this.visibleCards) {
-                        this.currentSlide++;
-                    }
+                {
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
                 },
-                selectedSlide: null,
-                ratingModal: false,
-            };
-        }
-    </script>
+                {
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
+                },
+                {
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
+                },
+                {
+                    text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
+                    name: "Allan Raditya Hutomo",
+                    club: "Jaya Club",
+                    image: "profile1.jpg"
+                },
+            ],
+            get totalSlides() {
+                return this.slides.length;
+            },
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.currentSlide--;
+                }
+            },
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides - this.visibleCards) {
+                    this.currentSlide++;
+                }
+            },
+            selectedSlide: null,
+            ratingModal: false,
+        };
+    }
+</script>
 @endsection
