@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SparingCreated;
+use App\Models\User;
 use App\Models\Sparing;
-use App\Models\SparingRequest;
 use Illuminate\Http\Request;
+use App\Events\SparingCreated;
+use App\Models\SparingRequest;
 use Illuminate\Support\Facades\Auth;
 
 class SparingController extends Controller
@@ -28,7 +29,10 @@ class SparingController extends Controller
             'id_list_booking' => $request->id_list_booking,
             'status_sparing' => 'pending'
         ]);
-        SparingCreated::dispatch(Auth::user()->id, $request->team_name);
+        $user = User::find(Auth::user()->id);
+        $user->team = $request->team_name;
+        $user->save();
+        // SparingCreated::dispatch(Auth::user()->id, $request->team_name);
         return redirect()->route('sparing.index');
     }
 

@@ -1,6 +1,3 @@
-{{-- @php
-    dd($sparing);
-@endphp --}}
 <div x-data="{ open: false, cancelSparingModal: false }" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">

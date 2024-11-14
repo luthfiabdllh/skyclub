@@ -169,7 +169,7 @@
                 @forelse ($request_sparing as $sparing)
                     <x-drop-sparing :sparing="$sparing" />
                 @empty
-                    <p>Tidak ada riwayat sparing</p>
+                    <p>Tidak ada pengajuan sparing</p>
                 @endforelse
                 {{-- @for ($x = 0; $x < 3; $x++)
                     <x-drop-sparing />

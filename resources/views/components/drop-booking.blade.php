@@ -69,7 +69,7 @@
                     <p>{{ $booking->rentedBy->email }}</p>
                 </div>
                 <div>
-                    @if (!$sesi->sparing && $booking->status !== 'accept')
+                    @if (!$sesi->sparing && $booking->status == 'accept')
                         <button @click="sparingModal = true"
                             class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Jadikan Sparing</button>
                     @endif

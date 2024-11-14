@@ -10,12 +10,11 @@ use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileUserController;
 use App\Models\Booking;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 //Route Register
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
