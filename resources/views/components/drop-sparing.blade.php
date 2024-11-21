@@ -117,7 +117,7 @@
     </div>
 
     <!-- Cancel Modal -->
-    <div x-show="cancelSparingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div x-show="cancelSparingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <div class="bg-white p-6 rounded-lg justify-center flex flex-col text-center">
             <h2 class="text-xl font-bold mb-4 font-2xl">Yakin ingin batalkan pesanan?</h2>
             <p>Konfirmasi Pembatalan Pemesanan Anda</p>

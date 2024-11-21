@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\fieldConfiguration;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\SparingController;
@@ -15,6 +16,10 @@ use App\Http\Controllers\ProfileUserController;
 use App\Models\Booking;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+
+Route::get('/try', function () {
+    return view('articles.articledetail');
+});
 
 //Route Register
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
@@ -86,3 +91,21 @@ Route::get('/profile', function () {
 //     return view('pembayaranBerhasil');
 // });
 ///////////////////////////////////////////////////////////
+
+
+///////////////////admin///////////////////////////////////
+Route::get('/admin', function () {
+    return view('admin.index');
+})->name('admin.index');
+
+// field photo
+Route::get('/admin-field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
+Route::get('/admin-field-description', [fieldConfiguration::class, 'fieldDescription'])->name('field.description');
+Route::get('/admin-field-fasility', [fieldConfiguration::class, 'fieldFasility'])->name('field.fasility');
+
+Route::post('/upload-image-slider', [fieldConfiguration::class, 'uploadSlider'])->name('upload.slider');
+Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])->name('upload.banner');
+Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
+Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
+
+// 

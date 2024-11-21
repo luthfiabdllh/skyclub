@@ -62,7 +62,7 @@
                         <img class="w-full h-full object-cover rounded-xl" src="{{ asset('assets/icons/content-2.svg')}}" alt="">
                     </div>
                     <div class="flex items-center">
-                        <p class="font-semibold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut sunt consequuntur excepturi tempora earum</p>
+                        <p class="font-semibold">Manfaat Olahraga untuk Kesehatan Tubuh</p>
                     </div>
                 </div>
                 @endfor

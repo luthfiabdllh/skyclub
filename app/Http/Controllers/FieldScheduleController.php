@@ -6,6 +6,7 @@ use App\Models\ListBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
+use App\Models\FieldPhoto;
 use Carbon\Carbon;
 
 // Class untuk men-generate jadwal 2 bulan kedepan
@@ -13,10 +14,14 @@ class FieldScheduleController extends Controller
 {
     public function index()
     {
+        $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
+            return asset('storage/images/images/' . $photo);
+        });
+        // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos'));
     }
     public function scheduleValidate(Request $request)
     {
