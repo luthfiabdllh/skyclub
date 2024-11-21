@@ -15,10 +15,16 @@ use App\Notifications\ApproveBooking;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Routing\Controller as BaseController;
 
-
-class BookingController extends Controller
+class BookingController extends BaseController
+// class BookingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('check.payment');
+    }
     //menampilkan halaman detail Pembayaran
     public function payment(Request $request)
     {
@@ -47,7 +53,7 @@ class BookingController extends Controller
             $booking->uploud_payment = $path;
             $booking->save();
             $field = Field::find(1);
-            PaymentUplouded::dispatch($booking, $booking_cart['total'], $field);
+            PaymentUplouded::dispatch($booking, $booking_cart['total']);
             $request->session()->forget('cart');
             return redirect()->route('booking.paymentSuccess');
         }
@@ -95,6 +101,7 @@ class BookingController extends Controller
         // $request->session()->forget('cart');
         return redirect()->route('booking.paymentUploud');
     }
+
 
 
     public function index()

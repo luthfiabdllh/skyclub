@@ -1,19 +1,24 @@
 <?php
 
+use App\Models\Booking;
 use App\Http\Controllers\admin\fieldConfiguration;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\SparingController;
 use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\auth\ForgotPasswordController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileUserController;
-use App\Models\Booking;
+use App\Http\Controllers\ListBookingController;
+use App\Http\Controllers\NotificationController;
+use App\Models\ListBooking;
+use Illuminate\Notifications\Notification;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
@@ -47,7 +52,10 @@ Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('artic
 
 // Field Schedule (halaman pilih jadwal untuk dipesan)
 Route::get('/field-schedule', [FieldScheduleController::class, 'index'])->name('schedule.index');
-Route::post('field-schedule', [FieldScheduleController::class, 'scheduleValidate'])->middleware('auth')->name('schedule.scheduleValidate');
+Route::post('/field-schedule', [FieldScheduleController::class, 'scheduleValidate'])->middleware('auth')->name('schedule.scheduleValidate');
+Route::get('/field-schedule/reschedule/{list_booking}', [FieldScheduleController::class, 'reschedule'])->name('schedule.reschedule');
+Route::post('/field-schedule/reschedule/{list_booking}', [FieldScheduleController::class, 'rescheduleValidate'])->name('schedule.rescheduleValidate');
+Route::post('/field-schedule/cancel/{list_booking}', [ListBookingController::class, 'cancel'])->name('schedule.cancel');
 
 // Booking & Pembayaran
 Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
@@ -64,36 +72,14 @@ Route::post('/sparing/request/{sparing}', [SparingController::class, 'addRequest
 Route::put('/sparing/accept/{sparing_req}', [SparingController::class, 'acceptRequest'])->name('sparing.accept');
 Route::put('/sparing/reject/{sparing_req}', [SparingController::class, 'rejectRequest'])->name('sparing.reject');
 
+// rating
+Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+
 // profile
-Route::get('/profile-user/{user}', [ProfileUserController::class, 'show'])->name('profile.show');
+Route::get('/profile-user', [ProfileUserController::class, 'index'])->name('profile.show');
 
-
-////////////////////////////////////////////////////////////
-Route::get('/notification', function () {
-    return view('profiles.notifikasi');
-});
-// Route::get('/profile-user', function () {
-//     return view('profiles.profile');
-// });
-Route::get('/profile', function () {
-    return view('profiles.profile');
-});
-// Route::get('/detail-bayar', function () {
-//     return view('detailPembayaran');
-// });
-// Route::get('/bukti-bayar', function () {
-//     return view('buktiPembayaran');
-// });
-// Route::get('/sparing', function () {
-//     return view('sparing');
-// });
-// Route::get('/bayar-berhasil', function () {
-//     return view('pembayaranBerhasil');
-// });
-///////////////////////////////////////////////////////////
-
-
-///////////////////admin///////////////////////////////////
+// Notification
+Route::get('/notification', [NotificationController::class, 'index'])->name('notication.index');
 Route::get('/admin', function () {
     return view('admin.index');
 })->name('admin.index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\Sparing;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,8 @@ class HomeController extends Controller
         //article
 
         //rating
-        return view('index', compact('sparings'));
+        $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        // dd($reviews->toJson());
+        return view('index', compact(['sparings', 'reviews']));
     }
 }

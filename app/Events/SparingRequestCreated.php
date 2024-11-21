@@ -3,28 +3,31 @@
 namespace App\Events;
 
 use App\Models\Sparing;
+use App\Models\SparingRequest;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Auth;
 
-class SparingCreated
+class SparingRequestCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $user;
     public $sparing;
-
+    public $sparing_request;
+    public $userRequest;
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user, Sparing $sparing)
+    public function __construct($sparing, SparingRequest $sparing_request)
     {
-        $this->user = $user;
-        $this->sparing = $sparing;
+        $this->sparing = Sparing::find($sparing);
+        $this->sparing_request = $sparing_request;
+        $this->userRequest = Auth::user();
     }
 
     /**

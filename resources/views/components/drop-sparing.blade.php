@@ -96,7 +96,7 @@
             <div class="bg-cover rounded-full overflow-hidden group size-16">
                 <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
             </div>
-            @if ($req_sparing->status_request != 'accepted')
+            @if ($req_sparing->status_request != 'accepted' && $req_sparing->id_user !== Auth::id())
                 <div>
                     <form action="{{ route('sparing.accept', $req_sparing) }}" method="POST">
                         @csrf

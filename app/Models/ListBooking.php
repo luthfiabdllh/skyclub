@@ -34,4 +34,8 @@ class ListBooking extends Model
     {
         return $this->hasOne(Sparing::class, 'id_list_booking');
     }
+    public function requestReschedule(): HasOne
+    {
+        return $this->hasOne(RescheduleRequest::class, 'id_list_booking');
+    }
 }
