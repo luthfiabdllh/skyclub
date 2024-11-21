@@ -22,18 +22,19 @@ class FieldScheduleController extends BaseController
     }
     public function index()
     {
-        $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
-            return asset('storage/images/images/' . $photo);
-        });
+        // $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
+        //     return asset('storage/images/images/' . $photo);
+        // });
 
-        $fieldDescription = FieldDescription::first();
+        // $fieldDescription = FieldDescription::first();
 
         // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription, reviews'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews'));
+        // return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription, reviews'));
     }
     public function scheduleValidate(Request $request)
     {

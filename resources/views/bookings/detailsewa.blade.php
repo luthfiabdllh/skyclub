@@ -7,9 +7,10 @@
     @endphp
     {{-- gallery --}}
 
-    <div x-data="{ gallery: false }" class="grid grid-cols-3 grid-flow-col gap-1 sm:gap-2 md:gap-4 h-[270px] sm:h-[370px] md:h-[470px] lg:h-[670px]">
+    <div x-data="{ gallery: false }"
+        class="grid grid-cols-3 grid-flow-col gap-1 sm:gap-2 md:gap-4 h-[270px] sm:h-[370px] md:h-[470px] lg:h-[670px]">
         {{-- gallery --}}
-        @foreach ($fieldPhotos->take(3) as $index => $photo)
+        {{-- @foreach ($fieldPhotos->take(3) as $index => $photo)
             @if ($index == 0)
                 <div class="col-span-2 row-span-2 bg-cover rounded-s-3xl" style="background-image: url('{{ $photo }}');"></div>
             @elseif ($index == 1)
@@ -19,17 +20,24 @@
                     <button @click="gallery = true" class="absolute bottom-2 right-2 sm:bottom-5 sm:right-5 bg-red-600 rounded p-1 sm:px-4 sm:py-2 font-semibold text-white sm:text-base text-sm">Lihat Semua Foto</button>
                 </div>
             @endif
-        @endforeach
+        @endforeach --}}
 
         {{-- modal --}}
-        <div x-show="gallery" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div @click.away="open = false" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-sm xs:max-w-md sm:max-w-lg w-full">
+        <div x-show="gallery" x-cloak x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-90"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div @click.away="open = false"
+                class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-sm xs:max-w-md sm:max-w-lg w-full">
                 <div class="px-4 py-5 sm:p-6">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">Gallery</h3>
                         <button @click="gallery = false" class="text-gray-400 hover:text-gray-500">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
                     </div>
@@ -38,55 +46,56 @@
                         <div x-data="{
                             activeSlide: 0,
                             slides: [
-                                @foreach($fieldPhotos as $photo)
-                                    '{{ $photo }}',
-                                @endforeach
+                                {{-- @foreach ($fieldPhotos as $photo)
+                                    '{{ $photo }}', @endforeach --}}
                             ]
                         }">
                             <div class="relative">
                                 <!-- Carousel Images -->
                                 <template x-for="(slides, index) in slides" :key="index">
-                                    <div
-                                        x-show="activeSlide === index"
+                                    <div x-show="activeSlide === index"
                                         class="w-full h-64 bg-cover bg-center rounded-lg transition-all duration-500"
                                         :style="`background-image: url('${slides}')`">
                                     </div>
                                 </template>
 
                                 <!-- Previous Button -->
-                                <button
-                                    @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1"
+                                <button @click="activeSlide = activeSlide === 0 ? slides.length - 1 : activeSlide - 1"
                                     class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full">
                                     &#8249;
                                 </button>
 
                                 <!-- Next Button -->
-                                <button
-                                    @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1"
+                                <button @click="activeSlide = activeSlide === slides.length - 1 ? 0 : activeSlide + 1"
                                     class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full">
                                     &#8250;
                                 </button>
 
                                 <!-- Carousel Indicators -->
-                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center mt-4 space-x-2">
+                                <div
+                                    class="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center mt-4 space-x-2">
                                     <template x-for="(slide, index) in slides" :key="index">
-                                        <button
-                                            @click="activeSlide = index"
-                                            :class="{ 'bg-red-600 w-6': activeSlide === index, 'bg-gray-400': activeSlide !== index }"
+                                        <button @click="activeSlide = index"
+                                            :class="{
+                                                'bg-red-600 w-6': activeSlide === index,
+                                                'bg-gray-400': activeSlide !==
+                                                    index
+                                            }"
                                             class="w-3 h-3 rounded-full transition-colors"></button>
                                     </template>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
     {{-- cart & desc --}}
-    <div x-data="calendar()" x-init="init()" class="flex flex-col xl:grid xl:grid-flow-col gap-2 xl:flex-row justify-between my-12">
+    <div x-data="calendar()" x-init="init()"
+        class="flex flex-col xl:grid xl:grid-flow-col gap-2 xl:flex-row justify-between my-12">
         <div class=" xl:max-w-[700px] xxl:max-w-full">
             <div class=" space-y-1">
                 <h1 class=" text-4.5xl font-bold">SKY CLUB MINI SOCCER</h1>
@@ -115,7 +124,8 @@
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div>
                 <h3 class="mb-4 text-3xl font-bold">Deskripsi</h3>
-                <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p>
+                {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
+                {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">
@@ -151,26 +161,35 @@
                     </div>
                 </div>
                 <div x-data="{ fasilitas: false }">
-                    <button @click="fasilitas = true" class="border border-red-400 rounded p-2 font-semibold text-red-500">Lihat Semua Fasilitas</button>
-                    <div x-show="fasilitas" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                        <div @click.away="fasilitas = false" class="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-4xl :w-full max-w-sm xs:max-w-md w-full h-4/5 overflow-scroll custom-scrollbar">
+                    <button @click="fasilitas = true"
+                        class="border border-red-400 rounded p-2 font-semibold text-red-500">Lihat Semua Fasilitas</button>
+                    <div x-show="fasilitas" x-cloak x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-90"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-90"
+                        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div @click.away="fasilitas = false"
+                            class="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-4xl :w-full max-w-sm xs:max-w-md w-full h-4/5 overflow-scroll custom-scrollbar">
                             <div class="px-4 py-5 sm:p-6">
                                 <div class="flex justify-end">
                                     <button @click="fasilitas = false" class="text-gray-400 hover:text-gray-500">
-                                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
                                     </button>
                                 </div>
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
                                     <p x-data="{ expanded: false }" class="leading-loose">
-                                        <span x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span>
-                                        <span x-show="expanded">{{ $fieldDescription->description }}</span>
-                                        <button @click="expanded = !expanded" class="text-red-500 font-semibold">
+                                        <span {{-- x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> --}} {{-- <span x-show="expanded">{{ $fieldDescription->description }}</span> --}} <button
+                                            @click="expanded = !expanded" class="text-red-500 font-semibold">
                                             <span x-show="!expanded">lihat selengkapnya</span>
                                             <span x-show="expanded">lihat lebih sedikit</span>
-                                        </button>
+                                            </button>
                                     </p>
                                 </div>
                                 <h3 class="text-3xl font-bold my-8">Fasilitas</h3>
@@ -227,7 +246,8 @@
                                 class="cursor-pointer text-center w-16 p-2 rounded-md">
                                 <div class="text-xs font-medium" x-text="day.name"></div>
                                 <div class="text-sm font-semibold"
-                                    x-text="day.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })"></div>
+                                    x-text="day.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })">
+                                </div>
                             </div>
                         </template>
                     </div>
@@ -281,7 +301,8 @@
         </div>
 
         {{-- cart --}}
-        <div class="border px-5 py-8 bg-white rounded-2xl max-h-fit space-y-7 sticky top-2 w-[490px] min-w-[360px] hidden xl:block">
+        <div
+            class="border px-5 py-8 bg-white rounded-2xl max-h-fit space-y-7 sticky top-2 w-[490px] min-w-[360px] hidden xl:block">
             <div>
                 <h4 class="font-bold text-2xl">Mulai dari</h4>
                 <p class=" font-bold text-4xl">Rp. 600.000,00 <span class=" text-xl">/Sesi</span></p>
@@ -350,14 +371,22 @@
         </div>
 
         {{-- testimoni modal --}}
-        <div x-show="testimoni" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-90" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-90" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div @click.away="testimoni = false" class="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-4xl sm:w-full h-4/5 overflow-scroll custom-scrollbar max-w-sm xs:max-w-md w-full">
+        <div x-show="testimoni" x-cloak x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-90"
+            x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-90"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div @click.away="testimoni = false"
+                class="bg-white rounded-lg shadow-xl transform transition-all sm:max-w-4xl sm:w-full h-4/5 overflow-scroll custom-scrollbar max-w-sm xs:max-w-md w-full">
                 <div class="px-4 py-5 sm:p-6">
                     <div class="flex justify-between items-center mb-5">
                         <h3 class="text-3xl leading-6 font-bold text-gray-900">Ulasan</h3>
                         <button @click="testimoni = false" class="text-gray-400 hover:text-gray-500">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
                     </div>
@@ -365,37 +394,38 @@
                         <p class=" text-gray-500 font-bold"><span class="text-black text-3xl">4,8</span>/5</p>
                         <div class="flex space-x-1">
                             @for ($x = 0; $x < 5; $x++)
-                            <svg class="w-6 h-6 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                            </svg>
+                                <svg class="w-6 h-6 text-yellow-300" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path
+                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                </svg>
                             @endfor
                         </div>
                     </div>
                     <div class="mt-4 space-y-4">
                         @for ($x = 0; $x < 6; $x++)
-                        <div class="p-4 rounded-lg border">
-                            <div class="flex justify-between mb-6">
-                                <div class="flex items-center space-x-4">
-                                    <img class=" rounded-full w-12 h-12" src="{{ asset('assets/images/profile.svg') }}" alt="">
-                                    <div>
-                                        <p class="text-base font-bold">Budi Santoso</p>
-                                        <p class="text-base">Pemain Komunitas</p>
+                            <div class="p-4 rounded-lg border">
+                                <div class="flex justify-between mb-6">
+                                    <div class="flex items-center space-x-4">
+                                        <img class=" rounded-full w-12 h-12"
+                                            src="{{ asset('assets/images/profile.svg') }}" alt="">
+                                        <div>
+                                            <p class="text-base font-bold">Budi Santoso</p>
+                                            <p class="text-base">Pemain Komunitas</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center p-2 rounded-lg border">
+                                        <svg class="w-6 h-6 text-yellow-300 me-3" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                            <path
+                                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                        </svg>
+                                        <p class="font-semibold text-2xl">4.8</p>
                                     </div>
                                 </div>
-                                <div class="flex justify-between items-center p-2 rounded-lg border">
-                                    <svg class="w-6 h-6 text-yellow-300 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 22 20">
-                                    <path
-                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                    <p class="font-semibold text-2xl">4.8</p>
-                                </div>
+                                <p>"Lapangan di SKY CLUB sangat nyaman dan aman. Permukaannya rata, jadi permainan berjalan
+                                    lebih lancar. Saya sangat puas dengan kualitasnya!"</p>
                             </div>
-                            <p>"Lapangan di SKY CLUB sangat nyaman dan aman. Permukaannya rata, jadi permainan berjalan
-                                lebih lancar. Saya sangat puas dengan kualitasnya!"</p>
-                        </div>
                         @endfor
                     </div>
                 </div>
