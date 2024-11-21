@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Sparing;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -12,19 +11,20 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SparingCreated
+class SparingRequestAccepted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public $sparing_req;
+    public $created_by;
     public $user;
-    public $sparing;
-
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user, Sparing $sparing)
+    public function __construct($sparing_req)
     {
-        $this->user = $user;
-        $this->sparing = $sparing;
+        $this->sparing_req = $sparing_req;
+        $this->created_by = User::find($sparing_req->sparing->created_by);
+        $this->user = User::find($sparing_req->user->id);
     }
 
     /**

@@ -19,7 +19,7 @@
             {{-- <p class="font-semibold">Rp 1.000.000</p> --}}
         </div>
         <div class=" p-1.5 bg-red-400 text-center font-bold text-sm rounded">
-            {{ $booking->status }}
+            {{ $sesi->status_request ?? $booking->status }}
         </div>
         <div>
             <button @click="open = !open" class="size-12 p-2.5 border border-black rounded-lg">
@@ -41,8 +41,10 @@
                     {{-- <p>123 Sample St.Sydney</p> --}}
                 </div>
                 <div>
-                    <button @click="scheduleModal = true"
-                        class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Ubah Jadwal</button>
+                    @if ($booking->status == 'accept' && $sesi->status_request == null)
+                        <a href="{{ route('schedule.reschedule', $sesi->id) }}" @click="scheduleModal = true"
+                            class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Ubah Jadwal</a>
+                    @endif
                 </div>
             </div>
             <div class=" space-y-7">
@@ -55,8 +57,10 @@
                     <p>{{ $booking->rentedBy->no_telp }}</p>
                 </div>
                 <div>
-                    <button @click="cancelBookingModal = true"
-                        class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Batalkan</button>
+                    @if ($booking->status == 'accept' && $sesi->status_request == null)
+                        <a @click="cancelBookingModal = true"
+                            class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Batalkan</a>
+                    @endif
                 </div>
             </div>
             <div class=" space-y-7">
@@ -69,7 +73,7 @@
                     <p>{{ $booking->rentedBy->email }}</p>
                 </div>
                 <div>
-                    @if (!$sesi->sparing && $booking->status == 'accept')
+                    @if (!$sesi->sparing && $booking->status == 'accept' && $sesi->status_request == null)
                         <button @click="sparingModal = true"
                             class="my-3 px-6 py-3 bg-red-700 text-white font-bold rounded-lg">Jadikan Sparing</button>
                     @endif
@@ -103,7 +107,10 @@
             <div class="mt-4 flex justify-center">
                 <button @click="cancelBookingModal = false"
                     class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Kembali</button>
-                <button class="px-4 py-2 bg-red-700 text-white rounded-lg">Ya, Batalkan</button>
+                <form action="{{ route('schedule.cancel', $sesi->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded-lg">Ya, Batalkan</button>
+                </form>
             </div>
         </div>
     </div>

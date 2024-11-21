@@ -171,17 +171,21 @@
                 @empty
                     <p>Tidak ada pengajuan sparing</p>
                 @endforelse
-                {{-- @for ($x = 0; $x < 3; $x++)
-                    <x-drop-sparing />
-                @endfor --}}
             </div>
             <div x-show="activeBookingTab === 'finish'" class="mt-8 space-y-10">
-                @for ($x = 0; $x < 2; $x++)
-                    <x-drop-history-booking />
-                @endfor
-                @for ($x = 0; $x < 2; $x++)
-                    <x-drop-history-sparing />
-                @endfor
+                @forelse ($history_booking_sparing as $history)
+                    @if ($history->getTable() == 'bookings')
+                        @foreach ($history->listBooking as $booking)
+                            @if ($booking->date < now())
+                                <x-drop-history-booking :listbooking="$booking" />
+                            @endif
+                        @endforeach
+                    @else
+                        <x-drop-history-sparing :sparing="$history" />
+                    @endif
+                @empty
+                    <p>Tidak ada riwayat pesanan atau sparing</p>
+                @endforelse
             </div>
         </div>
     </div>

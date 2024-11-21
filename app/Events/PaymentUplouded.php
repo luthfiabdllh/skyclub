@@ -3,7 +3,9 @@
 namespace App\Events;
 
 use App\Models\User;
+use App\Models\Booking;
 use Illuminate\Broadcasting\Channel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -16,18 +18,14 @@ class PaymentUplouded
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $booking;
-    public $field;
-    public $admins;
     public $total;
     /**
      * Create a new event instance.
      */
-    public function __construct($booking, $total, $field)
+    public function __construct(Booking $booking, $total)
     {
         $this->booking = $booking;
-        $this->admins = User::where('role', 'admin')->get();
         $this->total = $total;
-        $this->field = $field;
     }
 
     /**

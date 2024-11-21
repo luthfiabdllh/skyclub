@@ -188,16 +188,17 @@
                     <template x-for="(slide, index) in slides" :key="index">
                         {{-- rating card --}}
                         <div class="flex-shrink-0 w-full sm:w-1/3 p-8">
+                            {{-- <div @click="console.log(slide)"  --}}
                             <div @click="ratingModal = true;  selectedSlide = slide"
-                                class="border border-gray-200 rounded-lg bg-white p-6 space-y-6                            hover:shadow-xl transform hover:-translate-y-1 transition duration-300 cursor-pointer">
-                                <div class="text-yellow-500 text-left">⭐⭐⭐⭐⭐</div>
-                                <p class="text-gray-600 text-left" x-text="slide.text"></p>
+                                class="border border-gray-200 rounded-lg bg-white p-6 space-y-6 hover:shadow-xl transform hover:-translate-y-1 transition duration-300 cursor-pointer">
+                                <div class="text-yellow-500 text-left" x-text="'⭐'.repeat(parseInt(slide.rating))">⭐</div>
+                                <p class="text-gray-600 text-left" x-text="slide.comment"></p>
                                 <div class="flex space-x-4">
                                     <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}"
                                         alt="">
                                     <div>
-                                        <p class=" font-semibold text-left" x-text="slide.name"></p>
-                                        <p class="text-gray-500 text-sm text-left" x-text="slide.club"></p>
+                                        <p class=" font-semibold text-left" x-text="slide.user.name"></p>
+                                        <p class="text-gray-500 text-sm text-left" x-text="slide.user.team"></p>
                                     </div>
                                 </div>
                             </div>
@@ -229,14 +230,15 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="text-yellow-500 text-left mb-4">⭐⭐⭐⭐⭐</div>
-                        <p class="text-gray-600 text-left mb-4" x-text="selectedSlide?.text"></p>
+                        <div class="text-yellow-500 text-left mb-4" x-text="'⭐'.repeat(parseInt(selectedSlide?.rating))">
+                            ⭐</div>
+                        <p class="text-gray-600 text-left mb-4" x-text="selectedSlide?.comment"></p>
                         <div class="flex space-x-4 mb-4">
                             <img class="rounded-full w-12 h-12"
                                 :src="`{{ asset('assets/images/') }}/${selectedSlide?.image}`" alt="">
                             <div>
-                                <p class="font-semibold text-left" x-text="selectedSlide?.name"></p>
-                                <p class="text-gray-500 text-sm text-left" x-text="selectedSlide?.club"></p>
+                                <p class="font-semibold text-left" x-text="selectedSlide?.user.name"></p>
+                                <p class="text-gray-500 text-sm text-left" x-text="selectedSlide?.user.team"></p>
                             </div>
                         </div>
                     </div>
@@ -249,11 +251,11 @@
                         <div class="flex space-x-4">
                             <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
                             <div>
-                                <p class=" font-semibold" x-text="slide.name">Allan Raditya Hutomo</p>
-                                <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                                <p class=" font-semibold" x-text="slide.user.name">Allan Raditya Hutomo</p>
+                                <div class="text-yellow-500" @click="console.log(slide)">⭐⭐⭐⭐⭐</div>
                             </div>
                         </div>
-                        <p class="text-gray-600" x-text="slide.text"></p>
+                        <p class="text-gray-600" x-text="slide.comment"></p>
                     </div>
                 </template>
 
@@ -313,43 +315,14 @@
                     return {
                         currentSlide: 0,
                         visibleCards: 3,
-                        slides: [{
+                        slides: @json($reviews)
+                            /*[{
                                 text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
                                 name: "Allan Raditya Hutomo",
                                 club: "Jaya Club",
                                 image: "profile1.jpg"
-                            },
-                            {
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya! lorem ipsassafasf",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },
-                            {
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },
-                            {
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },
-                            {
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },
-                            {
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },
-                        ],
+                            },]*/
+                            ,
                         get totalSlides() {
                             return this.slides.length;
                         },

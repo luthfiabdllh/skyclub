@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'password.forgot' => \App\Http\Middleware\ForgotPasswordMiddleware::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'check.payment' => \App\Http\Middleware\CheckPaymentAccessMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

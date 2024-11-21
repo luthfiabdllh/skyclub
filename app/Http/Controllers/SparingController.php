@@ -6,11 +6,19 @@ use App\Models\User;
 use App\Models\Sparing;
 use Illuminate\Http\Request;
 use App\Events\SparingCreated;
+use App\Events\SparingRequestAccepted;
 use App\Models\SparingRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Events\SparingRequestCreated;
+use App\Events\SparingRequestRejected;
+use Illuminate\Routing\Controller;
 
 class SparingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
     public function index()
     {
         $sparings = Sparing::latest()->where('status_sparing', '!=', 'done')->get();
@@ -32,18 +40,18 @@ class SparingController extends Controller
         $user = User::find(Auth::user()->id);
         $user->team = $request->team_name;
         $user->save();
-        // SparingCreated::dispatch(Auth::user()->id, $request->team_name);
+        SparingCreated::dispatch($user, $sparing);
         return redirect()->route('sparing.index');
     }
 
     public function addRequest($sparing)
     {
-        SparingRequest::create([
+        $sparing_request = SparingRequest::create([
             'id_sparing' => $sparing,
             'id_user' => Auth::user()->id,
             'status_request' => 'waiting'
         ]);
-        // dd('cek');
+        SparingRequestCreated::dispatch($sparing, $sparing_request);
         return redirect()->route('profile.show', Auth::user()->id);
     }
 
@@ -58,6 +66,7 @@ class SparingController extends Controller
         Sparing::where('id', $sparing_req->id_sparing)->update([
             'status_sparing' => 'done'
         ]);
+        SparingRequestAccepted::dispatch($sparing_req);
         return back();
     }
 
@@ -67,6 +76,7 @@ class SparingController extends Controller
         $sparing_req->update([
             'status_request' => 'rejected'
         ]);
+        SparingRequestRejected::dispatch($sparing_req);
         return back();
     }
 }

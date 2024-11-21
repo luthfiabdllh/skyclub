@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\ListBooking;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreListBookingRequest;
 use App\Http\Requests\UpdateListBookingRequest;
 
@@ -59,8 +61,21 @@ class ListBookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ListBooking $listBooking)
+    public function cancel(ListBooking $list_booking)
     {
-        //
+        // dd($list_booking);
+        // Menghitung selisih hari antara tanggal saat ini dan tanggal booking
+        $daysDifference = Carbon::now()->diffInDays(Carbon::parse($list_booking->date), false);
+
+        // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
+        if ($daysDifference < 7) {
+            dd($list_booking);
+            return back()->with('error_reschedule', 'Jadwal tidak dapat diubah karena kurang dari 7 hari dari sekarang.');
+        }
+
+        $list_booking->update([
+            'status_request' => 'request-cancel'
+        ]);
+        return redirect()->route('profile.show', Auth::user()->id);
     }
 }

@@ -3,11 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\SparingCreated;
-use App\Models\User;
+use App\Notifications\NewSparingNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
 
-class UpdateTeamNameUser implements ShouldQueue
+class SendNotificationForNewSparing implements ShouldQueue
 {
     use InteractsWithQueue;
 
@@ -24,8 +25,6 @@ class UpdateTeamNameUser implements ShouldQueue
      */
     public function handle(SparingCreated $event): void
     {
-        $user = User::find($event->id_user);
-        $user->team = $event->team_name;
-        $user->save();
+        Notification::send($event->user, new NewSparingNotification($event->sparing));
     }
 }

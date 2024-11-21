@@ -2,37 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Review;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
+use App\Models\RescheduleRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
-use Carbon\Carbon;
+use Illuminate\Routing\Controller as BaseController;
 
 // Class untuk men-generate jadwal 2 bulan kedepan
-class FieldScheduleController extends Controller
+class FieldScheduleController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('check.payment')->only('scheduleValidate');
+    }
     public function index()
     {
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
-        // dd($schedules);
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules'));
+        $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        // dd($reviews);
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews'));
     }
     public function scheduleValidate(Request $request)
     {
-        function getReqSession($request, $i)
-        {
-            return (int)substr($request->session[$i], 0, 2) + 1;
-        }
-        function getReqPrice($request, $i)
-        {
-            return (int)str_replace(['Rp', '.', ','], ['', '', ''], $request->price[$i]);
-        }
-        function getReqDate($request, $i)
-        {
-            return Carbon::parse($request->schedule[$i]);
-        }
-        // dd(getReqSession($request, 0));
+
         $booking_cart = [];
         $total = 0;
         $booked = ListBooking::whereRelation('booking', function ($query) {
@@ -40,10 +36,10 @@ class FieldScheduleController extends Controller
                 ->whereIn('status', ['accept', 'pending']);
         })->get();
         for ($i = 0; $i < count($request->schedule); $i++) {
-            $total += getReqPrice($request, $i);
-            $booking_cart['list_schedules'][$i] = ['date' => getReqDate($request, $i), 'session' => getReqSession($request, $i), 'price' => getReqPrice($request, $i)];
+            $total += $this->getReqPrice($request, $i);
+            $booking_cart['list_schedules'][$i] = ['date' => $this->getReqDate($request, $i), 'session' => $this->getReqSession($request, $i), 'price' => $this->getReqPrice($request, $i)];
             foreach ($booked as $booking) {
-                if ($booking->date == getReqDate($request, $i) && $booking->session == getReqSession($request, $i)) {
+                if ($booking->date == $this->getReqDate($request, $i) && $booking->session == $this->getReqSession($request, $i)) {
                     return back()->with('error_booking', 'Sesi Jadwal Sudah Di Pesan');
                 }
             }
@@ -54,7 +50,47 @@ class FieldScheduleController extends Controller
         $booking_cart['rented'] = Auth::user()->id;
         $booking_cart = collect($booking_cart);
         $request->session()->put('cart', $booking_cart);
-        // dd($request->session()->get('cart'));
         return redirect()->route('booking.payment');
+    }
+    public function reschedule(ListBooking $list_booking)
+    {
+
+        // Jika selisihnya 3 hari atau lebih, tampilkan halaman ubah jadwal
+        $generateSchedules = new GenerateSchedule(2);
+        $schedules = $generateSchedules->createSchedule();
+        return view('bookings.ubahJadwal', compact('schedules', 'generateSchedules', 'list_booking'));
+    }
+    public function rescheduleValidate(Request $request, ListBooking $list_booking)
+    {
+        // Menghitung selisih hari antara tanggal saat ini dan tanggal booking
+        $daysDifference = Carbon::now()->diffInDays(Carbon::parse($list_booking->date), false);
+
+        // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
+        if ($daysDifference < 3) {
+            return back()->with('error_reschedule', 'Jadwal tidak dapat diubah karena kurang dari 3 hari dari sekarang.');
+        }
+
+        $list_booking->update([
+            'status_request' => 'request-reschedule'
+        ]);
+        RescheduleRequest::create([
+            'id_list_booking' => $list_booking->id,
+            'date' => $this->getReqDate($request, 0),
+            'session' => $this->getReqSession($request, 0),
+            'price' => $this->getReqPrice($request, 0),
+        ]);
+        return redirect()->route('profile.show', Auth::user()->id);
+    }
+    protected function getReqSession($request, $i)
+    {
+        return (int)substr($request->session[$i], 0, 2) + 1;
+    }
+    protected function getReqPrice($request, $i)
+    {
+        return (int)str_replace(['Rp', '.', ','], ['', '', ''], $request->price[$i]);
+    }
+    protected function getReqDate($request, $i)
+    {
+        return Carbon::parse($request->schedule[$i]);
     }
 }

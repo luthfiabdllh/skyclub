@@ -2,21 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
-use App\Models\ListBooking;
-use App\Models\Sparing;
-use App\Models\SparingRequest;
 use App\Models\User;
+use App\Models\Booking;
+use App\Models\Sparing;
+use App\Models\ListBooking;
 use Illuminate\Http\Request;
+use App\Models\SparingRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 
 class ProfileUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view();
+        $data_user = Auth::user();
+        $bookings = Booking::where('rented_by', $data_user->id)->latest()->get();
+        $sparings = Sparing::where('created_by', $data_user->id)->latest()->get();
+        $id_sparings = $sparings->pluck('id');
+        $request_sparing = SparingRequest::whereIn('id_sparing', $id_sparings)
+            ->where('status_request', '!=', 'rejected')
+            ->orWhere('id_user', $data_user->id)
+            ->latest()
+            ->get();
+        $history_booking_sparing = Booking::where('rented_by', $data_user->id)->where('status', 'accept')->latest()->get();;
+        foreach ($sparings as $sparing) {
+            $history_booking_sparing->push($sparing);
+        }
+        $history_booking_sparing->sortByDesc('created_at');
+        return view('profiles.profile', compact(['data_user', 'bookings', 'request_sparing', 'history_booking_sparing']));
     }
 
     /**
@@ -38,23 +58,7 @@ class ProfileUserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
-    {
-        $data_user = $user;
-        $bookings = Booking::where('rented_by', $data_user->id)->latest()->get();
-        $sparings = Sparing::where('created_by', $data_user->id)->latest()->get();
-        $id_sparings = $sparings->pluck('id');
-        $request_sparing = SparingRequest::whereIn('id_sparing', $id_sparings)->where('status_request', '!=', 'rejected')->latest()->get();
-        // $sparing_all = clone $sparings;
-        // foreach ($request_sparing as $req) {
-        //     $sparing_all->push($req);
-        // }
-        // dd($request_sparing, $id_sparings, $sparings);
-        // dd($bookings[0]->listBooking);
-        // $booking->listBooking()->listBooking->session;
-        // $list_schedule = ListBooking::where('id_booking', $booking->id)->get();
-        return view('profiles.profile', compact(['data_user', 'bookings', 'request_sparing']));
-    }
+
 
     /**
      * Show the form for editing the specified resource.
