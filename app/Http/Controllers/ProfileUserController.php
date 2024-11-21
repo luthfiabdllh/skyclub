@@ -43,7 +43,7 @@ class ProfileUserController extends Controller
         // dd($bookings[0]->listBooking);
         // $booking->listBooking()->listBooking->session;
         // $list_schedule = ListBooking::where('id_booking', $booking->id)->get();
-        return view('profiles.profile', compact(['data_user', 'bookings']));
+        return view('profiles.profileAdmin', compact(['data_user', 'bookings']));
     }
 
     /**

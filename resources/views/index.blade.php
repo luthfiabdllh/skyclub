@@ -2,7 +2,7 @@
 @section('content')
     {{-- banner --}}
     <div class="mx-auto text-justify md:mt-6 lg:mt-8 xl:mt-10">
-        <div class="text-center bg-cover bg-no-repeat bg-center md:rounded-3xl text-white lg:h-screen  md:h-[500px]  pt-16 pb-32 shadow-inner-banner flex flex-col items-center justify-center" style="background-image: url('{{ asset('assets/images/banner.svg') }}');">
+        <div class="text-center bg-cover bg-no-repeat bg-center md:rounded-3xl text-white lg:h-screen  md:h-[500px]  pt-16 pb-32 shadow-inner-banner flex flex-col items-center justify-center" style="background-image: url('{{ Storage::url('images/banner/banner_1.png') }}');">
             <div>
                 <h2 class="lg:text-5xl md:text-4xl text-3xl font-bold mb-1">Experience</h2>
                 <h1 class="lg:text-6xl md:text-5xl text-4xl font-bold mb-4">THE BEST IN MINI SOCCER</h1>
@@ -144,7 +144,7 @@
     {{-- testimonial --}}
     <div class=" text-center space-y-6 mt-24 mb-16">
         <h1 class="font-bold text-5xl">Testimonial</h1>
-        <p class=" text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class=" text-lg">Testimonials dari teman-teman Sky Club</p>
     </div>
 
     <div x-data="carousel()">
@@ -186,7 +186,7 @@
             </button>
 
             <!-- Rating Modal -->
-            <div x-show="ratingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 ">
+            <div x-show="ratingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 ">
                 <div @click.away="ratingModal = false" class="bg-white p-6 rounded-lg shadow-lg w-8/12">
                     <div class="flex justify-end">
                         <button @click="ratingModal = false" class="hover:text-gray-900 text-gray-400 rounded-lg p-2">

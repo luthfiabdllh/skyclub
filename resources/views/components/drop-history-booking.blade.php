@@ -73,7 +73,7 @@
     </div>
 
     <!-- Rating Modal -->
-    <div x-show="ratingBookingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div x-show="ratingBookingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <div @click.stop class="bg-white rounded-lg shadow-lg w-135 p-6">
 
             <div class="flex items-center space-x-2">

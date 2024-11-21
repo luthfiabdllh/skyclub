@@ -94,7 +94,7 @@
     </div>
 
     <!-- Cancel Modal -->
-    <div x-show="cancelBookingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div x-show="cancelBookingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <div class="bg-white p-6 rounded-lg justify-center flex flex-col text-center">
             <h2 class="text-xl font-bold mb-4 font-2xl">Yakin ingin batalkan pesanan?</h2>
             <p>Konfirmasi Pembatalan Pemesanan Anda</p>
@@ -107,7 +107,7 @@
     </div>
 
     <!-- Schedule Modal -->
-    <div x-show="scheduleModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div x-show="scheduleModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <form action="" method="POST" class="bg-white p-4 rounded-lg w-80">
             @csrf
             <div>
@@ -132,7 +132,7 @@
     </div>
 
     <!-- Sparing Modal -->
-    <div x-show="sparingModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div x-show="sparingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <form action="{{ route('sparing.store') }}" method="POST" class="bg-white p-4 rounded-lg w-80">
             @csrf
             <div class="mb-6">
