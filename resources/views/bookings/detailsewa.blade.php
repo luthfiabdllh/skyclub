@@ -115,12 +115,7 @@
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div>
                 <h3 class="mb-4 text-3xl font-bold">Deskripsi</h3>
-                <p class="leading-loose">Lapangan mini soccer di SKY CLUB dilengkapi dengan rumput sintetis
-                    berkualitas standar FIFA, memberikan permukaan yang rata dan stabil untuk permainan yang
-                    optimal. Dengan pencahayaan canggih, lapangan ini siap digunakan sepanjang hari, bahkan di malam
-                    hari. Rumput sintetis kami tahan segala cuaca, sehingga lapangan tetap nyaman dimainkan kapan
-                    pun. Lapangan ini cocok untuk pertandingan 5-a-side dan 7-a-side, dengan daya serap benturan
-                    yang baik untuk meminimalkan risiko cedera.....</p>
+                <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p>
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">
@@ -169,12 +164,14 @@
                                 </div>
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
-                                    <p class="leading-loose">Lapangan mini soccer di SKY CLUB dilengkapi dengan rumput sintetis
-                                        berkualitas standar FIFA, memberikan permukaan yang rata dan stabil untuk permainan yang
-                                        optimal. Dengan pencahayaan canggih, lapangan ini siap digunakan sepanjang hari, bahkan di malam
-                                        hari. Rumput sintetis kami tahan segala cuaca, sehingga lapangan tetap nyaman dimainkan kapan
-                                        pun. Lapangan ini cocok untuk pertandingan 5-a-side dan 7-a-side, dengan daya serap benturan
-                                        yang baik untuk meminimalkan risiko cedera.....</p>
+                                    <p x-data="{ expanded: false }" class="leading-loose">
+                                        <span x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span>
+                                        <span x-show="expanded">{{ $fieldDescription->description }}</span>
+                                        <button @click="expanded = !expanded" class="text-red-500 font-semibold">
+                                            <span x-show="!expanded">lihat selengkapnya</span>
+                                            <span x-show="expanded">lihat lebih sedikit</span>
+                                        </button>
+                                    </p>
                                 </div>
                                 <h3 class="text-3xl font-bold my-8">Fasilitas</h3>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">

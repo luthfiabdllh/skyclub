@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\FieldDescription;
 use App\Models\FieldPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,9 @@ class fieldConfiguration extends Controller
     }
 
     public function fieldDescription(){
-        return view('admin.field.description');
+        $fieldDescription = FieldDescription::first();
+
+        return view('admin.field.description', compact('fieldDescription'));
     }
 
     public function fieldFasility(){
@@ -129,5 +132,27 @@ class fieldConfiguration extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'Photo not found'], 404);
+    }
+
+    public function updateDescription(Request $request)
+    {
+        $request->validate([
+            'description' => 'required|string|max:2999',
+        ]);
+
+        // Assuming you have a single description to update
+        $fieldDescription = FieldDescription::first();
+
+        if (!$fieldDescription) {
+            $fieldDescription = new FieldDescription();
+        }
+
+        $fieldDescription->description = $request->input('description');
+        $fieldDescription->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Description updated successfully!',
+        ]);
     }
 }

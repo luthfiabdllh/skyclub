@@ -11,6 +11,7 @@ use App\Models\Booking;
 use App\Models\Sparing;
 use App\Models\Voucher;
 use App\Models\Facility;
+use App\Models\FieldDescription;
 use App\Models\ListBooking;
 use App\Models\FieldFacility;
 use Illuminate\Database\Seeder;
@@ -106,5 +107,8 @@ class DatabaseSeeder extends Seeder
                 'date' => fake()->dateTimeBetween('now', '+1 month')
             ]);
         });
+
+        // Create one description field
+        FieldDescription::factory()->create();
     }
 }

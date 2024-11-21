@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('header')
+    @vite(['resources/js/dropzoneFieldPhoto.js' ])
+@endsection
+
 @section('content')
 {{-- field image --}}
 <div class="bg-white shadow rounded-lg border-gray-300 dark:border-gray-60 mb-4 p-6">

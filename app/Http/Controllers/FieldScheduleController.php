@@ -6,6 +6,7 @@ use App\Models\ListBooking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
+use App\Models\FieldDescription;
 use App\Models\FieldPhoto;
 use Carbon\Carbon;
 
@@ -17,11 +18,14 @@ class FieldScheduleController extends Controller
         $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
             return asset('storage/images/images/' . $photo);
         });
+
+        $fieldDescription = FieldDescription::first();
+
         // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription'));
     }
     public function scheduleValidate(Request $request)
     {
