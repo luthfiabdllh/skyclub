@@ -54,14 +54,14 @@ class BookingController extends BaseController
             $booking->save();
             $field = Field::find(1);
             PaymentUplouded::dispatch($booking, $booking_cart['total']);
-            $request->session()->forget('cart');
             return redirect()->route('booking.paymentSuccess');
         }
         return back()->with('timeIsOut', 'Waktu Pembayaran Telah Habis');
     }
 
-    public function paymentSuccess()
+    public function paymentSuccess(Request $request)
     {
+        $request->session()->forget('cart');
         return view('payments.pembayaranBerhasil');
     }
 

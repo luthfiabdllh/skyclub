@@ -5,7 +5,7 @@
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
             <img class="w-full h-full object-cover"
-                src="{{ asset('storage/field/' . $sesi->field->photos->first()->photo) }}" alt="">
+                src="{{ asset('storage/field/images/' . $sesi->field->photos->first()->photo) }}" alt="">
         </div>
         <div class="flex items-center gap-6 ">
             <p class="font-bold text-xl">{{ $sesi->field->name }}</p>

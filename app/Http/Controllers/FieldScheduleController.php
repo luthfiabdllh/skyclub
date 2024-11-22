@@ -20,7 +20,7 @@ class FieldScheduleController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('check.payment')->only('scheduleValidate');
+        $this->middleware('auth');
     }
     public function index()
     {
