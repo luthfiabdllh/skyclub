@@ -110,3 +110,4 @@ Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])-
 
 //
 Route::post('/update-description', [fieldConfiguration::class, 'updateDescription']);
+Route::post('/update-facilities',[FieldConfiguration::class, 'updateFasility'])->name('facilities.update');

@@ -11,6 +11,7 @@
         </div>
     </div>
 
+
     {{-- selector --}}
     <div
         class="relative mx-auto z-10 lg:-mt-34 -mt-20 bg-white w-9/12 py-4 pl-8 pr-4 rounded-xl shadow flex flex-col space-y-6">

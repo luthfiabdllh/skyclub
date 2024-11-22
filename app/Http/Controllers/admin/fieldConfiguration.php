@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\FieldDescription;
+use App\Models\FieldFasility_dumb;
 use App\Models\FieldPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +20,10 @@ class fieldConfiguration extends Controller
 
     public function fieldDescription(){
         $fieldDescription = FieldDescription::first();
+        $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = json_decode($fieldFasility->facilities, true);
 
-        return view('admin.field.description', compact('fieldDescription'));
+        return view('admin.field.description', compact('fieldDescription', 'selectedFacilities'));
     }
 
     public function fieldFasility(){
@@ -154,5 +157,30 @@ class fieldConfiguration extends Controller
             'success' => true,
             'message' => 'Description updated successfully!',
         ]);
+    }
+
+    public function updateFasility(Request $request)
+    {
+        // Validasi data yang diterima
+        $request->validate([
+            'facilities' => 'array',
+            'facilities.*' => 'string'
+        ]);
+
+        // Log data yang diterima
+        // Log::info('Facilities received:', $request->all());
+
+        // Ambil data fasilitas yang dipilih
+        $facilities = $request->input('facilities', []);
+
+        // Misalnya, Anda ingin menyimpan fasilitas ke dalam model FieldFasility_dumb
+        $field = FieldFasility_dumb::first(); // Sesuaikan dengan logika Anda
+        if (!$field) {
+            $field = new FieldFasility_dumb();
+        }
+        $field->facilities = json_encode($facilities); // Simpan sebagai JSON
+        $field->save();
+
+        return response()->json(['message' => 'Facilities updated successfully']);
     }
 }

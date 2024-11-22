@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
 use App\Models\FieldDescription;
+use App\Models\FieldFasility_dumb;
 use App\Models\FieldPhoto;
 use Carbon\Carbon;
 
@@ -18,14 +19,20 @@ class FieldScheduleController extends Controller
         $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
             return asset('storage/images/images/' . $photo);
         });
-
         $fieldDescription = FieldDescription::first();
+        $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = $fieldFasility->facilities;
+
+        $slicedFacilities = json_decode($fieldFasility->facilities, true);
+
+        // Ambil hanya 4 fasilitas
+        $selectedSliceFacilities = array_slice($slicedFacilities, 0, 4);
 
         // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities'));
     }
     public function scheduleValidate(Request $request)
     {
