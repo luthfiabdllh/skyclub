@@ -10,8 +10,9 @@ class Photo extends Model
 {
     use HasFactory;
     protected $with = ['field'];
+    protected $guarded = [];
     public function field(): BelongsTo
     {
-        return $this->belongsTo(Field::class);
+        return $this->belongsTo(Field::class, 'id_field');
     }
 }

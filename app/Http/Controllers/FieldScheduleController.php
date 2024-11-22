@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Field;
+use App\Models\Photo;
 use App\Models\Review;
+use App\Models\FieldPhoto;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
+use App\Models\FieldDescription;
 use App\Models\RescheduleRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
-use App\Models\FieldDescription;
-use App\Models\FieldPhoto;
 use Illuminate\Routing\Controller as BaseController;
 
 // Class untuk men-generate jadwal 2 bulan kedepan
@@ -22,18 +24,19 @@ class FieldScheduleController extends BaseController
     }
     public function index()
     {
-        // $fieldPhotos = FieldPhoto::all()->pluck('photo')->map(function ($photo) {
-        //     return asset('storage/images/images/' . $photo);
-        // });
+        $fieldPhotos = Photo::all()->pluck('photo')->map(function ($photo) {
+            return asset('storage/field/images/' . $photo);
+        });
+        // dd($fieldPhotos);
 
-        // $fieldDescription = FieldDescription::first();
+        $field = Field::findOrFail(1);
 
         // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews', 'fieldPhotos', 'field'));
         // return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription, reviews'));
     }
     public function scheduleValidate(Request $request)

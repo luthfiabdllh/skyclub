@@ -22,6 +22,9 @@ class ProfileUserController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == 'admin') {
+            return redirect()->route('admin.index');
+        }
         $data_user = Auth::user();
         $bookings = Booking::where('rented_by', $data_user->id)->latest()->get();
         $sparings = Sparing::where('created_by', $data_user->id)->latest()->get();

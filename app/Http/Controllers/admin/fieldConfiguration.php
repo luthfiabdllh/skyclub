@@ -2,28 +2,37 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\FieldDescription;
+use App\Models\Field;
+use App\Models\Photo;
 use App\Models\FieldPhoto;
 use Illuminate\Http\Request;
+use App\Models\FieldDescription;
+// use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class fieldConfiguration extends Controller
 {
-    public function fieldPhoto(){
-        $images = Storage::disk('public')->files('images/images');
-        $fieldPhotos = FieldPhoto::all();
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+    public function fieldPhoto()
+    {
+        $images = Storage::disk('public')->files('field/images');
+        $fieldPhotos = Photo::all();
         return view('admin.field.fieldPhotos', compact('fieldPhotos', 'images'));
     }
 
-    public function fieldDescription(){
-        $fieldDescription = FieldDescription::first();
-
+    public function fieldDescription()
+    {
+        $fieldDescription = Field::first();
         return view('admin.field.description', compact('fieldDescription'));
     }
 
-    public function fieldFasility(){
+    public function fieldFasility()
+    {
         return view('admin.field.fasility');
     }
 
@@ -90,19 +99,21 @@ class fieldConfiguration extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $fileName = time() .'_' . uniqid() . '_' . $file->getClientOriginalName();
+            $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
 
             // Cek apakah file sudah ada di database
-            $existingPhoto = FieldPhoto::where('photo', $fileName)->first();
+            $existingPhoto = Photo::where('photo', $fileName)->first();
             if (!$existingPhoto) {
-                // Simpan file ke folder storage/app/public/images/images
-                $path = $file->storeAs('images/images', $fileName, 'public');
+                // Simpan file ke folder storage/app/public/field/images
+                $path = $file->storeAs('field/images', $fileName, 'public');
 
-                FieldPhoto::create([
+                Photo::create([
                     'photo' => $fileName,
+                    'id_field' => 1,
+                    'title' => 'Gambar lapangan',
                 ]);
             } else {
-                $path = 'images/images/' . $fileName;
+                $path = 'field/images/' . $fileName;
             }
 
             // Kembalikan path file yang disimpan
@@ -114,10 +125,10 @@ class fieldConfiguration extends Controller
 
     public function deleteImage($id)
     {
-        $photo = FieldPhoto::find($id);
+        $photo = Photo::find($id);
 
         if ($photo) {
-            $filePath = 'images/images/' . $photo->photo;
+            $filePath = 'field/images/' . $photo->photo;
 
             if (Storage::disk('public')->exists($filePath)) {
                 Storage::disk('public')->delete($filePath);
@@ -141,10 +152,10 @@ class fieldConfiguration extends Controller
         ]);
 
         // Assuming you have a single description to update
-        $fieldDescription = FieldDescription::first();
+        $fieldDescription = Field::first();
 
         if (!$fieldDescription) {
-            $fieldDescription = new FieldDescription();
+            $fieldDescription = new Field();
         }
 
         $fieldDescription->description = $request->input('description');

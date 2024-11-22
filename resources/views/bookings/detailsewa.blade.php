@@ -10,17 +10,20 @@
     <div x-data="{ gallery: false }"
         class="grid grid-cols-3 grid-flow-col gap-1 sm:gap-2 md:gap-4 h-[270px] sm:h-[370px] md:h-[470px] lg:h-[670px]">
         {{-- gallery --}}
-        {{-- @foreach ($fieldPhotos->take(3) as $index => $photo)
+        @foreach ($fieldPhotos->take(3) as $index => $photo)
             @if ($index == 0)
-                <div class="col-span-2 row-span-2 bg-cover rounded-s-3xl" style="background-image: url('{{ $photo }}');"></div>
+                <div class="col-span-2 row-span-2 bg-cover rounded-s-3xl"
+                    style="background-image: url('{{ $photo }}');"></div>
             @elseif ($index == 1)
                 <div class="bg-cover rounded-tr-3xl" style="background-image: url('{{ $photo }}');"></div>
             @elseif ($index == 2)
                 <div class="relative bg-cover rounded-br-3xl" style="background-image: url('{{ $photo }}');">
-                    <button @click="gallery = true" class="absolute bottom-2 right-2 sm:bottom-5 sm:right-5 bg-red-600 rounded p-1 sm:px-4 sm:py-2 font-semibold text-white sm:text-base text-sm">Lihat Semua Foto</button>
+                    <button @click="gallery = true"
+                        class="absolute bottom-2 right-2 sm:bottom-5 sm:right-5 bg-red-600 rounded p-1 sm:px-4 sm:py-2 font-semibold text-white sm:text-base text-sm">Lihat
+                        Semua Foto</button>
                 </div>
             @endif
-        @endforeach --}}
+        @endforeach
 
         {{-- modal --}}
         <div x-show="gallery" x-cloak x-transition:enter="transition ease-out duration-300"
@@ -46,8 +49,8 @@
                         <div x-data="{
                             activeSlide: 0,
                             slides: [
-                                {{-- @foreach ($fieldPhotos as $photo)
-                                    '{{ $photo }}', @endforeach --}}
+                                @foreach ($fieldPhotos as $photo)
+                                    '{{ $photo }}', @endforeach
                             ]
                         }">
                             <div class="relative">
@@ -124,7 +127,7 @@
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div>
                 <h3 class="mb-4 text-3xl font-bold">Deskripsi</h3>
-                {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
+                <p class="leading-loose">{{ Str::limit($field->description, 500) . '.....' }}</p>
                 {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">

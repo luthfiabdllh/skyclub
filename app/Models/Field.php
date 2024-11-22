@@ -20,7 +20,7 @@ class Field extends Model
     }
     public function photos(): HasMany
     {
-        return $this->hasMany(Photo::class);
+        return $this->hasMany(Photo::class, 'id_field');
     }
     public function facility(): BelongsToMany
     {

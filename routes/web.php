@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Models\Booking;
 use App\Http\Controllers\admin\fieldConfiguration;
 use Illuminate\Support\Facades\Route;
@@ -80,9 +81,9 @@ Route::get('/profile-user', [ProfileUserController::class, 'index'])->name('prof
 
 // Notification
 Route::get('/notification', [NotificationController::class, 'index'])->name('notication.index');
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name('admin.index');
+
+// Admin
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
 // field photo
 Route::get('/admin-field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
@@ -93,6 +94,4 @@ Route::post('/upload-image-slider', [fieldConfiguration::class, 'uploadSlider'])
 Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])->name('upload.banner');
 Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
 Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
-
-//
 Route::post('/update-description', [fieldConfiguration::class, 'updateDescription']);
