@@ -14,6 +14,10 @@ use App\Models\RescheduleRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
 use Illuminate\Routing\Controller as BaseController;
+// use App\Models\FieldDescription;
+use App\Models\FieldFasility_dumb;
+// use App\Models\FieldPhoto;
+// use Carbon\Carbon;
 
 // Class untuk men-generate jadwal 2 bulan kedepan
 class FieldScheduleController extends BaseController
@@ -30,6 +34,14 @@ class FieldScheduleController extends BaseController
         // dd($fieldPhotos);
 
         $field = Field::findOrFail(1);
+        $fieldDescription = FieldDescription::first();
+        $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = $fieldFasility->facilities;
+
+        $slicedFacilities = json_decode($fieldFasility->facilities, true);
+
+        // Ambil hanya 4 fasilitas
+        $selectedSliceFacilities = array_slice($slicedFacilities, 0, 4);
 
         // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
@@ -38,6 +50,7 @@ class FieldScheduleController extends BaseController
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
         return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews', 'fieldPhotos', 'field'));
         // return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription, reviews'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities'));
     }
     public function scheduleValidate(Request $request)
     {

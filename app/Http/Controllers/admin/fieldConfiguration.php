@@ -4,9 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\Field;
 use App\Models\Photo;
+// use App\Http\Controllers\Controller;
+use App\Models\FieldDescription;
+use App\Models\FieldFasility_dumb;
 use App\Models\FieldPhoto;
 use Illuminate\Http\Request;
-use App\Models\FieldDescription;
+// use App\Models\FieldDescription;
 // use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -25,10 +28,12 @@ class fieldConfiguration extends Controller
         return view('admin.field.fieldPhotos', compact('fieldPhotos', 'images'));
     }
 
-    public function fieldDescription()
-    {
+    public function fieldDescription(){
         $fieldDescription = Field::first();
-        return view('admin.field.description', compact('fieldDescription'));
+        $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = json_decode($fieldFasility->facilities, true);
+
+        return view('admin.field.description', compact('fieldDescription', 'selectedFacilities'));
     }
 
     public function fieldFasility()
@@ -165,5 +170,30 @@ class fieldConfiguration extends Controller
             'success' => true,
             'message' => 'Description updated successfully!',
         ]);
+    }
+
+    public function updateFasility(Request $request)
+    {
+        // Validasi data yang diterima
+        $request->validate([
+            'facilities' => 'array',
+            'facilities.*' => 'string'
+        ]);
+
+        // Log data yang diterima
+        // Log::info('Facilities received:', $request->all());
+
+        // Ambil data fasilitas yang dipilih
+        $facilities = $request->input('facilities', []);
+
+        // Misalnya, Anda ingin menyimpan fasilitas ke dalam model FieldFasility_dumb
+        $field = FieldFasility_dumb::first(); // Sesuaikan dengan logika Anda
+        if (!$field) {
+            $field = new FieldFasility_dumb();
+        }
+        $field->facilities = json_encode($facilities); // Simpan sebagai JSON
+        $field->save();
+
+        return response()->json(['message' => 'Facilities updated successfully']);
     }
 }

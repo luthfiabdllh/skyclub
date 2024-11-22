@@ -95,3 +95,4 @@ Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])
 Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
 Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
 Route::post('/update-description', [fieldConfiguration::class, 'updateDescription']);
+Route::post('/update-facilities',[FieldConfiguration::class, 'updateFasility'])->name('facilities.update');
