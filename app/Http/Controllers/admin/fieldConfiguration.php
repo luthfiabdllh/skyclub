@@ -138,7 +138,7 @@ class fieldConfiguration extends Controller
             if (Storage::disk('public')->exists($filePath)) {
                 Storage::disk('public')->delete($filePath);
 
-                // Delete the record from the database
+                // Hapus entri dari database
                 $photo->delete();
 
                 return response()->json(['success' => true, 'message' => 'File deleted successfully']);
@@ -149,6 +149,30 @@ class fieldConfiguration extends Controller
 
         return response()->json(['success' => false, 'message' => 'Photo not found'], 404);
     }
+
+    // public function deleteImage($id)
+    // {
+    //     $photo = Photo::find($id);
+
+    //     if ($photo) {
+    //         $filePath = 'field/images/' . $photo->photo;
+
+    //         if (Storage::disk('public')->exists($filePath)) {
+    //             Storage::disk('public')->delete($filePath);
+
+    //             // Delete the record from the database
+    //             $photo->delete();
+
+    //             return response()->json(['success' => true, 'message' => 'File deleted successfully']);
+    //         }
+
+    //         return response()->json(['success' => false, 'message' => 'File not found'], 404);
+    //     }
+
+    //     return response()->json(['success' => false, 'message' => 'Photo not found'], 404);
+    // }
+
+
 
     public function updateDescription(Request $request)
     {

@@ -135,82 +135,43 @@
                 <h3 class=" text-3xl font-bold">Fasilitas</h3>
                 <div  x-data="facilitySliceSelection({{ json_encode($selectedSliceFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8 xxl:grid-cols-4">
                     <template x-if="selected.includes('mushola')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_mosque.svg') }}" alt="">
-                            <p>Mushola</p>
-                        </div>
+                        <x-facility icon="icon_mosque.svg" name="Mushola" />
                     </template>
                     <template x-if="selected.includes('parking')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_toilet.svg') }}" alt="">
-                            <p>Toilet</p>
-                        </div>
+                        <x-facility icon="icon_parking.svg" name="Parkir Area" />
                     </template>
                     <template x-if="selected.includes('toilet')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_sauna.svg') }}" alt="">
-                            <p>sauna</p>
-                        </div>
+                        <x-facility icon="icon_toilet.svg" name="Toilet" />
                     </template>
                     <template x-if="selected.includes('medical')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_med.svg') }}" alt="">
-                            <p>Medis</p>
-                        </div>
+                        <x-facility icon="icon_med.svg" name="Medis" />
                     </template>
                     <template x-if="selected.includes('security')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_security.svg') }}" alt="">
-                            <p>Security</p>
-                        </div>
+                        <x-facility icon="icon_security.svg" name="Security" />
                     </template>
                     <template x-if="selected.includes('tribune')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_tribune.svg') }}" alt="">
-                            <p>Tribune</p>
-                        </div>
+                        <x-facility icon="icon_tribune.svg" name="Tribun Penonton" />
                     </template>
                     <template x-if="selected.includes('wifi')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_wifi.svg') }}" alt="">
-                            <p>Wifi</p>
-                        </div>
+                        <x-facility icon="icon_wifi.svg" name="Wifi" />
                     </template>
                     <template x-if="selected.includes('shower')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_shower.svg') }}" alt="">
-                            <p>Shower</p>
-                        </div>
+                        <x-facility icon="icon_shower.svg" name="Shower" />
                     </template>
                     <template x-if="selected.includes('gym')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_weight.svg') }}" alt="">
-                            <p>Gym</p>
-                        </div>
+                        <x-facility icon="icon_gym.svg" name="Gym" />
                     </template>
                     <template x-if="selected.includes('locker')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_locker.svg') }}" alt="">
-                            <p>Loker</p>
-                        </div>
+                        <x-facility icon="icon_locker.svg" name="Locker" />
                     </template>
                     <template x-if="selected.includes('canteen')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_eat.svg') }}" alt="">
-                            <p>Kantin</p>
-                        </div>
+                        <x-facility icon="icon_eat.svg" name="Kantin" />
                     </template>
                     <template x-if="selected.includes('sauna')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_sauna.svg') }}" alt="">
-                            <p>sauna</p>
-                        </div>
+                        <x-facility icon="icon_sauna.svg" name="Sauna" />
                     </template>
                     <template x-if="selected.includes('run')">
-                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_run.svg') }}" alt="">
-                            <p>Lintasan Lari</p>
-                        </div>
+                        <x-facility icon="icon_run.svg" name="Lintasan Lari" />
                     </template>
                 </div>
                 <div x-data="{ fasilitas: false }">
@@ -238,7 +199,7 @@
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
                                     <p x-data="{ expanded: false }" class="leading-loose">
-                                        <span {{-- x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> --}} {{-- <span x-show="expanded">{{ $fieldDescription->description }}</span> --}} <button
+                                        <span x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> <span x-show="expanded">{{ $fieldDescription->description }}</span> <button
                                             @click="expanded = !expanded" class="text-red-500 font-semibold">
                                             <span x-show="!expanded">lihat selengkapnya</span>
                                             <span x-show="expanded">lihat lebih sedikit</span>
@@ -248,82 +209,43 @@
                                 <h3 class="text-3xl font-bold my-8">Fasilitas</h3>
                                 <div x-data="facilitySelection({{ json_encode($selectedFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">
                                     <template x-if="selected.includes('mushola')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_mosque.svg') }}" alt="">
-                                            <p>Masjid</p>
-                                        </div>
+                                        <x-facility icon="icon_mosque.svg" name="Mushola" />
                                     </template>
                                     <template x-if="selected.includes('parking')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_toilet.svg') }}" alt="">
-                                            <p>Toilet</p>
-                                        </div>
+                                        <x-facility icon="icon_parking.svg" name="Parkir Area" />
                                     </template>
                                     <template x-if="selected.includes('toilet')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_sauna.svg') }}" alt="">
-                                            <p>sauna</p>
-                                        </div>
+                                        <x-facility icon="icon_toilet.svg" name="Toilet" />
                                     </template>
                                     <template x-if="selected.includes('medical')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_med.svg') }}" alt="">
-                                            <p>Medis</p>
-                                        </div>
+                                        <x-facility icon="icon_med.svg" name="Medis" />
                                     </template>
                                     <template x-if="selected.includes('security')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_security.svg') }}" alt="">
-                                            <p>Security</p>
-                                        </div>
+                                        <x-facility icon="icon_security.svg" name="Security" />
                                     </template>
                                     <template x-if="selected.includes('tribune')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_tribune.svg') }}" alt="">
-                                            <p>Tribune</p>
-                                        </div>
+                                        <x-facility icon="icon_tribune.svg" name="Tribun Penonton" />
                                     </template>
                                     <template x-if="selected.includes('wifi')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_wifi.svg') }}" alt="">
-                                            <p>Wifi</p>
-                                        </div>
+                                        <x-facility icon="icon_wifi.svg" name="Wifi" />
                                     </template>
                                     <template x-if="selected.includes('shower')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_shower.svg') }}" alt="">
-                                            <p>Shower</p>
-                                        </div>
+                                        <x-facility icon="icon_shower.svg" name="Shower" />
                                     </template>
                                     <template x-if="selected.includes('gym')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_weight.svg') }}" alt="">
-                                            <p>Gym</p>
-                                        </div>
+                                        <x-facility icon="icon_gym.svg" name="Gym" />
                                     </template>
                                     <template x-if="selected.includes('locker')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_locker.svg') }}" alt="">
-                                            <p>Loker</p>
-                                        </div>
+                                        <x-facility icon="icon_locker.svg" name="Locker" />
                                     </template>
                                     <template x-if="selected.includes('canteen')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_eat.svg') }}" alt="">
-                                            <p>Kantin</p>
-                                        </div>
+                                        <x-facility icon="icon_eat.svg" name="Kantin" />
                                     </template>
                                     <template x-if="selected.includes('sauna')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_sauna.svg') }}" alt="">
-                                            <p>sauna</p>
-                                        </div>
+                                        <x-facility icon="icon_sauna.svg" name="Sauna" />
                                     </template>
                                     <template x-if="selected.includes('run')">
-                                        <div class="rounded-lg flex items-center space-x-4 text-xl border border-gray-800 p-2 cursor-pointer font-semibold">
-                                            <img class="w-10 h-10" src="{{ asset('assets/icons/icon_run.svg') }}" alt="">
-                                            <p>Lintasan Lari</p>
-                                        </div>
+                                        <x-facility icon="icon_run.svg" name="Lintasan Lari" />
                                     </template>
                                 </div>
                             </div>
@@ -385,7 +307,7 @@
                             'border border-red-500': slot.selected
                         }"
                             @click="toggleSlotSelection(slot)"
-                            class="p-4 bg-white shadow rounded-md cursor-pointer text-center"
+                            class="p-2 bg-white shadow rounded-md cursor-pointer text-center"
                             :style="{ pointerEvents: slot.available && !slotInCart(slot) ? 'auto' : 'none' }">
                             <div class="text-sm font-medium" x-text="slot.duration + ' Menit'"></div>
                             <div class="text-xs font-semibold" x-text="slot.time"></div>

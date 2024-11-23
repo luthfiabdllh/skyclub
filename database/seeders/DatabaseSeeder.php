@@ -14,6 +14,7 @@ use App\Models\Facility;
 use App\Models\FieldDescription;
 use App\Models\ListBooking;
 use App\Models\FieldFacility;
+use App\Models\FieldFasility_dumb;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -48,9 +49,9 @@ class DatabaseSeeder extends Seeder
         $field = Field::factory()->create();
 
         // Create photos for the field
-        Photo::factory(3)->create([
-            'id_field' => $field->id
-        ]);
+        // Photo::factory(3)->create([
+        //     'id_field' => $field->id
+        // ]);
 
         // Assign facilities to the field
         $facilities = Facility::all();
@@ -110,5 +111,9 @@ class DatabaseSeeder extends Seeder
 
         // Create one description field
         FieldDescription::factory()->create();
+        FieldFasility_dumb::create([
+            'id' => 1,
+            'facilities' => '{ }'
+        ]);
     }
 }

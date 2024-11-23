@@ -48,9 +48,9 @@ class FieldScheduleController extends BaseController
         $schedules = $generateSchedules->createSchedule();
         // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'reviews', 'fieldPhotos', 'field'));
-        // return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription, reviews'));
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities'));
+
+        
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos', 'field'));
     }
     public function scheduleValidate(Request $request)
     {

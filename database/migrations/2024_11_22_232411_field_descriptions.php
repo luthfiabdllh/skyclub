@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('field_fasility_dumbs', function (Blueprint $table) {
+        Schema::create('field_descriptions', function (Blueprint $table) {
             $table->id();
-            $table->json('facilities');
+            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('field_fasility_dumbs');
+        Schema::dropIfExists('field_descriptions');
     }
 };
