@@ -67,7 +67,6 @@ class FieldScheduleController extends BaseController
     }
     public function reschedule(ListBooking $list_booking)
     {
-
         // Jika selisihnya 3 hari atau lebih, tampilkan halaman ubah jadwal
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
@@ -92,7 +91,7 @@ class FieldScheduleController extends BaseController
             'session' => $this->getReqSession($request, 0),
             'price' => $this->getReqPrice($request, 0),
         ]);
-        return redirect()->route('profile.show', Auth::user()->id);
+        return redirect()->route('profile.show');
     }
     protected function getReqSession($request, $i)
     {

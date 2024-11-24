@@ -90,7 +90,6 @@ class BookingController extends BaseController
                 ]);
             }
             foreach ($list_booking as $schedule) {
-                // create listBooking
                 BookingCreated::dispatch($newBooking, $schedule);
             }
             UpdateBookingStatus::dispatch($newBooking->id)->delay(now()->addMinutes(5));
