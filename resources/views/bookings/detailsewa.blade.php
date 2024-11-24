@@ -133,35 +133,46 @@
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">
                 <h3 class=" text-3xl font-bold">Fasilitas</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8 xxl:grid-cols-4">
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_mosque.svg') }}" alt="">
-                        <p class="ml-2">Mushola</p>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_parking.svg') }}" alt="">
-                        <h1>Parkir Penonton</h1>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_bed.svg') }}" alt="">
-                        <P>Tribun Area</P>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_wifi.svg') }}" alt="">
-                        <P>Wifi</P>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_toilet.svg') }}" alt="">
-                        <P>Toilet</P>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_shower.svg') }}" alt="">
-                        <P>Shower</P>
-                    </div>
-                    <div class="flex items-center space-x-8 text-2xl">
-                        <img src="{{ asset('assets/icons/icon_eat.svg') }}" alt="">
-                        <P>Kantin</P>
-                    </div>
+                <div  x-data="facilitySliceSelection({{ json_encode($selectedSliceFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8 xxl:grid-cols-4">
+                    <template x-if="selected.includes('mushola')">
+                        <x-facility icon="icon_mosque.svg" name="Mushola" />
+                    </template>
+                    <template x-if="selected.includes('parking')">
+                        <x-facility icon="icon_parking.svg" name="Parkir Area" />
+                    </template>
+                    <template x-if="selected.includes('toilet')">
+                        <x-facility icon="icon_toilet.svg" name="Toilet" />
+                    </template>
+                    <template x-if="selected.includes('medical')">
+                        <x-facility icon="icon_med.svg" name="Medis" />
+                    </template>
+                    <template x-if="selected.includes('security')">
+                        <x-facility icon="icon_security.svg" name="Security" />
+                    </template>
+                    <template x-if="selected.includes('tribune')">
+                        <x-facility icon="icon_tribune.svg" name="Tribun Penonton" />
+                    </template>
+                    <template x-if="selected.includes('wifi')">
+                        <x-facility icon="icon_wifi.svg" name="Wifi" />
+                    </template>
+                    <template x-if="selected.includes('shower')">
+                        <x-facility icon="icon_shower.svg" name="Shower" />
+                    </template>
+                    <template x-if="selected.includes('gym')">
+                        <x-facility icon="icon_gym.svg" name="Gym" />
+                    </template>
+                    <template x-if="selected.includes('locker')">
+                        <x-facility icon="icon_locker.svg" name="Locker" />
+                    </template>
+                    <template x-if="selected.includes('canteen')">
+                        <x-facility icon="icon_eat.svg" name="Kantin" />
+                    </template>
+                    <template x-if="selected.includes('sauna')">
+                        <x-facility icon="icon_sauna.svg" name="Sauna" />
+                    </template>
+                    <template x-if="selected.includes('run')">
+                        <x-facility icon="icon_run.svg" name="Lintasan Lari" />
+                    </template>
                 </div>
                 <div x-data="{ fasilitas: false }">
                     <button @click="fasilitas = true"
@@ -188,7 +199,7 @@
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
                                     <p x-data="{ expanded: false }" class="leading-loose">
-                                        <span {{-- x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> --}} {{-- <span x-show="expanded">{{ $fieldDescription->description }}</span> --}} <button
+                                        <span x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> <span x-show="expanded">{{ $fieldDescription->description }}</span> <button
                                             @click="expanded = !expanded" class="text-red-500 font-semibold">
                                             <span x-show="!expanded">lihat selengkapnya</span>
                                             <span x-show="expanded">lihat lebih sedikit</span>
@@ -196,35 +207,46 @@
                                     </p>
                                 </div>
                                 <h3 class="text-3xl font-bold my-8">Fasilitas</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_mosque.svg') }}" alt="">
-                                        <p class="ml-2">Mushola</p>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_parking.svg') }}" alt="">
-                                        <h1>Parkir Penonton</h1>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_bed.svg') }}" alt="">
-                                        <P>Tribun Area</P>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_wifi.svg') }}" alt="">
-                                        <P>Wifi</P>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_toilet.svg') }}" alt="">
-                                        <P>Toilet</P>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_shower.svg') }}" alt="">
-                                        <P>Shower</P>
-                                    </div>
-                                    <div class="flex items-center space-x-8 text-2xl">
-                                        <img src="{{ asset('assets/icons/icon_eat.svg') }}" alt="">
-                                        <P>Kantin</P>
-                                    </div>
+                                <div x-data="facilitySelection({{ json_encode($selectedFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">
+                                    <template x-if="selected.includes('mushola')">
+                                        <x-facility icon="icon_mosque.svg" name="Mushola" />
+                                    </template>
+                                    <template x-if="selected.includes('parking')">
+                                        <x-facility icon="icon_parking.svg" name="Parkir Area" />
+                                    </template>
+                                    <template x-if="selected.includes('toilet')">
+                                        <x-facility icon="icon_toilet.svg" name="Toilet" />
+                                    </template>
+                                    <template x-if="selected.includes('medical')">
+                                        <x-facility icon="icon_med.svg" name="Medis" />
+                                    </template>
+                                    <template x-if="selected.includes('security')">
+                                        <x-facility icon="icon_security.svg" name="Security" />
+                                    </template>
+                                    <template x-if="selected.includes('tribune')">
+                                        <x-facility icon="icon_tribune.svg" name="Tribun Penonton" />
+                                    </template>
+                                    <template x-if="selected.includes('wifi')">
+                                        <x-facility icon="icon_wifi.svg" name="Wifi" />
+                                    </template>
+                                    <template x-if="selected.includes('shower')">
+                                        <x-facility icon="icon_shower.svg" name="Shower" />
+                                    </template>
+                                    <template x-if="selected.includes('gym')">
+                                        <x-facility icon="icon_gym.svg" name="Gym" />
+                                    </template>
+                                    <template x-if="selected.includes('locker')">
+                                        <x-facility icon="icon_locker.svg" name="Locker" />
+                                    </template>
+                                    <template x-if="selected.includes('canteen')">
+                                        <x-facility icon="icon_eat.svg" name="Kantin" />
+                                    </template>
+                                    <template x-if="selected.includes('sauna')">
+                                        <x-facility icon="icon_sauna.svg" name="Sauna" />
+                                    </template>
+                                    <template x-if="selected.includes('run')">
+                                        <x-facility icon="icon_run.svg" name="Lintasan Lari" />
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +307,7 @@
                             'border border-red-500': slot.selected
                         }"
                             @click="toggleSlotSelection(slot)"
-                            class="p-4 bg-white shadow rounded-md cursor-pointer text-center"
+                            class="p-2 bg-white shadow rounded-md cursor-pointer text-center"
                             :style="{ pointerEvents: slot.available && !slotInCart(slot) ? 'auto' : 'none' }">
                             <div class="text-sm font-medium" x-text="slot.duration + ' Menit'"></div>
                             <div class="text-xs font-semibold" x-text="slot.time"></div>
@@ -720,6 +742,18 @@
                     this.getSchedule(index);
                 },
             };
+        }
+    </script>
+    <script>
+        function facilitySelection(initialSelected) {
+            return {
+                selected: initialSelected || [],
+            }
+        }
+        function facilitySliceSelection(initialSelected) {
+            return {
+                selected: initialSelected || [],
+            }
         }
     </script>
 @endsection
