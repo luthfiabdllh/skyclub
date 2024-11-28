@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\articleConfiguration;
 use App\Models\Booking;
 use App\Http\Controllers\admin\fieldConfiguration;
+use App\Http\Controllers\admin\voucherConfiguration;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -96,7 +98,15 @@ Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->
 
 Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
 
-
-
 Route::post('/update-description', [fieldConfiguration::class, 'updateDescription']);
 Route::post('/update-facilities',[FieldConfiguration::class, 'updateFasility'])->name('facilities.update');
+
+
+// Admin Article
+Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
+
+// Admin Voucher
+Route::get('/admin/voucher', [voucherConfiguration::class, 'index'])->name('admin.voucher');
+Route::post('/admin/voucher/store', [voucherConfiguration::class, 'store'])->name('admin.voucher.store');
+Route::put('/admin/voucher/update/{id}', [voucherConfiguration::class, 'update'])->name('admin.voucher.update');
+Route::delete('/admin/voucher/delete/{id}', [voucherConfiguration::class, 'destroy'])->name('admin.voucher.destroy');

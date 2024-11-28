@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+<nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-40">
     <div class="flex flex-wrap justify-between items-center">
       <div class="flex justify-start items-center">
         <button
@@ -46,7 +46,7 @@
       <div class="flex items-center lg:order-2">
         <div class="flex items-center space-x-3 self-center">
             <!-- Profile dropdown -->
-            <div class="relative ml-3" x-data="{ isOpen: false }">
+            <div class="relative ml-3" x-data="{ isOpen: false }" x-cloak>
                 <div class="flex items-center space-x-2">
                     <button type="button" @click="isOpen = !isOpen"
                         class="relative flex max-w-xs items-center rounded-full text-sm "

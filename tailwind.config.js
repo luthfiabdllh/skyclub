@@ -39,10 +39,15 @@ export default {
                 margin: {
                         '17.5': '70px',
                 },
+                zIndex: {
+                    '100': '100',
+                  },
         },
     },
     plugins: [
-        require('flowbite/plugin'),
+        require('flowbite/plugin')({
+            datatables: true,
+        }),
         // require('flowbite-typography')
     ],
 }

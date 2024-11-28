@@ -1,5 +1,5 @@
 <aside
-    class="fixed top-1w left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-1w left-0 z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidenav"
     id="drawer-navigation"
 >
@@ -15,20 +15,20 @@
             <li>
                 <a
                     href="{{ route('admin.index') }}"
-                    class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                    class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-rose-100 hover:ring-red-600 hover:ring-1 {{ request()->routeIs('admin.index') ? 'bg-rose-100 ring-red-600 ring-1' : '' }} group"
                 >
-                    <svg aria-hidden="true" class="w-6 h-6 fill-gray-500 transition duration-75 dark:fill-gray-500 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                    <span class="ml-3">Dashboard</span>
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75  group-hover:text-red-600 {{ request()->routeIs('admin.index') ? 'text-red-600' : '' }}" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                    <span class="ml-3 text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.index') ? 'text-red-600' : '' }}">Dashboard</span>
                 </a>
             </li>
             <li>
                 <button
                     type="button"
-                    class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center p-2 w-full text-base font-medium rounded-lg transition duration-75 group hover:bg-rose-100 hover:ring-red-600 hover:ring-1 {{ request()->routeIs('field.photo', 'field.description') ? 'bg-rose-100 ring-red-600 ring-1' : '' }}"
                     aria-controls="dropdown-pages"
                     data-collapse-toggle="dropdown-pages"
                 >
-                    <svg class="flex-shrink-0 w-6 h-6 fill-gray-500 transition duration-75 group-hover:fill-gray-900 dark:text-gray-400 dark:group-hover:text-white" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"viewBox="0 0 32 32" xml:space="preserve">
+                    <svg class="flex-shrink-0 w-6 h-6 fill-gray-500 transition duration-75  group-hover:fill-red-600 {{ request()->routeIs('field.photo', 'field.description') ? 'fill-red-600' : '' }}" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"viewBox="0 0 32 32" xml:space="preserve">
                         <g>
                             <path d="M16,13c-1.3,0-2.4,0.8-2.8,2h5.6C18.4,13.8,17.3,13,16,13z"/>
                             <path d="M11.1,15c0.5-2.3,2.5-4,4.9-4s4.4,1.7,4.9,4H25V7c0-2.8-2.2-5-5-5v5c0,0.6-0.4,1-1,1h-6c-0.6,0-1-0.4-1-1V2
@@ -40,10 +40,10 @@
                             <rect x="14" y="26" width="4" height="4"/>
                         </g>
                     </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Lapangan</span>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 group-hover:text-red-600 {{ request()->routeIs('field.photo', 'field.description') ? 'text-red-600' : '' }}">Lapangan</span>
                     <svg
                         aria-hidden="true"
-                        class="w-6 h-6"
+                        class="w-6 h-6 text-gray-500 group-hover:text-red-600 {{ request()->routeIs('field.photo', 'field.description') ? 'text-red-600' : '' }}"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -59,25 +59,17 @@
                     <li>
                         <a
                             href="{{ route('field.photo') }}"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center p-2 pl-11 w-full text-base font-medium rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 "
                         >
-                            Foto Lapangan
+                            <span class="text-gray-500 group-hover:text-red-600 {{ request()->routeIs('field.photo') ? 'text-red-600' : '' }}">Foto Lapangan</span>
                         </a>
                     </li>
                     <li>
                         <a
                             href="{{ route('field.description') }}"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center p-2 pl-11 w-full text-base font-medium rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 "
                         >
-                            Deskripsi
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="{{ route('field.fasility') }}"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
-                            Fasilitas
+                            <span class="text-gray-500 group-hover:text-red-600 {{ request()->routeIs('field.description') ? 'text-red-600' : '' }}">Deskripsi</span>
                         </a>
                     </li>
                 </ul>
@@ -85,12 +77,12 @@
             <li>
                 <button
                     type="button"
-                    class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                    class="flex items-center p-2 w-full text-base font-medium rounded-lg transition duration-75 group hover:bg-rose-100 hover:ring-red-600 hover:ring-1 {{ request()->routeIs('admian.index') ? 'bg-rose-100 ring-red-600 ring-1' : '' }}"
                     aria-controls="dropdown-sales"
                     data-collapse-toggle="dropdown-sales"
                 >
                     <svg
-                       class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                       class="flex-shrink-0 w-6 h-6 fill-gray-500 transition duration-75  group-hover:fill-red-600 {{ request()->routeIs('admin.iandex') ? 'fill-red-600' : '' }}"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -104,10 +96,10 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Booking</span>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.indeax') ? 'text-red-600' : '' }}">Booking</span>
                     <svg
                         aria-hidden="true"
-                        class="w-6 h-6"
+                        class="w-6 h-6 text-gray-500 group-hover:text-red-600 {{ request()->routeIs('a') ? 'text-red-600' : '' }}"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -123,106 +115,40 @@
                     <li>
                         <a
                             href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center p-2 pl-11 w-full text-base font-medium rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 "
                         >
-                            Lapangan
+                            <span class="text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.index') ? 'text-red-600' : '' }}">Lapangan</span>
                         </a>
                     </li>
                     <li>
                         <a
                             href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            class="flex items-center p-2 pl-11 w-full text-base font-medium  rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         >
-                            Sparing
+                            <span class="text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.index') ? 'text-red-600' : '' }}">Sparing</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <button
-                    type="button"
-                    class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-authentication"
-                    data-collapse-toggle="dropdown-authentication"
+                <a
+                    href="{{ route('admin.article') }}"
+                    class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-rose-100 hover:ring-red-600 hover:ring-1 {{ request()->routeIs('admin.article') ? 'bg-rose-100 ring-red-600 ring-1' : '' }} group"
                 >
-                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75  group-hover:text-red-600 {{ request()->routeIs('admin.article') ? 'text-red-600' : '' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-7ZM8 16a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1-5a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
                     </svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Artikel</span>
-                    <svg
-                        aria-hidden="true"
-                        class="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        ></path>
-                    </svg>
-                </button>
-                <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
-                            Lihat Artikel
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
-                            Tambah Artikel
-                        </a>
-                    </li>
-                </ul>
+                    <span class="ml-3 text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.article') ? 'text-red-600' : '' }}">Artikel</span>
+                </a>
             </li>
             <li>
-                <button
-                    type="button"
-                    class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    aria-controls="dropdown-voucher"
-                    data-collapse-toggle="dropdown-voucher"
+                <a
+                    href="{{ route('admin.voucher') }}"
+                    class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-rose-100 hover:ring-red-600 hover:ring-1 {{ request()->routeIs('admin.voucher') ? 'bg-rose-100 ring-red-600 ring-1' : '' }} group "
                 >
-                <svg class="flex-shrink-0 w-6 h-6 fill-gray-500 transition duration-75 group-hover:fill-gray-900 dark:text-gray-400 dark:group-hover:text-white" id="Layer_2" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M30,6.62H2c-0.83002,0-1.5,0.66998-1.5,1.5v3.77002c0,0.82996,0.66998,1.5,1.5,1.5c1.44,0,2.60999,1.16998,2.60999,2.60999   S3.44,18.60999,2,18.60999c-0.83002,0-1.5,0.66998-1.5,1.5V23.88c0,0.82996,0.66998,1.5,1.5,1.5h28c0.83002,0,1.5-0.67004,1.5-1.5   v-3.77002c0-0.83002-0.66998-1.5-1.5-1.5c-1.44,0-2.60999-1.16998-2.60999-2.60999S28.56,13.39001,30,13.39001   c0.83002,0,1.5-0.67004,1.5-1.5V8.12C31.5,7.28998,30.83002,6.62,30,6.62z M22.5,19.5c0,0.82001-0.66998,1.5-1.5,1.5   s-1.5-0.67999-1.5-1.5v-7c0-0.82001,0.66998-1.5,1.5-1.5s1.5,0.67999,1.5,1.5V19.5z"/></g></svg>
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Voucher</span>
-                    <svg
-                        aria-hidden="true"
-                        class="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        ></path>
-                    </svg>
-                </button>
-                <ul id="dropdown-voucher" class="hidden py-2 space-y-2">
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
-                            Lihat Voucher
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                        >
-                            Tambah Voucher
-                        </a>
-                    </li>
-                </ul>
+                    <svg class="flex-shrink-0 w-6 h-6 fill-gray-500 transition duration-75  group-hover:fill-red-600 {{ request()->routeIs('admin.voucher') ? 'fill-red-600' : '' }}" id="Layer_2" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M30,6.62H2c-0.83002,0-1.5,0.66998-1.5,1.5v3.77002c0,0.82996,0.66998,1.5,1.5,1.5c1.44,0,2.60999,1.16998,2.60999,2.60999   S3.44,18.60999,2,18.60999c-0.83002,0-1.5,0.66998-1.5,1.5V23.88c0,0.82996,0.66998,1.5,1.5,1.5h28c0.83002,0,1.5-0.67004,1.5-1.5   v-3.77002c0-0.83002-0.66998-1.5-1.5-1.5c-1.44,0-2.60999-1.16998-2.60999-2.60999S28.56,13.39001,30,13.39001   c0.83002,0,1.5-0.67004,1.5-1.5V8.12C31.5,7.28998,30.83002,6.62,30,6.62z M22.5,19.5c0,0.82001-0.66998,1.5-1.5,1.5   s-1.5-0.67999-1.5-1.5v-7c0-0.82001,0.66998-1.5,1.5-1.5s1.5,0.67999,1.5,1.5V19.5z"/></g></svg>
+                    <span class="ml-3 text-gray-500 group-hover:text-red-600 {{ request()->routeIs('admin.voucher') ? 'text-red-600' : '' }}">Voucher</span>
+                </a>
             </li>
         </ul>
         <ul class="mt-5 space-y-2">

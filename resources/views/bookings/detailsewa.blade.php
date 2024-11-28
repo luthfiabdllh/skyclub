@@ -128,7 +128,6 @@
             <div>
                 <h3 class="mb-4 text-3xl font-bold">Deskripsi</h3>
                 <p class="leading-loose">{{ Str::limit($field->description, 500) . '.....' }}</p>
-                {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">
@@ -199,7 +198,7 @@
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
                                     <p x-data="{ expanded: false }" class="leading-loose">
-                                        <span x-show="!expanded">{{ Str::limit($fieldDescription->description, 500) }}</span> <span x-show="expanded">{{ $fieldDescription->description }}</span> <button
+                                        <span x-show="!expanded">{{ Str::limit($field->description, 500) }}</span> <span x-show="expanded">{{ $field->description }}</span> <button
                                             @click="expanded = !expanded" class="text-red-500 font-semibold">
                                             <span x-show="!expanded">lihat selengkapnya</span>
                                             <span x-show="expanded">lihat lebih sedikit</span>

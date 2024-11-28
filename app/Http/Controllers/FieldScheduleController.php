@@ -34,7 +34,6 @@ class FieldScheduleController extends BaseController
         // dd($fieldPhotos);
 
         $field = Field::findOrFail(1);
-        $fieldDescription = FieldDescription::first();
         $fieldFasility = FieldFasility_dumb::first();
         $selectedFacilities = $fieldFasility->facilities;
 
@@ -49,8 +48,8 @@ class FieldScheduleController extends BaseController
         // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
 
-        
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos', 'field'));
+
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'field', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos'));
     }
     public function scheduleValidate(Request $request)
     {

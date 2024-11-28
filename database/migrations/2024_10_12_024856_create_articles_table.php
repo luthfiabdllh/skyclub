@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('content');
+            $table->json('content');
             $table->string('photo');
             $table->foreignId('created_by')->constrained('user')->onUpdate('cascade');
             $table->timestamps();
