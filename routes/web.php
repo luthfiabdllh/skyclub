@@ -115,7 +115,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
     Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
     Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
-
+    
     // Admin Article
     Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
     Route::get('/admin/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');
