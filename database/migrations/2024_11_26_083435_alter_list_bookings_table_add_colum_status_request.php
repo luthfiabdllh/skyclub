@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('list_bookings', function (Blueprint $table) {
-            $table->enum('status_request', ['request-reschedule', 'request-cancel'])->nullable();
+            $table->enum('status_request', ['request-reschedule', 'request-cancel', 'cancel', 'reschedule'])->nullable();
         });
     }
 

@@ -57,7 +57,8 @@
                     </div>
                 </div>
             </div>
-            @if (!$list_booking->booking->review())
+            {{-- @dd($list_booking->booking->review); --}}
+            @if ($list_booking->booking->review == null)
                 <div class="mt-7 w-fit">
                     {{-- button rating --}}
                     <button @click="ratingBookingModal = true"
@@ -78,7 +79,8 @@
     </div>
 
     <!-- Rating Modal -->
-    <div x-show="ratingBookingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
+    <div x-show="ratingBookingModal" x-cloak
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <div @click.stop class="bg-white rounded-lg shadow-lg w-135 p-6">
 
             <div class="flex items-center space-x-2">

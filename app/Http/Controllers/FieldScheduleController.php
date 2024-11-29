@@ -6,38 +6,39 @@ use Carbon\Carbon;
 use App\Models\Field;
 use App\Models\Photo;
 use App\Models\Review;
-use App\Models\FieldPhoto;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
-use App\Models\FieldDescription;
 use App\Models\RescheduleRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\schedule\GenerateSchedule;
 use Illuminate\Routing\Controller as BaseController;
-// use App\Models\FieldDescription;
-use App\Models\FieldFasility_dumb;
-// use App\Models\FieldPhoto;
-// use Carbon\Carbon;
+
+
 
 // Class untuk men-generate jadwal 2 bulan kedepan
 class FieldScheduleController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
     public function index()
     {
         $fieldPhotos = Photo::all()->pluck('photo')->map(function ($photo) {
             return asset('storage/field/images/' . $photo);
         });
-        // dd($fieldPhotos);
 
         $field = Field::findOrFail(1);
-        $fieldFasility = FieldFasility_dumb::first();
-        $selectedFacilities = $fieldFasility->facilities;
+        $fieldDescription = $field->description;
+        // $fieldDescription = FieldDescription::first();
+        $fieldFasility = $field->facility->pluck('name')->toArray();
+        // dd($fieldFasility);
+        // $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = $fieldFasility;
+        // $selectedFacilities = $fieldFasility->facilities;
 
-        $slicedFacilities = json_decode($fieldFasility->facilities, true);
+        $slicedFacilities = $fieldFasility;
+        // $slicedFacilities = json_decode($fieldFasility->facilities, true);
 
         // Ambil hanya 4 fasilitas
         $selectedSliceFacilities = array_slice($slicedFacilities, 0, 4);
@@ -49,7 +50,7 @@ class FieldScheduleController extends BaseController
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
 
 
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'field', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos', 'field'));
     }
     public function scheduleValidate(Request $request)
     {
@@ -79,7 +80,6 @@ class FieldScheduleController extends BaseController
     }
     public function reschedule(ListBooking $list_booking)
     {
-
         // Jika selisihnya 3 hari atau lebih, tampilkan halaman ubah jadwal
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
@@ -104,7 +104,7 @@ class FieldScheduleController extends BaseController
             'session' => $this->getReqSession($request, 0),
             'price' => $this->getReqPrice($request, 0),
         ]);
-        return redirect()->route('profile.show', Auth::user()->id);
+        return redirect()->route('profile.show');
     }
     protected function getReqSession($request, $i)
     {

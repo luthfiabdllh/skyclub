@@ -40,6 +40,7 @@ class ReviewController extends Controller
             'rating' => $request->rating,
             'comment' => $request->review,
         ]);
+        return redirect()->route('profile.show');
     }
 
     /**

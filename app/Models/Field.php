@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Field extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function getFormattedPriceAttribute()
     {
         return 'Rp ' . number_format($this->attributes['price'], 0, ',', '.');
@@ -24,6 +25,6 @@ class Field extends Model
     }
     public function facility(): BelongsToMany
     {
-        return $this->belongsToMany(Facility::class);
+        return $this->belongsToMany(Facility::class, 'field_facilities', 'id_field', 'id_facility');
     }
 }

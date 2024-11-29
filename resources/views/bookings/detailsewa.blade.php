@@ -132,7 +132,8 @@
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">
                 <h3 class=" text-3xl font-bold">Fasilitas</h3>
-                <div  x-data="facilitySliceSelection({{ json_encode($selectedSliceFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8 xxl:grid-cols-4">
+                <div x-data="facilitySliceSelection({{ json_encode($selectedSliceFacilities) }})"
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8 xxl:grid-cols-4">
                     <template x-if="selected.includes('mushola')">
                         <x-facility icon="icon_mosque.svg" name="Mushola" />
                     </template>
@@ -198,15 +199,17 @@
                                 <h3 class="mb-8 text-3xl font-bold">Deskripsi</h3>
                                 <div class="py-8 border-y-2">
                                     <p x-data="{ expanded: false }" class="leading-loose">
-                                        <span x-show="!expanded">{{ Str::limit($field->description, 500) }}</span> <span x-show="expanded">{{ $field->description }}</span> <button
+                                        <span x-show="!expanded">{{ Str::limit($fieldDescription, 500) }}</span> <span
+                                            x-show="expanded">{{ $fieldDescription }}</span> <button
                                             @click="expanded = !expanded" class="text-red-500 font-semibold">
                                             <span x-show="!expanded">lihat selengkapnya</span>
                                             <span x-show="expanded">lihat lebih sedikit</span>
-                                            </button>
+                                        </button>
                                     </p>
                                 </div>
                                 <h3 class="text-3xl font-bold my-8">Fasilitas</h3>
-                                <div x-data="facilitySelection({{ json_encode($selectedFacilities) }})" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">
+                                <div x-data="facilitySelection({{ json_encode($selectedFacilities) }})"
+                                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 gap-8">
                                     <template x-if="selected.includes('mushola')">
                                         <x-facility icon="icon_mosque.svg" name="Mushola" />
                                     </template>
@@ -749,6 +752,7 @@
                 selected: initialSelected || [],
             }
         }
+
         function facilitySliceSelection(initialSelected) {
             return {
                 selected: initialSelected || [],

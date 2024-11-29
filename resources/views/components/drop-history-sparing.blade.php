@@ -95,7 +95,8 @@
             <div class="bg-cover rounded-full overflow-hidden group size-16">
                 <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
             </div>
-            @if (!$sparing->listBooking->booking->review())
+            {{-- @dd($sparing->listBooking->booking->review) --}}
+            @if ($sparing->listBooking->booking->review == null)
                 <div class="items-center">
                     <button @click="ratingSparingModal = true"
                         class="py-2 px-3 border-4 border-yellow-300 flex items-center space-x-3 rounded-lg text-yellow-300 font-bold">
