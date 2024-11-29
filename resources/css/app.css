@@ -24,3 +24,7 @@ display: none;
 -ms-overflow-style: none; /* IE and Edge */
 scrollbar-width: none; /* Firefox */
 }
+
+#editorjs .codex-editor__redactor {
+    padding-bottom: 0 !important;
+}

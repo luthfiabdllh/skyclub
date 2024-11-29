@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->json('content');
-            $table->string('photo');
+            // $table->string('photo');
             $table->foreignId('created_by')->constrained('user')->onUpdate('cascade');
             $table->timestamps();
         });
