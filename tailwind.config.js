@@ -48,6 +48,7 @@ export default {
         require('flowbite/plugin')({
             datatables: true,
         }),
+        require('@tailwindcss/typography'),
         // require('flowbite-typography')
     ],
 }

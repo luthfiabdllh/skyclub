@@ -51,7 +51,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
 
 //Route Article Umum
 Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
-Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
+// Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
 
 // Field Schedule (halaman pilih jadwal untuk dipesan)
 Route::get('/field-schedule', [FieldScheduleController::class, 'index'])->name('schedule.index');
@@ -104,6 +104,14 @@ Route::post('/update-facilities',[FieldConfiguration::class, 'updateFasility'])-
 
 // Admin Article
 Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
+Route::get('/admin/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');
+Route::post('/admin/article/store', [articleConfiguration::class, 'store'])->name('admin.article.store');
+Route::post('/admin/article/upload-image', [articleConfiguration::class, 'upload'])->name('admin.article.upload');
+Route::post('/admin/article/fetch-image', [articleConfiguration::class, 'fetch'])->name('admin.article.fetch');
+Route::get('article/{id}', [articleConfiguration::class, 'show'])->name('admin.article.show');
+Route::delete('/admin/article/delete/{id}', [articleConfiguration::class, 'destroy'])->name('admin.article.destroy');
+Route::get('/admin/article/update/{id}', [articleConfiguration::class, 'update'])->name('admin.article.update');
+Route::post('/admin/article/edit/{id}', [articleConfiguration::class, 'edit'])->name('admin.article.edit');
 
 // Admin Voucher
 Route::get('/admin/voucher', [voucherConfiguration::class, 'index'])->name('admin.voucher');
