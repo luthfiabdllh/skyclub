@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Facility;
 use App\Models\Field;
 use App\Models\Photo;
 // use App\Http\Controllers\Controller;
-use App\Models\FieldDescription;
-use App\Models\FieldFasility_dumb;
 use App\Models\FieldPhoto;
 use Illuminate\Http\Request;
+use App\Models\FieldFacility;
+use App\Models\FieldDescription;
+
+use App\Models\FieldFasility_dumb;
 // use App\Models\FieldDescription;
 // use App\Http\Controllers\Controller;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class fieldConfiguration extends Controller
@@ -28,10 +32,13 @@ class fieldConfiguration extends Controller
         return view('admin.field.fieldPhotos', compact('fieldPhotos', 'images'));
     }
 
-    public function fieldDescription(){
-        $fieldDescription = Field::first();
-        $fieldFasility = FieldFasility_dumb::first();
-        $selectedFacilities = json_decode($fieldFasility->facilities, true);
+    public function fieldDescription()
+    {
+        $field = Field::first();
+        $fieldDescription = $field->description;
+        $selectedFacilities = $field->facility->pluck('name')->toArray();
+        // dd($fieldFasility);
+        // $selectedFacilities = json_decode($fieldFasility, true);
 
         return view('admin.field.description', compact('fieldDescription', 'selectedFacilities'));
     }
@@ -179,21 +186,20 @@ class fieldConfiguration extends Controller
         $request->validate([
             'description' => 'required|string|max:2999',
         ]);
-
         // Assuming you have a single description to update
-        $fieldDescription = Field::first();
-
-        if (!$fieldDescription) {
-            $fieldDescription = new Field();
+        $field = Field::first();
+        if (!$field) {
+            $field = new Field();
         }
 
-        $fieldDescription->description = $request->input('description');
-        $fieldDescription->save();
+        $field->description = $request->input('description');
+        $field->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Description updated successfully!',
-        ]);
+        return redirect()->back()->with('success', 'Description updated successfully!');
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Description updated successfully!',
+        // ]);
     }
 
     public function updateFasility(Request $request)
@@ -210,13 +216,37 @@ class fieldConfiguration extends Controller
         // Ambil data fasilitas yang dipilih
         $facilities = $request->input('facilities', []);
 
-        // Misalnya, Anda ingin menyimpan fasilitas ke dalam model FieldFasility_dumb
-        $field = FieldFasility_dumb::first(); // Sesuaikan dengan logika Anda
-        if (!$field) {
-            $field = new FieldFasility_dumb();
+        $field = Field::first();
+        $id_facilities = [];
+        $data = Facility::whereIn('name', $facilities)->get();
+        foreach ($data as $facility) {
+            $id_facilities[] = $facility->id;
         }
-        $field->facilities = json_encode($facilities); // Simpan sebagai JSON
-        $field->save();
+        $field_facility = FieldFacility::whereIn('id_facility', $id_facilities)->pluck('id_facility')->toArray();
+        FieldFacility::where('id_field', $field->id)->whereNotIn('id_facility', $id_facilities)->delete();
+        foreach ($id_facilities as $id_facility) {
+            if (!in_array($id_facility, $field_facility)) {
+                FieldFacility::create([
+                    'id_field' => $field->id,
+                    'id_facility' => $id_facility,
+                ]);
+            }
+        }
+        // $field_facility = FieldFacility::create([
+        //     'id_field' => $field->id,
+        //     'facility' => json_encode($facilities),
+        // ]);
+
+        // $field_facility = FieldFacility::where('id_field', $field->id)->get();
+        // $field->facility = json_encode($facilities);
+
+        // Misalnya, Anda ingin menyimpan fasilitas ke dalam model FieldFasility_dumb
+        // $field = FieldFasility_dumb::first(); // Sesuaikan dengan logika Anda
+        // if (!$field) {
+        //     $field = new FieldFasility_dumb();
+        // }
+        // $field->facilities = json_encode($facilities); // Simpan sebagai JSON
+        // $field->save();
 
         return response()->json(['message' => 'Facilities updated successfully']);
     }

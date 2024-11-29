@@ -14,8 +14,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             @foreach ($fieldPhotos as $image)
                 <!-- Modal Trigger -->
-                <button type="button" data-modal-target="modal-{{ $image->id }}" data-modal-toggle="modal-{{ $image->id }}">
-                    <div id="image-{{ $image->id }}" class="overflow-hidden rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64 cursor-pointer">
+                <button type="button" data-modal-target="modal-{{ $image->id }}"
+                    data-modal-toggle="modal-{{ $image->id }}">
+                    <div id="image-{{ $image->id }}"
+                        class="overflow-hidden rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64 cursor-pointer">
                         <div class="items-center justify-center w-full h-full bg-center bg-cover bg-no-repeat"
                             style="background-image: url('{{ asset('storage/field/images/' . $image->photo) }}');">
                         </div>
@@ -33,18 +35,25 @@
                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                     Gambar Lapangan
                                 </h3>
-                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-{{ $image->id }}">
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="modal-{{ $image->id }}">
+                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
                                     </svg>
                                     <span class="sr-only">Close modal</span>
                                 </button>
                             </div>
                             <!-- Modal body -->
                             <div class="p-6 bg-center bg-cover bg-no-repeat space-y-6 h-1/2">
-                                <img class="object-cover w-full h-full rounded-lg" src="{{ asset('storage/field/images/' . $image->photo) }}" alt="Gambar Lapangan">
+                                <img class="object-cover w-full h-full rounded-lg"
+                                    src="{{ asset('storage/field/images/' . $image->photo) }}" alt="Gambar Lapangan">
                             </div>
-                            <button onclick="deleteImage({{ $image->id }})" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                            <button onclick="deleteImage({{ $image->id }})"
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                                 Delete
                             </button>
                         </div>
@@ -106,24 +115,24 @@
     function deleteImage(id) {
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        axios.delete(`/delete-image/${id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token
-            }
-        })
-        .then(response => {
-            if (response.data.success) {
-                console.log('Image deleted successfully');
-                // Optionally, remove the image element from the DOM
-                // location.reload();
-                document.getElementById(`image-${id}`).remove();
-            } else {
-                console.log('Error deleting image: ' + response.data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        axios.delete(`/admin/delete-image/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                }
+            })
+            .then(response => {
+                if (response.data.success) {
+                    console.log('Image deleted successfully');
+                    // Optionally, remove the image element from the DOM
+                    // location.reload();
+                    document.getElementById(`image-${id}`).remove();
+                } else {
+                    console.log('Error deleting image: ' + response.data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 </script>

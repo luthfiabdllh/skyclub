@@ -24,7 +24,7 @@ class FieldScheduleController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index');
     }
     public function index()
     {
@@ -34,11 +34,16 @@ class FieldScheduleController extends BaseController
         // dd($fieldPhotos);
 
         $field = Field::findOrFail(1);
-        $fieldDescription = FieldDescription::first();
-        $fieldFasility = FieldFasility_dumb::first();
-        $selectedFacilities = $fieldFasility->facilities;
+        $fieldDescription = $field->description;
+        // $fieldDescription = FieldDescription::first();
+        $fieldFasility = $field->facility->pluck('name')->toArray();
+        // dd($fieldFasility);
+        // $fieldFasility = FieldFasility_dumb::first();
+        $selectedFacilities = $fieldFasility;
+        // $selectedFacilities = $fieldFasility->facilities;
 
-        $slicedFacilities = json_decode($fieldFasility->facilities, true);
+        $slicedFacilities = $fieldFasility;
+        // $slicedFacilities = json_decode($fieldFasility->facilities, true);
 
         // Ambil hanya 4 fasilitas
         $selectedSliceFacilities = array_slice($slicedFacilities, 0, 4);
@@ -49,7 +54,7 @@ class FieldScheduleController extends BaseController
         // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
 
-        
+
         return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos', 'field'));
     }
     public function scheduleValidate(Request $request)

@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\admin\AdminController;
 use App\Models\Booking;
-use App\Http\Controllers\admin\fieldConfiguration;
+use App\Models\ListBooking;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
+use Illuminate\Notifications\Notification;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\SparingController;
 use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\ListBookingController;
 use App\Http\Controllers\ProfileUserController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
+use App\Http\Controllers\admin\fieldConfiguration;
 use App\Http\Controllers\auth\SetPasswordController;
+use App\Http\Controllers\RescheduleRequestController;
 use App\Http\Controllers\auth\ForgotPasswordController;
-use App\Http\Controllers\ListBookingController;
-use App\Http\Controllers\NotificationController;
-use App\Models\ListBooking;
-use Illuminate\Notifications\Notification;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
@@ -42,11 +43,6 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'validateData'
 Route::get('/set-password/{id}', [SetPasswordController::class, 'edit'])->middleware('password.forgot')->name('setPassword.edit');
 Route::put('/set-password/{id}', [SetPasswordController::class, 'update'])->name('setPassword.update');
 
-// Route Article Admin
-Route::prefix('/admin')->middleware('admin')->group(function () {
-    Route::resource('/article', ArticleController::class);
-});
-
 //Route Article Umum
 Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
 Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
@@ -60,6 +56,7 @@ Route::post('/field-schedule/cancel/{list_booking}', [ListBookingController::cla
 
 // Booking & Pembayaran
 Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
+Route::post('payment/voucher', [BookingController::class, 'useVoucher'])->name('booking.voucher');
 Route::post('/payment', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
 Route::put('/payment/uploud', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
@@ -83,20 +80,38 @@ Route::get('/profile-user', [ProfileUserController::class, 'index'])->name('prof
 Route::get('/notification', [NotificationController::class, 'index'])->name('notication.index');
 
 // Admin
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::prefix('/admin')->middleware('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
-// field photo
-Route::get('/admin-field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
-Route::get('/admin-field-description', [fieldConfiguration::class, 'fieldDescription'])->name('field.description');
-Route::get('/admin-field-fasility', [fieldConfiguration::class, 'fieldFasility'])->name('field.fasility');
+    // article
+    Route::resource('/article', ArticleController::class);
 
-Route::post('/upload-image-slider', [fieldConfiguration::class, 'uploadSlider'])->name('upload.slider');
-Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])->name('upload.banner');
-Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
+    // field photo
+    Route::get('/admin-field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
+    Route::get('/admin-field-description', [fieldConfiguration::class, 'fieldDescription'])->name('field.description');
+    Route::get('/admin-field-fasility', [fieldConfiguration::class, 'fieldFasility'])->name('field.fasility');
+    Route::post('/upload-image-slider', [fieldConfiguration::class, 'uploadSlider'])->name('upload.slider');
+    Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])->name('upload.banner');
+    Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
+    Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
+    Route::post('/update-description', [fieldConfiguration::class, 'updateDescription'])->name('description.update');
+    Route::post('/update-facilities', [FieldConfiguration::class, 'updateFasility'])->name('facilities.update');
 
-Route::delete('/delete-image/{id}', [fieldConfiguration::class, 'deleteImage'])->name('delete.image');
+    // all booking
+    Route::get('/all-booking', [AdminController::class, 'allBooking'])->name('admin.allBooking');
 
+    // approve booking
+    Route::get('/approve-booking', [AdminController::class, 'approveBooking'])->name('admin.booking');
+    Route::put('/approve-booking/accept/{booking}', [BookingController::class, 'acceptBooking'])->name('admin.acceptBooking');
+    Route::put('/approve-booking/reject/{booking}', [BookingController::class, 'rejectBooking'])->name('admin.rejectBooking');
 
+    // reschedule booking
+    Route::get('/reschedule-booking', [AdminController::class, 'rescheduleBooking'])->name('admin.reschedule');
+    Route::post('/reschedule-booking/accept/{listBooking}/{request}', [ListBookingController::class, 'acceptReschedule'])->name('admin.acceptReschedule');
+    Route::post('/reschedule-booking/reject/{listBooking}/{request} ', [ListBookingController::class, 'rejectReschedule'])->name('admin.rejectReschedule');
 
-Route::post('/update-description', [fieldConfiguration::class, 'updateDescription']);
-Route::post('/update-facilities',[FieldConfiguration::class, 'updateFasility'])->name('facilities.update');
+    // cancel booking
+    Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
+    Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
+    Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
+});

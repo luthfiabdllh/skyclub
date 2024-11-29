@@ -103,7 +103,6 @@
                     <tr>
                         <td colspan="4" class="px-5 py-2 bg-transparent"></td>
                     </tr>
-                    {{-- @for ($i = 0; $i < 5; $i++) --}}
                     @forelse ($sparings as $sparing)
                         <tr class="shadow-lg rounded-xl ring-1 ring-gray-200">
                             <td class="p-4 bg-white text-sm rounded-s-xl ">
@@ -143,9 +142,9 @@
                     @empty
                         <p>Tidak ada sparing</p>
                     @endforelse
-                    {{-- @endfor --}}
                 </tbody>
             </table>
+            {{-- <p>Tidak ada sparing</p> --}}
         </div>
 
         {{-- content 3 --}}

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Sparing;
 use App\Models\ListBooking;
+use App\Models\RescheduleRequest;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreListBookingRequest;
 use App\Http\Requests\UpdateListBookingRequest;
@@ -69,7 +72,6 @@ class ListBookingController extends Controller
 
         // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
         if ($daysDifference < 7) {
-            dd($list_booking);
             return back()->with('error_reschedule', 'Jadwal tidak dapat diubah karena kurang dari 7 hari dari sekarang.');
         }
 
@@ -77,5 +79,42 @@ class ListBookingController extends Controller
             'status_request' => 'request-cancel'
         ]);
         return redirect()->route('profile.show', Auth::user()->id);
+    }
+
+    public function acceptReschedule(ListBooking $listBooking, RescheduleRequest $request)
+    {
+        ListBooking::create([
+            'date' => $request->date,
+            'session' => $request->session,
+            'id_booking' => $listBooking->id_booking,
+            'id_field' => $listBooking->id_field,
+            'status_request' => 'reschedule',
+        ]);
+        Sparing::where('id_list_booking', $listBooking->id)->delete();
+        $request->delete();
+        $listBooking->delete();
+        return redirect()->route('admin.reschedule');
+    }
+    public function rejectReschedule(ListBooking $listBooking, RescheduleRequest $request)
+    {
+        $listBooking->update([
+            'status_request' => null,
+        ]);
+        $request->delete();
+        return redirect()->route('admin.reschedule');
+    }
+    public function acceptCancelBooking(ListBooking $listBooking)
+    {
+        $listBooking->update([
+            'status_request' => 'cancel',
+        ]);
+        return redirect()->route('admin.cancel');
+    }
+    public function rejectCancelBooking(ListBooking $listBooking)
+    {
+        $listBooking->update([
+            'status_request' => null,
+        ]);
+        return redirect()->route('admin.cancel');
     }
 }

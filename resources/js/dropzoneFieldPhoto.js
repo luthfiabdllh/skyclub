@@ -15,7 +15,7 @@ function initializeDropzoneSlider(elementId, fileIndex) {
 
         // Inisialisasi Dropzone
         const myDropzone = new Dropzone(dropzoneElement, {
-            url: "/upload-image-slider", // Endpoint backend untuk upload
+            url: "/admin/upload-image-slider", // Endpoint backend untuk upload
             autoProcessQueue: true, // Proses upload otomatis saat file ditambahkan
             maxFilesize: 2, // Maksimal ukuran file dalam MB
             acceptedFiles: ".png,.jpg,.jpeg,.gif,.svg",
@@ -53,7 +53,7 @@ function initializeDropzoneSlider(elementId, fileIndex) {
                     formData.append("fileIndex", fileIndex); // Tambahkan fileIndex ke formData
 
                     axios
-                        .post("/upload-image-slider", formData, {
+                        .post("/admin/upload-image-slider", formData, {
                             headers: {
                                 "Content-Type": "multipart/form-data",
                                 "X-CSRF-TOKEN": csrfToken,
@@ -174,7 +174,7 @@ function initializeDropzoneBanner(elementId, fileIndex) {
 
         // Inisialisasi Dropzone
         const myDropzone = new Dropzone(dropzoneElement, {
-            url: "/upload-image-banner", // Endpoint backend untuk upload
+            url: "/admin/upload-image-banner", // Endpoint backend untuk upload
             autoProcessQueue: true, // Proses upload otomatis saat file ditambahkan
             maxFilesize: 2, // Maksimal ukuran file dalam MB
             acceptedFiles: ".png,.jpg,.jpeg,.gif,.svg",
@@ -212,7 +212,7 @@ function initializeDropzoneBanner(elementId, fileIndex) {
                     formData.append("fileIndex", fileIndex); // Tambahkan fileIndex ke formData
 
                     axios
-                        .post("/upload-image-banner", formData, {
+                        .post("/admin/upload-image-banner", formData, {
                             headers: {
                                 "Content-Type": "multipart/form-data",
                                 "X-CSRF-TOKEN": csrfToken,
@@ -251,6 +251,6 @@ initializeDropzoneSlider("#dropzone-slider-3", 3);
 initializeDropzoneBanner("#dropzone-banner-1", 1);
 
 // Inisialisasi Dropzone image untuk setiap elemen dengan fileIndex yang sesuai
-initializeDropzoneImage("#dropzone-image", '/upload-image-image');
+initializeDropzoneImage("#dropzone-image", '/admin/upload-image-image');
 
 

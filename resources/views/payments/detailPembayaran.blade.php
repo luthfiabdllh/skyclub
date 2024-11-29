@@ -84,6 +84,7 @@
                     <img src="{{ Storage::url('images/icon_voucher.svg') }}" alt="Voucher Icon" class="w-5 h-5 mr-2">
                     Gunakan Voucher
                 </button>
+
                 <div class="border border-gray-600 p-5 rounded-xl">
                     <div class="flex items-center space-x-3">
                         <img class="rounded-xl h-[100px]" src="{{ Storage::url('images/album_1.svg') }}" alt="">
