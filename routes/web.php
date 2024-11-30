@@ -46,7 +46,7 @@ Route::put('/set-password/{id}', [SetPasswordController::class, 'update'])->name
 
 //Route Article Umum
 Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
-Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
+// Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
 
 // Field Schedule (halaman pilih jadwal untuk dipesan)
 Route::get('/field-schedule', [FieldScheduleController::class, 'index'])->name('schedule.index');
@@ -115,9 +115,17 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
     Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
     Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
-
+    
     // Admin Article
-    Route::get('/article', [articleConfiguration::class, 'index'])->name('admin.article');
+    Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
+    Route::get('/admin/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');
+    Route::post('/admin/article/store', [articleConfiguration::class, 'store'])->name('admin.article.store');
+    Route::post('/admin/article/upload-image', [articleConfiguration::class, 'upload'])->name('admin.article.upload');
+    Route::post('/admin/article/fetch-image', [articleConfiguration::class, 'fetch'])->name('admin.article.fetch');
+    Route::get('article/{id}', [articleConfiguration::class, 'show'])->name('admin.article.show');
+    Route::delete('/admin/article/delete/{id}', [articleConfiguration::class, 'destroy'])->name('admin.article.destroy');
+    Route::get('/admin/article/update/{id}', [articleConfiguration::class, 'update'])->name('admin.article.update');
+    Route::post('/admin/article/edit/{id}', [articleConfiguration::class, 'edit'])->name('admin.article.edit');
 
     // Admin Voucher
     Route::get('/voucher', [voucherConfiguration::class, 'index'])->name('admin.voucher');
