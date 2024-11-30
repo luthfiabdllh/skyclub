@@ -19,7 +19,6 @@ use App\Http\Controllers\ProfileUserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\FieldScheduleController;
-use App\Http\Controllers\admin\fieldConfiguration;
 use App\Http\Controllers\auth\SetPasswordController;
 use App\Http\Controllers\RescheduleRequestController;
 use App\Http\Controllers\auth\ForgotPasswordController;

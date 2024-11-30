@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('uploud_payment')->nullable();
             $table->foreignId('rented_by')->constrained('user')->onUpdate('restrict')->onDelete('restrict');
             $table->foreignId('approved_by')->nullable()->constrained('user')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreignId('id_voucher')->nullable()->constrained('vouchers')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('id_voucher')->nullable()->constrained('vouchers')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_info')->nullable()->constrained('user_infos')->onUpdate('restrict')->onDelete('restrict');
             $table->timestamps();
         });

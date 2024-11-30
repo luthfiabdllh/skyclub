@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create vouchers
-        Voucher::factory(80)->create();
+        Voucher::factory(20)->create();
 
         // Create bookings
         $users = User::where('role', 'penyewa')->get();
@@ -109,11 +109,27 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        // Create one description field
-        FieldDescription::factory()->create();
-        FieldFasility_dumb::create([
-            'id' => 1,
-            'facilities' => '{ }'
-        ]);
+        $facilities = [
+            'mushola',
+            'parking',
+            'toilet',
+            'medical',
+            'tribune',
+            'security',
+            'wifi',
+            'shower',
+            'gym',
+            'locker',
+            'canteen',
+            'run',
+            'sauna',
+        ];
+
+        foreach ($facilities as $facility) {
+            Facility::create([
+                'name' => $facility,
+                'photo' => 'icon_' . $facility . '.svg',
+            ]);
+        }
     }
 }

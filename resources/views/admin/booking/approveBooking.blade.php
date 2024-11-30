@@ -15,7 +15,7 @@
                         Tanggal Pesanan
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Harga
+                        Harga Total
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Bukti Pembayaran
@@ -41,7 +41,7 @@
                             {{ $booking->formatted_order_date }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ 'Rp. ' . $booking->total_price }}
+                            {{ $booking->getTotalPriceAfterDiscountAttribute() }}
                         </td>
                         <td class="px-6 py-4">
                             <img src="{{ route('booking.paymentImage', basename($booking->uploud_payment)) }}"

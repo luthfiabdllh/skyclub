@@ -146,7 +146,7 @@ class BookingController extends BaseController
         }
         // dd('Voucher berhasil digunakan.');
         // Validasi kuota voucher
-        if ($voucher->qouta <= 0) {
+        if ($voucher->quota <= 0) {
             return back()->with('voucher', 'Kuota voucher sudah habis.');
         }
 
@@ -160,9 +160,9 @@ class BookingController extends BaseController
 
         // Proses selanjutnya setelah validasi berhasil
         $discountAmount = 0;
-        if ($voucher->discount_precentage > 0) {
+        if ($voucher->discount_percentage > 0) {
             // Hitung diskon persentase
-            $discountAmount = $totalPrice * ($voucher->discount_precentage / 100);
+            $discountAmount = $totalPrice * ($voucher->discount_percentage / 100);
 
             // Batasi maksimal diskon jika ada max_discount
             if ($voucher->max_discount > 0) {
@@ -182,8 +182,4 @@ class BookingController extends BaseController
         $request->session()->put('cart', $booking_cart);
         return redirect()->route('booking.payment')->with('voucherSuccess', 'Voucher berhasil digunakan.');
     }
-    // public function index()
-    // {
-    //     return view('detailPembayaran');
-    // }
 }
