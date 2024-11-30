@@ -25,13 +25,13 @@ class articleConfiguration extends Controller
     {
         $article = Article::findOrFail($id); // Cari data berdasarkan ID, jika tidak ada maka 404
         $content = json_decode($article->content); // Decode JSON ke dalam objek
-
+        // dd($content);
         return view('articles.articledetail', compact('article','content')); // Kirim data ke view
     }
 
     public function store(Request $request){
         $validate = $request->validate([
-            // 'title' => 'required',
+            'title' => 'required',
             'content' => 'required'
         ]);
 
@@ -46,6 +46,22 @@ class articleConfiguration extends Controller
         return redirect()->route('admin.article')->with('success', 'Article saved successfully');
     }
 
+    public function edit(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $article = Article::findOrFail($id);
+        $article->title = $request->title;
+        $article->content = json_encode($request->content);
+        $article->created_by = Auth::user()->id;
+        $article->save();
+
+        return redirect()->route('admin.article')->with('success', 'Article saved successfully');
+    }
+
     public function update($id)
     {
         $article = Article::findOrFail($id);
@@ -53,21 +69,7 @@ class articleConfiguration extends Controller
         return view('admin.article.update-article', ['article' => $article]);
     }
 
-    public function edit(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|array', // Ensure content is array
-        ]);
 
-        $article = Article::findOrFail($id);
-        $article->title = $request->title;
-        $article->content = json_encode($request->content);
-        $article->created_by = Auth::id();
-        $article->save();
-
-        return redirect()->route('admin.article')->with('success', 'Article saved successfully');
-    }
 
 
 

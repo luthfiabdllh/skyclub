@@ -1,23 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<style>
-    /* Styling Header 1 - 5 menggunakan Tailwind */
-    h1 {
-        @apply text-4xl font-extrabold;
-    }
-    h2 {
-        @apply text-3xl font-bold;
-    }
-    h3 {
-        @apply text-2xl font-semibold;
-    }
-    h4 {
-        @apply text-xl font-medium;
-    }
-    h5 {
-        @apply text-lg font-normal;
-    }
-</style>
 
 <div class="grid grid-cols-2 mt-20">
     <div class="grid grid-cols-1 content-between w-[420px]">
@@ -72,28 +54,28 @@
                 @endif
             @endforeach
         @endif
-        {{-- <img class="h-[450px] object-cover" src="{{ Storage::url('images/banner.svg') }}" alt=""> --}}
+        <img class="h-[450px] object-cover" src="{{ Storage::url('images/banner.svg') }}" alt="">
     </div>
 </div>
 
-<article class="mt-28 mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg">
+<article class="mt-28 mx-auto w-full max-w-2xl break-words">
     <div class="prose">
         @if($content && isset($content->blocks))
         @foreach($content->blocks as $block)
             {{-- Paragraph --}}
             @if($block->type === 'paragraph')
-                <p class="mb-6 text-lg text-gray-700 leading-relaxed">
+                <p class="text-gray-700 leading-relaxed">
                     {!! $block->data->text ?? '' !!}
                 </p>
 
             @elseif($block->type === 'header')
-            <h{{ $block->data->level ?? 3 }} class="font-semibold text-{{ 6 - $block->data->level }}xl">
+            <h{{ $block->data->level ?? 3 }}>
                 {{ $block->data->text }}
             </h{{ $block->data->level ?? 3 }}>
 
             {{-- Image --}}
             @elseif($block->type === 'image')
-                <div class="mb-6">
+                <div>
                     <img
                         src="{{ $block->data->file->url ?? '#' }}"
                         alt="{{ $block->data->caption ?? 'Image' }}"
@@ -139,17 +121,17 @@
 
             {{-- Quote --}}
             @elseif($block->type === 'quote')
-                <blockquote class="border-l-4 border-red-600 pl-6 italic text-lg text-gray-600 mb-6">
+                <blockquote class="border-l-4 border-red-600 py-3 pl-6 italic text-lg text-gray-600 mb-6">
                     {!! $block->data->text ?? '' !!}
                     @if(!empty($block->data->caption))
-                        <footer class="text-sm text-gray-500 mt-2">
+                        <footer class="text-sm text-gray-500">
                             - {{ $block->data->caption }}
                         </footer>
                     @endif
                 </blockquote>
             {{-- Table --}}
             @elseif($block->type === 'table')
-            <div class="overflow-x-auto mb-6">
+            <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                     <thead>
                         <tr class="bg-gray-100">
@@ -174,16 +156,16 @@
                 </table>
             </div>
             @elseif($block->type === 'warning')
-            <div class="border-l-4 border-yellow-400 bg-yellow-50 p-4 mb-6 rounded-md shadow-sm">
-                <h4 class="font-semibold text-yellow-700 mb-2">
+            <div class="border-l-4 border-yellow-400 bg-yellow-50 p-4 rounded-md shadow-sm">
+                <h4 class="font-semibold text-yellow-700 mt-2">
                     {{ $block->data->title ?? 'Warning' }}
                 </h4>
-                <p class="text-sm text-yellow-800">
+                <p class="text-sm text-yellow-800 mb-2">
                     {{ $block->data->message ?? 'No details provided.' }}
                 </p>
             </div>
             @elseif($block->type === 'delimiter')
-            <div class="my-6 text-center">
+            <div class="text-center my-4">
                 <span class="text-5xl text-gray-800">* * *</span>
             </div>
 
@@ -197,7 +179,6 @@
     @else
         <p class="text-gray-500 italic">No content available</p>
     @endif
-    </div>
     </div>
     <div class="mt-16">
         <p class=" font-semibold mb-4">Share this post</p>

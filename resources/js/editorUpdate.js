@@ -21,81 +21,63 @@ if (saveBtn) {
     : { blocks: [] };
         console.log(meta);
 
-
-
-const editor = new EditorJS({
-    holder: 'editorjs',
-    placeholder: 'Tulis artikel di sini...',
-    data: content,
-    tools: {
-        header: {
-            class: Header,
-            inlineToolbar: true,
-            config: {
-                placeholder: 'Enter a header',
-                levels: [1, 2, 3, 4, 5], // Tentukan level header yang diizinkan
-                defaultLevel: 3, // Level default
-                defaultStyle: {
-                    1: 'text-4xl font-extrabold',
-                    2: 'text-3xl font-bold',
-                    3: 'text-3xl font-bold',
-                    4: 'text-xl font-medium',
-                    5: 'text-lg font-normal',
-                  },
-            },
-        },
-        list: {
-            class: List,
-            inlineToolbar: true,
-        },
-        image: {
-            class: ImageTool,
-            config: {
-                endpoints: {
-                    byFile: '/admin/article/upload-image', // Endpoint untuk upload file
-                    byUrl: '/admin/article/fetch-image', // Endpoint untuk fetch URL gambar
+    const editor = new EditorJS({
+        holder: 'editorjs',
+        placeholder: 'Tulis artikel di sini...',
+        data: content,
+        tools: {
+            header: {
+                class: Header,
+                inlineToolbar: true,
+                config: {
+                    placeholder: 'Enter a header',
+                    levels: [1, 2, 3, 4, 5],
+                    defaultLevel: 3,
                 },
-                additionalRequestHeaders: {
-                    'X-CSRF-TOKEN': meta.content,
-                },
-            }
-        },
-        checklist: {
-            class: Checklist,
-            inlineToolbar: true,
-        },
-        linkTool: {
-            class: LinkTool,
-            config: {
-                endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
-            }
-        },
-        embed: Embed,
-        quote: Quote,
-        delimiter: Delimiter,
-        warning: {
-            class: Warning,
-            inlineToolbar: true,
-            config: {
-              titlePlaceholder: 'Title',
-              messagePlaceholder: 'Message',
+            },
+            list: {
+                class: List,
+                inlineToolbar: true,
+            },
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: '/admin/article/upload-image', // Endpoint untuk upload file
+                        byUrl: '/admin/article/fetch-image', // Endpoint untuk fetch URL gambar
+                    },
+                    additionalRequestHeaders: {
+                        'X-CSRF-TOKEN': meta.content,
+                    },
+                }
+            },
+            checklist: {
+                class: Checklist,
+                inlineToolbar: true,
+            },
+            linkTool: {
+                class: LinkTool,
+                config: {
+                    endpoint: '', // Your backend endpoint for url data fetching,
+                }
+            },
+            quote: Quote,
+            delimiter: Delimiter,
+            Warning: Warning,
+            table: {
+                class: Table,
+                inlineToolbar: true,
             },
         },
-        table: {
-            class: Table,
-            inlineToolbar: true,
-            config: {
-              rows: 2,
-              cols: 2,
-              maxRows: 10,
-              maxCols: 6,
-            },
+        onReady: () => {
+            console.log('Editor.js is ready to work!');
+            document.getElementById('editorjs').classList.add('prose', 'max-w-none');
         },
-    },
-    onReady: () => {
-        console.log('Editor.js is ready to work!');
-    },
-});
+        onChange: () => {
+            console.log('Editor content changed!');
+        },
+    });
+
 
     saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -107,7 +89,7 @@ const editor = new EditorJS({
     editor.save().then((outputData) => {
         axios.post(url, {
             title: title,
-            content: outputData.blocks,
+            content: outputData,
         }, {
             headers: { 'X-CSRF-TOKEN': meta.content },
         })

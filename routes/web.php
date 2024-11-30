@@ -88,9 +88,9 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::resource('/article', ArticleController::class);
 
     // field photo
-    Route::get('/admin-field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
-    Route::get('/admin-field-description', [fieldConfiguration::class, 'fieldDescription'])->name('field.description');
-    Route::get('/admin-field-fasility', [fieldConfiguration::class, 'fieldFasility'])->name('field.fasility');
+    Route::get('/field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');
+    Route::get('/field-description', [fieldConfiguration::class, 'fieldDescription'])->name('field.description');
+    Route::get('/field-fasility', [fieldConfiguration::class, 'fieldFasility'])->name('field.fasility');
     Route::post('/upload-image-slider', [fieldConfiguration::class, 'uploadSlider'])->name('upload.slider');
     Route::post('/upload-image-banner', [fieldConfiguration::class, 'uploadBanner'])->name('upload.banner');
     Route::post('/upload-image-image', [fieldConfiguration::class, 'uploadImage'])->name('upload.image');
@@ -115,17 +115,17 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
     Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
     Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
-    
+
     // Admin Article
-    Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
-    Route::get('/admin/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');
-    Route::post('/admin/article/store', [articleConfiguration::class, 'store'])->name('admin.article.store');
-    Route::post('/admin/article/upload-image', [articleConfiguration::class, 'upload'])->name('admin.article.upload');
-    Route::post('/admin/article/fetch-image', [articleConfiguration::class, 'fetch'])->name('admin.article.fetch');
-    Route::get('article/{id}', [articleConfiguration::class, 'show'])->name('admin.article.show');
-    Route::delete('/admin/article/delete/{id}', [articleConfiguration::class, 'destroy'])->name('admin.article.destroy');
-    Route::get('/admin/article/update/{id}', [articleConfiguration::class, 'update'])->name('admin.article.update');
-    Route::post('/admin/article/edit/{id}', [articleConfiguration::class, 'edit'])->name('admin.article.edit');
+    Route::get('/article', [articleConfiguration::class, 'index'])->name('admin.article');
+    Route::get('/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');
+    Route::post('/article/store', [articleConfiguration::class, 'store'])->name('admin.article.store');
+    Route::post('/article/upload-image', [articleConfiguration::class, 'upload'])->name('admin.article.upload');
+    Route::post('/article/fetch-image', [articleConfiguration::class, 'fetch'])->name('admin.article.fetch');
+    Route::get('/show-sarticle/{id}', [ArticleConfiguration::class, 'show'])->name('admin.article.show');
+    Route::delete('/article/delete/{id}', [articleConfiguration::class, 'destroy'])->name('admin.article.destroy');
+    Route::get('/article/update/{id}', [articleConfiguration::class, 'update'])->name('admin.article.update');
+    Route::post('/article/edit/{id}', [articleConfiguration::class, 'edit'])->name('admin.article.edit');
 
     // Admin Voucher
     Route::get('/voucher', [voucherConfiguration::class, 'index'])->name('admin.voucher');

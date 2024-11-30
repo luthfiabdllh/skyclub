@@ -25,6 +25,7 @@ class AdminController extends Controller
             ->where('date', '>', now())
             ->orderBy('date', 'asc')
             ->get();
+            
         return view('admin.booking.allBooking', compact('listBookings'));
     }
 
