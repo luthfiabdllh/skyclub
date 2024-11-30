@@ -19,9 +19,9 @@ class VoucherFactory extends Factory
         return [
             'expire_date' => $this->faker->dateTimeBetween('now', '+1 year'),
             'code' => strtoupper($this->faker->unique()->bothify('???###')),
-            'qouta' => $this->faker->numberBetween(1, 100),
+            'quota' => $this->faker->numberBetween(1, 100),
             'discount_price' => $this->faker->optional()->numberBetween(1000, 10000),
-            'discount_precentage' => $this->faker->optional()->numberBetween(1, 100),
+            'discount_percentage' => $this->faker->optional()->numberBetween(1, 100),
             'max_discount' => $this->faker->optional()->numberBetween(1000, 5000),
             'min_price' => $this->faker->numberBetween(1000, 10000),
         ];

@@ -16,10 +16,9 @@ class AcceptBookingNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(Booking $booking, $total)
+    public function __construct(Booking $booking)
     {
         $this->booking = $booking;
-        $this->total = $total;
     }
 
     /**

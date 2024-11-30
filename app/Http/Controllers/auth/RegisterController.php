@@ -24,6 +24,7 @@ class RegisterController extends Controller
             'date_of_birth' => 'date',
             'password' => 'required|confirmed'
         ]);
+        
         User::create($user);
         return redirect()->route('login')->withSuccess('Register Berhasil!, Silahkan Login Terlebih Dahulu');
     }

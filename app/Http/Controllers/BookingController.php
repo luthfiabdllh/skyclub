@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\AcceptBookingNotification;
+use App\Notifications\RejectBookingNotification;
 use Illuminate\Routing\Controller as BaseController;
 
 class BookingController extends BaseController
@@ -50,6 +52,10 @@ class BookingController extends BaseController
     {
         $request->validate([
             'photo' => 'required|image|max:2000'
+        ], [
+            'photo.required' => 'Foto bukti pembayaran wajib diunggah.',
+            'photo.image' => 'File yang diunggah harus berupa gambar.',
+            'photo.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
         ]);
         $booking_cart = $request->session()->get('cart', []);
         $max_payment = $booking_cart['order_date']->copy()->addMinutes(5)->setTimezone('Asia/Jakarta');
@@ -75,7 +81,7 @@ class BookingController extends BaseController
     public function store(StoreBookingRequest $request)
     {
         $booking_cart = $request->session()->get('cart', []);
-        $id_voucher = $booking_cart['voucher'];
+        $id_voucher = $booking_cart['voucher']->id;
         $list_booking = $booking_cart['list_schedules'];
         $rented = $booking_cart['rented'];
         $order_date = $booking_cart['order_date'];
@@ -106,27 +112,29 @@ class BookingController extends BaseController
         // $request->session()->forget('cart');
         return redirect()->route('booking.paymentUploud');
     }
-
     public function acceptBooking(Booking $booking)
     {
         $booking->update(['status' => 'accept']);
+        $user = User::find($booking->rented_by);
+        Notification::send($user, new AcceptBookingNotification($booking));
         return redirect()->route('admin.booking');
     }
     public function rejectBooking(Booking $booking)
     {
         $booking->update(['status' => 'failed']);
+        $user = User::find($booking->rented_by);
+        Notification::send($user, new RejectBookingNotification($booking));
         return redirect()->route('admin.booking');
     }
-
     public function useVoucher(Request $request)
     {
         $request->validate([
-            'voucher' => 'required|exists:vouchers,code'
+            'voucher' => 'required'
         ]);
         $voucher = Voucher::where('code', $request->voucher)->first();
 
         if (!$voucher) {
-            return back()->with('Voucher tidak ditemukan.');
+            return back()->with('voucher', 'Voucher tidak ditemukan.');
         }
 
         // Validasi tanggal kadaluarsa
@@ -134,27 +142,27 @@ class BookingController extends BaseController
         $expiredDate = Carbon::parse($voucher->expired_date);
 
         if ($currentDate->greaterThan($expiredDate)) {
-            return back()->with('Voucher sudah kadaluarsa.');
+            return back()->with('voucher', 'Voucher sudah kadaluarsa.');
         }
-
+        // dd('Voucher berhasil digunakan.');
         // Validasi kuota voucher
-        if ($voucher->quote <= 0) {
-            return back()->with('Kuota voucher sudah habis.');
+        if ($voucher->qouta <= 0) {
+            return back()->with('voucher', 'Kuota voucher sudah habis.');
         }
 
         // Validasi harga minimum
-        $totalPrice = request()->input('total_price', 0); // Sesuaikan dengan nama input harga total di form Anda
+        $booking_cart = $request->session()->get('cart', []);
+        $totalPrice = $booking_cart['total']; // Sesuaikan dengan nama input harga total di form Anda
 
         if ($totalPrice < $voucher->min_price) {
-            return back()->with("Voucher hanya berlaku untuk transaksi minimal Rp " . number_format($voucher->min_price, 0, ',', '.'));
+            return back()->with('voucher', "Voucher hanya berlaku untuk transaksi minimal Rp " . number_format($voucher->min_price, 0, ',', '.'));
         }
 
         // Proses selanjutnya setelah validasi berhasil
         $discountAmount = 0;
-
-        if ($voucher->discount_percentage > 0) {
+        if ($voucher->discount_precentage > 0) {
             // Hitung diskon persentase
-            $discountAmount = $totalPrice * ($voucher->discount_percentage / 100);
+            $discountAmount = $totalPrice * ($voucher->discount_precentage / 100);
 
             // Batasi maksimal diskon jika ada max_discount
             if ($voucher->max_discount > 0) {
@@ -168,56 +176,14 @@ class BookingController extends BaseController
         // Pastikan diskon tidak melebihi total harga
         $discountAmount = min($discountAmount, $totalPrice);
         $booking_cart = $request->session()->get('cart', []);
-        $booking_cart['voucher'] = $voucher->id;
-        $booking_cart['total'] = $totalPrice - $discountAmount;
+        $booking_cart['voucher'] = Voucher::where('id', $voucher->id)->first();
+        $booking_cart['discount'] = $discountAmount;
+        $booking_cart['fullTotal'] = $totalPrice - $discountAmount;
         $request->session()->put('cart', $booking_cart);
         return redirect()->route('booking.payment')->with('voucherSuccess', 'Voucher berhasil digunakan.');
     }
-
-
-
-    public function index()
-    {
-        return view('detailPembayaran');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBookingRequest $request, Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Booking $booking)
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     return view('detailPembayaran');
+    // }
 }

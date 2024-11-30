@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create articles
-        Article::factory(10)->create([
-            'created_by' => $admin->id
-        ]);
+        // Article::factory(10)->create([
+        //     'created_by' => $admin->id
+        // ]);
 
         // Create regular users
         User::factory(5)->create([
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Create vouchers
-        Voucher::factory(2)->create();
+        Voucher::factory(80)->create();
 
         // Create bookings
         $users = User::where('role', 'penyewa')->get();

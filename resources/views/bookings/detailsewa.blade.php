@@ -128,7 +128,6 @@
             <div>
                 <h3 class="mb-4 text-3xl font-bold">Deskripsi</h3>
                 <p class="leading-loose">{{ Str::limit($field->description, 500) . '.....' }}</p>
-                {{-- <p class="leading-loose">{{ Str::limit($fieldDescription->description, 500) . '.....'}}</p> --}}
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
             <div class="space-y-8">

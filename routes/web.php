@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\articleConfiguration;
 use App\Models\Booking;
-use App\Models\ListBooking;
+use App\Http\Controllers\admin\fieldConfiguration;
+use App\Http\Controllers\admin\voucherConfiguration;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -114,4 +116,13 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
     Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
     Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
+
+    // Admin Article
+    Route::get('/article', [articleConfiguration::class, 'index'])->name('admin.article');
+
+    // Admin Voucher
+    Route::get('/voucher', [voucherConfiguration::class, 'index'])->name('admin.voucher');
+    Route::post('/voucher/store', [voucherConfiguration::class, 'store'])->name('admin.voucher.store');
+    Route::put('/voucher/update/{id}', [voucherConfiguration::class, 'update'])->name('admin.voucher.update');
+    Route::delete('/voucher/delete/{id}', [voucherConfiguration::class, 'destroy'])->name('admin.voucher.destroy');
 });

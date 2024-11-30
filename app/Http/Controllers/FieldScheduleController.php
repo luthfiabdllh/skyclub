@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Field;
 use App\Models\Photo;
 use App\Models\Review;
-use App\Models\FieldPhoto;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
-use App\Models\FieldDescription;
 use App\Models\RescheduleRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\schedule\GenerateSchedule;
 use Illuminate\Routing\Controller as BaseController;
-// use App\Models\FieldDescription;
-use App\Models\FieldFasility_dumb;
-// use App\Models\FieldPhoto;
-// use Carbon\Carbon;
+use App\Notifications\NewRequestRescheduleNotification;
+
+
 
 // Class untuk men-generate jadwal 2 bulan kedepan
 class FieldScheduleController extends BaseController
@@ -31,7 +30,6 @@ class FieldScheduleController extends BaseController
         $fieldPhotos = Photo::all()->pluck('photo')->map(function ($photo) {
             return asset('storage/field/images/' . $photo);
         });
-        // dd($fieldPhotos);
 
         $field = Field::findOrFail(1);
         $fieldDescription = $field->description;
@@ -76,9 +74,11 @@ class FieldScheduleController extends BaseController
             }
         }
         $booking_cart['total'] = $total;
-        $booking_cart['voucher'] = 0;
+        $booking_cart['discount'] = 0;
         $booking_cart['order_date'] = now();
         $booking_cart['rented'] = Auth::user()->id;
+        $booking_cart['field'] = Field::find(1);
+        $booking_cart['fullTotal'] = $total;
         $booking_cart = collect($booking_cart);
         $request->session()->put('cart', $booking_cart);
         return redirect()->route('booking.payment');
@@ -109,6 +109,8 @@ class FieldScheduleController extends BaseController
             'session' => $this->getReqSession($request, 0),
             'price' => $this->getReqPrice($request, 0),
         ]);
+        $admin = User::where('role', 'admin')->get();
+        Notification::send($admin, new NewRequestRescheduleNotification($list_booking));
         return redirect()->route('profile.show');
     }
     protected function getReqSession($request, $i)

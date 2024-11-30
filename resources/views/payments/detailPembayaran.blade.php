@@ -11,16 +11,27 @@
 
 <body class="h-full">
     <x-navbar></x-navbar>
+
     @php
-        $harga_total = $booking_cart['total'];
-        $voucher = $booking_cart['voucher'];
+        use Carbon\Carbon;
+        $field = $booking_cart['field'];
+        $sub_total = $booking_cart['total'];
+        $harga_total = $booking_cart['fullTotal'];
+        $voucher = $booking_cart['discount'];
+        $code_voucher = $booking_cart['voucher']->code ?? '';
         $list_schedules = $booking_cart['list_schedules'];
+        function formatRupiah($angka)
+        {
+            $hasil_rupiah = 'Rp ' . number_format($angka, 0, ',', '.');
+            return $hasil_rupiah;
+        }
     @endphp
     <div class="min-h-full px-16 my-12">
+        {{-- <div class="min-h-full my-12"> --}}
         <div class=" grid grid-cols-2 gap-10">
             <div>
                 <h2 class=" font-bold text-3xl mb-4">Detail Pembayaran</h2>
-                <h4 class=" font-bold text-2xl mb-5">Lapangan Mini Soccer SKY CLUB</h4>
+                <h4 class=" font-bold text-2xl mb-5">{{ $field->name }}</h4>
                 <div class="flex items-center mb-4">
                     <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor" viewBox="0 0 22 20">
@@ -32,21 +43,20 @@
                     <p class=" font-bold text-2xl">Lokasi</p>
                 </div>
                 <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
-                <h4 class=" font-bold text-2xl">Lapangan Mini Soccer SKY CLUB</h4>
+                <h4 class=" font-bold text-2xl">{{ $field->name }}</h4>
                 <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
                 <div class="space-y-1">
                     @foreach ($list_schedules as $schedule)
                         <div>
                             <div class="flex items-center">
-                                <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full dark:bg-gray-400"></span>
-                                <p>{{ $schedule['date'] }}</p>
+                                {{-- <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full dark:bg-gray-400"></span> --}}
+                                <p>{{ Carbon::parse($schedule['date'])->translatedFormat('l, d F Y') }}</p>
                             </div>
                             <div
                                 class="flex items-center justify-between border-s-8 border-red-600 bg-white p-2.5 font-bold text-base rounded-xl">
                                 <p>{{ str_pad($schedule['session'] - 1, 2, '0', STR_PAD_LEFT) . ':00 - ' . str_pad($schedule['session'], 2, '0', STR_PAD_LEFT) . ':00' }}
                                 </p>
-                                {{-- <p>{{ $schedule['session'] < 9 ? '0'.$schedule['session']+1.":00" : $schedule['session']+1.":00" }}</p> --}}
-                                <p>{{ 'Rp. ' . $schedule['price'] }}</p>
+                                <p>{{ formatRupiah($schedule['price']) }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -71,25 +81,57 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <input id="default-radio-1" type="radio" value="" name="default-radio"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="default-radio-1" class="ms-2 font-medium text-gray-900 dark:text-gray-300 ">Rp.
-                            {{ $harga_total }}</label>
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            required>
+                        <label for="default-radio-1" class="ms-2 font-medium text-gray-900 dark:text-gray-300 ">
+                            {{ formatRupiah($harga_total) }}</label>
                     </div>
                 </div>
 
             </div>
-            <div class=" space-y-4">
-                <button
+            <div class=" space-y-4" x-data="{ inputVoucher: 'false' }">
+                <button @click="inputVoucher = !inputVoucher"
                     class="w-full py-3 border-2 border-red-600 text-center text-base rounded-xl font-bold text-red-600 flex items-center justify-center">
-                    <img src="{{ Storage::url('images/icon_voucher.svg') }}" alt="Voucher Icon" class="w-5 h-5 mr-2">
+                    <img src="{{ asset('assets/icons/icon_voucher.svg') }}" alt="Voucher Icon" class="w-5 h-5 mr-2">
                     Gunakan Voucher
                 </button>
+                {{-- voucher --}}
 
+                <form x-show="inputVoucher" class="flex items-center w-full" action="{{ route('booking.voucher') }}"
+                    method="POST">
+                    @csrf
+                    <label for="simple-search" class="sr-only">Voucher</label>
+                    <div class="relative w-full flex-grow">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <img src="{{ asset('assets/icons/icon_voucher.svg') }}" alt="Voucher Icon"
+                                class="w-5 h-5 mr-2">
+                        </div>
+                        <input type="text" id="simple-search" name="voucher" autocomplete="off"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Masukan Kode Voucher..." required value="{{ $code_voucher }}" />
+
+                    </div>
+                    <button type="submit"
+                        class="p-2.5 ms-2 text-sm font-medium text-white bg-red-600 rounded-lg border border-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 flex-grow">
+                        <p>Gunakan</p>
+                        <span class="sr-only">Gunakan</span>
+                    </button>
+                </form>
+                @if (session()->has('voucher'))
+                    <p class="text-sm text-red-600 dark:text-red-500"><span
+                            class="font-medium">{{ session('voucher') }}</p>
+                @elseif (session()->has('voucherSuccess'))
+                    <p class="text-sm text-green-600 dark:text-green-500"><span
+                            class="font-medium">{{ session('voucherSuccess') }}</p>
+                @endif
+
+                {{-- end voucher --}}
                 <div class="border border-gray-600 p-5 rounded-xl">
                     <div class="flex items-center space-x-3">
-                        <img class="rounded-xl h-[100px]" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+                        <img class="rounded-xl h-[100px]" src="{{ Storage::url('images/album_1.svg') }}"
+                            alt="">
                         <div>
-                            <h3 class="font-bold text-2xl">Lapangan Mini Soccer SKY CLUB</h3>
+                            <h3 class="font-bold text-2xl">{{ $field->name }}</h3>
                             <div class="flex items-center mb-4">
                                 <svg class="w-4 h-4 text-yellow-300 me-1" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -106,15 +148,11 @@
                     <div class=" text-base space-y-1">
                         <div class="flex items-center justify-between">
                             <p>Biaya Sewa</p>
-                            <p>Rp. {{ $harga_total }}</p>
+                            <p>{{ formatRupiah($sub_total) }}</p>
                         </div>
-                        {{-- <div class="flex items-center justify-between">
-                            <p>Biaya Tambahan</p>
-                            <p>Rp. 0</p>
-                        </div> --}}
                         <div class="flex items-center justify-between">
                             <p>Potongan Voucher</p>
-                            <p>Rp. {{ $voucher }}</p>
+                            <p>{{ formatRupiah($voucher) }}</p>
                         </div>
                         <div class="flex items-center justify-between">
                             <p>Biaya Transaksi</p>
@@ -124,7 +162,7 @@
                     <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
                     <div class="flex items-center justify-between">
                         <p class=" font-bold text-2xl">Total</p>
-                        <p class=" font-bold">Rp. {{ $harga_total - $voucher }}</p>
+                        <p class=" font-bold">{{ formatRupiah($harga_total) }}</p>
                     </div>
                 </div>
 
@@ -132,13 +170,15 @@
                     @csrf
                     <button
                         class="w-full py-3 border-2 bg-red-600 text-center text-2xl rounded-xl font-bold text-white flex items-center justify-center">
-                        <img src="{{ Storage::url('images/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
+                        <img src="{{ asset('assets/icons/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
                         Bayar
                     </button>
                 </form>
             </div>
         </div>
     </div>
+    {{-- @endsection --}}
+
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 

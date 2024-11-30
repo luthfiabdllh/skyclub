@@ -18,7 +18,11 @@
         } else {
             $diffInSeconds = 0;
         }
-        // dd($diffInSeconds);
+        function formatRupiah($angka)
+        {
+            $hasil_rupiah = 'Rp ' . number_format($angka, 0, ',', '.');
+            return $hasil_rupiah;
+        }
     @endphp
     <div class="my-10" x-data="countdownTimer({{ $diffInSeconds }})">
         {{-- <div class="my-10" x-data="countdownTimer(5 * 60)"> --}}
@@ -62,7 +66,7 @@
                 <div class="flex justify-between items-center">
                     <div class=" space-y-1">
                         <p>Total Tagihan</p>
-                        <p class=" font-bold">Rp. {{ $booking_cart['total'] }}</p>
+                        <p class=" font-bold">{{ formatRupiah($booking_cart['fullTotal']) }}</p>
                     </div>
                     <a href="/" class="font-semibold">Lihat Detail</a>
                 </div>
@@ -86,6 +90,10 @@
                         </div>
                     </label>
                 </div>
+                {{-- if error --}}
+                @error('photo')
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</p>
+                @enderror
             </div>
             <form action="{{ route('booking.paymentUploudValidate') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -93,7 +101,7 @@
                 <input id="dropzone-file" type="file" class="hidden" name="photo" />
                 <button
                     class="w-full py-3 border-2 bg-red-600 text-center text-2xl rounded-xl font-bold text-white flex items-center justify-center">
-                    <img src="{{ Storage::url('images/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
+                    <img src="{{ asset('assets/icons/icon_shield.svg') }}" alt="Voucher Icon" class="mr-2">
                     Kirim
                 </button>
             </form>
