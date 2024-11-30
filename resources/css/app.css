@@ -5,6 +5,7 @@
 [x-cloak] {
     display: none !important;
 }
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* Optional: just to hide the scrollbar */

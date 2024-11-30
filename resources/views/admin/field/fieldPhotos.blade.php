@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('header')
+@push('header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/js/dropzoneFieldPhoto.js'])
-@endsection
+@endpush
 
 @section('content')
     {{-- field image --}}
@@ -110,7 +110,7 @@
         </div>
     </div>
 @endsection
-
+@push('script')
 <script>
     function deleteImage(id) {
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -136,3 +136,4 @@
             });
     }
 </script>
+@endpush

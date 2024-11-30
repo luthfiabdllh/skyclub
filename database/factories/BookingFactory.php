@@ -20,7 +20,7 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_date' => $this->faker->date,
+            'order_date' => $this->faker->dateTimeBetween('-90 days', 'now'),
             'status' => $this->faker->randomElement(['accept', 'pending', 'failed', 'canceled']),
             'rented_by' => User::factory(),
             'approved_by' => $this->faker->optional()->randomElement([User::factory(), null]),

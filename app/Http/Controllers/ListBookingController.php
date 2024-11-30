@@ -104,7 +104,7 @@ class ListBookingController extends Controller
         $listBooking->delete();
         $user = User::findOrFail($listBooking->booking->rented_by);
         Notification::send($user, new AcceptRescheduleNotification($listBooking));
-        return redirect()->route('admin.reschedule');
+        return back()->with('success', 'Reschedule berhasil diterima');
     }
     public function rejectReschedule(ListBooking $listBooking, RescheduleRequest $request)
     {
@@ -114,7 +114,7 @@ class ListBookingController extends Controller
         $request->delete();
         $user = User::find($listBooking->booking->rented_by);
         Notification::send($user, new RejectRescheduleNotification($listBooking));
-        return redirect()->route('admin.reschedule');
+        return back()->with('success', 'Reschedule berhasil ditolak');
     }
     public function acceptCancelBooking(ListBooking $listBooking)
     {
@@ -123,7 +123,7 @@ class ListBookingController extends Controller
         ]);
         $user = User::find($listBooking->booking->rented_by);
         Notification::send($user, new AcceptCancelBookingNotification($listBooking));
-        return redirect()->route('admin.cancel');
+        return back()->with('success', 'Pembatalan booking berhasil diterima');
     }
     public function rejectCancelBooking(ListBooking $listBooking)
     {
@@ -132,6 +132,6 @@ class ListBookingController extends Controller
         ]);
         $user = User::find($listBooking->booking->rented_by);
         Notification::send($user, new RejectCancelBookingNotification($listBooking));
-        return redirect()->route('admin.cancel');
+        return back()->with('success', 'Pembatalan booking berhasil ditolak');
     }
 }

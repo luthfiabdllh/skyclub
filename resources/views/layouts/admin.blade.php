@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SkyClub</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
-    @yield('header')
+    @stack('header')
 </head>
 <body class="">
+    @yield('alert')
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
 
         @include('components.admin-navbar')
@@ -21,6 +22,6 @@
         </main>
     </div>
     <script src="{{ asset('node_modules/flowbite/dist/flowbite.min.js') }}"></script>
-    @yield('script')
+    @stack('script')
 </body>
 </html>

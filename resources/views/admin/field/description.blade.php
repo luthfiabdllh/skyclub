@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('header')
+@push('header')
     @vite(['resources/js/descriptionField.js'])
-@endsection
+@endpush
 
 @section('content')
     <div class="bg-white shadow rounded-lg border-gray-600 dark:border-gray-600 h-fit mb-4 p-6">
@@ -173,7 +173,7 @@
     </div>
 </div> --}}
 @endsection
-@section('script')
+@push('script')
     <script>
         function facilitySelection(initialSelected) {
             return {
@@ -201,4 +201,4 @@
             }
         }
     </script>
-@endsection
+@endpush

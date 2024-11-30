@@ -84,8 +84,7 @@ Route::get('/notification', [NotificationController::class, 'index'])->name('not
 Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
-    // article
-    Route::resource('/article', ArticleController::class);
+    Route::get('/bookings-data', [AdminController::class, 'getData']);
 
     // field photo
     Route::get('/field-photo', [fieldConfiguration::class, 'fieldPhoto'])->name('field.photo');

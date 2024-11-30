@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::where('role', 'admin')->first();
 
         // Create accepted bookings
-        Booking::factory(3)->create([
+        Booking::factory(100)->create([
             'status' => 'accept'
         ])->each(function ($booking) use ($users, $field, $vouchers, $admin) {
             // Assign random user as renter
@@ -94,6 +94,49 @@ class DatabaseSeeder extends Seeder
                 'date' => fake()->dateTimeBetween('now', '+1 month')
             ]);
         });
+
+        // Create bookings with order_date today and yesterday
+        $today = now()->setDate(2024, 12, 1);
+        $yesterday = now()->subDay();
+
+        // Booking for today
+        Booking::factory(5)->create([
+            'status' => 'accept',
+            'order_date' => $today
+        ])->each(function ($booking) use ($users, $field, $vouchers, $admin) {
+            $booking->rented_by = $users->random()->id;
+            if (rand(0, 1)) {
+            $booking->id_voucher = $vouchers->random()->id;
+            }
+            $booking->approved_by = $admin->id;
+            $booking->save();
+
+            ListBooking::factory()->create([
+            'id_booking' => $booking->id,
+            'id_field' => $field->id,
+            'date' => fake()->dateTimeBetween('now', '+1 month')
+            ]);
+        });
+
+        // Booking for yesterday
+        Booking::factory(2)->create([
+            'status' => 'accept',
+            'order_date' => $yesterday
+        ])->each(function ($booking) use ($users, $field, $vouchers, $admin) {
+            $booking->rented_by = $users->random()->id;
+            if (rand(0, 1)) {
+            $booking->id_voucher = $vouchers->random()->id;
+            }
+            $booking->approved_by = $admin->id;
+            $booking->save();
+
+            ListBooking::factory()->create([
+            'id_booking' => $booking->id,
+            'id_field' => $field->id,
+            'date' => fake()->dateTimeBetween('now', '+1 month')
+            ]);
+        });
+
 
         // Create one pending booking
         Booking::factory()->create([

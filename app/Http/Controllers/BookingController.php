@@ -117,14 +117,14 @@ class BookingController extends BaseController
         $booking->update(['status' => 'accept']);
         $user = User::find($booking->rented_by);
         Notification::send($user, new AcceptBookingNotification($booking));
-        return redirect()->route('admin.booking');
+        return back()->with('success', 'Booking berhasil diterima');
     }
     public function rejectBooking(Booking $booking)
     {
         $booking->update(['status' => 'failed']);
         $user = User::find($booking->rented_by);
         Notification::send($user, new RejectBookingNotification($booking));
-        return redirect()->route('admin.booking');
+        return back()->with('success', 'Booking berhasil ditolak');
     }
     public function useVoucher(Request $request)
     {
