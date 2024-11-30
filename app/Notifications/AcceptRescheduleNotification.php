@@ -17,7 +17,7 @@ class AcceptRescheduleNotification extends Notification
      */
     public function __construct(ListBooking $listBooking)
     {
-        //
+        $this->listBooking = $listBooking;
     }
 
     /**

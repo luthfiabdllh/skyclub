@@ -22,7 +22,6 @@ class voucherConfiguration extends Controller
         return view('admin.voucher.voucher', compact('vouchers'));
     }
 
-
     public function store(Request $request)
     {
         // Validasi input
@@ -48,7 +47,7 @@ class voucherConfiguration extends Controller
             $voucher->save();
 
             return redirect()->back()->with('success', 'Voucher Created Successfully');
-            } catch (QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return redirect()->back()->withErrors(['code' => 'The voucher code is already in use. Please use a different code.'])->withInput();
             }
@@ -83,7 +82,7 @@ class voucherConfiguration extends Controller
             $voucher->save();
 
             return redirect()->back()->with('success', 'Voucher Updated Successfully');
-            } catch (QueryException $e) {
+        } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
                 return redirect()->back()->withErrors(['code' => 'The voucher code is already in use. Please use a different code.'])->withInput();
             }
@@ -102,6 +101,4 @@ class voucherConfiguration extends Controller
 
         return redirect()->back()->withErrors(['code' => 'Voucher Not Found']);
     }
-
-
 }

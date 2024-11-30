@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Sparing;
 use App\Models\ListBooking;
 use App\Models\RescheduleRequest;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreListBookingRequest;
 use App\Http\Requests\UpdateListBookingRequest;
+use App\Notifications\AcceptRescheduleNotification;
+use App\Notifications\RejectRescheduleNotification;
+use App\Notifications\AcceptCancelBookingNotification;
+use App\Notifications\RejectCancelBookingNotification;
+use App\Notifications\NewRequestCancelBookingNotification;
 
 class ListBookingController extends Controller
 {
@@ -78,6 +85,8 @@ class ListBookingController extends Controller
         $list_booking->update([
             'status_request' => 'request-cancel'
         ]);
+        $admin = User::where('role', 'admin')->get();
+        Notification::send($admin, new NewRequestCancelBookingNotification($list_booking));
         return redirect()->route('profile.show', Auth::user()->id);
     }
 
@@ -93,6 +102,8 @@ class ListBookingController extends Controller
         Sparing::where('id_list_booking', $listBooking->id)->delete();
         $request->delete();
         $listBooking->delete();
+        $user = User::findOrFail($listBooking->booking->rented_by);
+        Notification::send($user, new AcceptRescheduleNotification($listBooking));
         return redirect()->route('admin.reschedule');
     }
     public function rejectReschedule(ListBooking $listBooking, RescheduleRequest $request)
@@ -101,6 +112,8 @@ class ListBookingController extends Controller
             'status_request' => null,
         ]);
         $request->delete();
+        $user = User::find($listBooking->booking->rented_by);
+        Notification::send($user, new RejectRescheduleNotification($listBooking));
         return redirect()->route('admin.reschedule');
     }
     public function acceptCancelBooking(ListBooking $listBooking)
@@ -108,6 +121,8 @@ class ListBookingController extends Controller
         $listBooking->update([
             'status_request' => 'cancel',
         ]);
+        $user = User::find($listBooking->booking->rented_by);
+        Notification::send($user, new AcceptCancelBookingNotification($listBooking));
         return redirect()->route('admin.cancel');
     }
     public function rejectCancelBooking(ListBooking $listBooking)
@@ -115,6 +130,8 @@ class ListBookingController extends Controller
         $listBooking->update([
             'status_request' => null,
         ]);
+        $user = User::find($listBooking->booking->rented_by);
+        Notification::send($user, new RejectCancelBookingNotification($listBooking));
         return redirect()->route('admin.cancel');
     }
 }
