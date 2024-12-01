@@ -1,5 +1,5 @@
 <aside
-    class="fixed top-1w left-0 z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-1w left-0 z-50 md:z-30 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidenav" id="drawer-navigation">
     <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800 custom-scrollbar mt-4">
         <a href="/" class="md:hidden flex items-center justify-between mb-6 ml-3">
@@ -158,7 +158,7 @@
                 </a>
             </li>
         </ul>
-        <ul class="mt-5 space-y-2">
+        {{-- <ul class="mt-5 space-y-2">
             <li>
                 <a href="#"
                     class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -172,6 +172,6 @@
                     <span class="ml-3">Account</span>
                 </a>
             </li>
-        </ul>
+        </ul> --}}
     </div>
 </aside>

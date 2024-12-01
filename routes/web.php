@@ -46,6 +46,7 @@ Route::put('/set-password/{id}', [SetPasswordController::class, 'update'])->name
 
 //Route Article Umum
 Route::get('/article', [ArticleController::class, 'userIndex'])->name('article.userIndex');
+Route::get('/article/{id}', [ArticleController::class, 'Usershow'])->name('article.userShow');
 // Route::get('/article/{id}', [ArticleController::class, 'userShow'])->name('article.userShow');
 
 // Field Schedule (halaman pilih jadwal untuk dipesan)

@@ -2,59 +2,30 @@
 @section('content')
 
 <div class="grid grid-cols-2 mt-20">
-    <div class="grid grid-cols-1 content-between w-[420px]">
-        <div class=" space-y-8">
-            <p>artikel / isi</p>
-            <h3 class=" text-5xl font-bold leading-tight">{{ $article->title }}</h3>
-        </div>
-        <div class=" space-y-8">
-            <div>
-                <p>By <span class=" font-semibold">{{ $article->title }}</span></p>
-                <div class="flex items-center">
-                    <p>11 Jan 2022</p>
-                    <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full"></span>
-                    <p>5 min read</p>
-                </div>
-            </div>
-            <div>
-                <p class=" font-semibold mb-4">Share this post</p>
-                <div class="flex space-x-2">
-                    <div class="rounded-full bg-gray-300 p-1">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
-                        </svg>
-                    </div>
-                    <div class="rounded-full bg-gray-300 p-1">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
-                            <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
-                            </svg>
-                    </div>
-                    <div class="rounded-full bg-gray-300 p-1">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13.795 10.533 20.68 2h-3.073l-5.255 6.517L7.69 2H1l7.806 10.91L1.47 22h3.074l5.705-7.07L15.31 22H22l-8.205-11.467Zm-2.38 2.95L9.97 11.464 4.36 3.627h2.31l4.528 6.317 1.443 2.02 6.018 8.409h-2.31l-4.934-6.89Z"/>
-                        </svg>
-                    </div>
-                    <div class="rounded-full bg-gray-300 p-1">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>
-                            </svg>
-                    </div>
-                </div>
+    <div class="grid grid-cols-1 content-center ">
+        <h3 class="text-5xl font-bold leading-tight mb-12">{{ Str::limit($article->title, 120) }}</h3>
+        <div>
+            <p>By <span class=" font-semibold">{{ $article->user->name }}</span></p>
+            <div class="flex items-center">
+                <p>{{ $article->created_at->format('j F Y') }}</p>
+                <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full"></span>
+                <p>{{ $article->created_at->format('H:i') }}</p>
             </div>
         </div>
     </div>
-    <div >
+    <div class="bg-cover rounded-lg shadow">
         @if($content && isset($content->blocks))
             @foreach($content->blocks as $block)
                 {{-- Image --}}
                 @if($block->type === 'image')
-                    <img class="h-[450px] object-cover" src="{{ $block->data->file->url ?? '#' }}" alt="">
+                    <img class="object-cover w-full h-full rounded-lg transition-transform duration-300 hover:scale-105" src="{{ $block->data->file->url ?? '#' }}" alt="">
+                    @break
+                @else
+                    <img class="object-cover w-full h-full rounded-lg transition-transform duration-300 hover:scale-105" src="{{ Storage::url('images/banner.svg') }}" alt="">
                     @break
                 @endif
             @endforeach
         @endif
-        <img class="h-[450px] object-cover" src="{{ Storage::url('images/banner.svg') }}" alt="">
     </div>
 </div>
 
@@ -179,39 +150,13 @@
     @else
         <p class="text-gray-500 italic">No content available</p>
     @endif
-    </div>
-    <div class="mt-16">
-        <p class=" font-semibold mb-4">Share this post</p>
-        <div class="flex space-x-2">
-            <div class="rounded-full bg-gray-300 p-1">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/>
-                </svg>
-            </div>
-            <div class="rounded-full bg-gray-300 p-1">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M12.51 8.796v1.697a3.738 3.738 0 0 1 3.288-1.684c3.455 0 4.202 2.16 4.202 4.97V19.5h-3.2v-5.072c0-1.21-.244-2.766-2.128-2.766-1.827 0-2.139 1.317-2.139 2.676V19.5h-3.19V8.796h3.168ZM7.2 6.106a1.61 1.61 0 0 1-.988 1.483 1.595 1.595 0 0 1-1.743-.348A1.607 1.607 0 0 1 5.6 4.5a1.601 1.601 0 0 1 1.6 1.606Z" clip-rule="evenodd"/>
-                    <path d="M7.2 8.809H4V19.5h3.2V8.809Z"/>
-                    </svg>
-            </div>
-            <div class="rounded-full bg-gray-300 p-1">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M13.795 10.533 20.68 2h-3.073l-5.255 6.517L7.69 2H1l7.806 10.91L1.47 22h3.074l5.705-7.07L15.31 22H22l-8.205-11.467Zm-2.38 2.95L9.97 11.464 4.36 3.627h2.31l4.528 6.317 1.443 2.02 6.018 8.409h-2.31l-4.934-6.89Z"/>
-                </svg>
-            </div>
-            <div class="rounded-full bg-gray-300 p-1">
-                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z" clip-rule="evenodd"/>
-                </svg>
-            </div>
-        </div>
-    </div>
     <hr class="h-px my-10 bg-gray-400 border-0 dark:bg-gray-700">
+    </div>
     <div class="flex space-x-4">
         <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
         <div>
-            <p class=" font-semibold">Jamal Sigh</p>
-            <p>11 Jan 2024</p>
+            <p class=" font-semibold">{{ $article->user->name}}</p>
+            <p>{{ $article->created_at->diffForHumans()}}</p>
         </div>
     </div>
 </article>
@@ -223,32 +168,42 @@
         <div class="space-y-4">
             <h6 class="text-base font-bold">Artikel</h6>
             <h1 class="text-5xl font-bold">Artikel Serupa</h1>
-            <h5 class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h5>
+            <h5 class="text-base">Menampilkan artikel yang serupa dengan artikel ini untuk membantu Anda menemukan lebih banyak konten yang relevan.</h5>
         </div>
         <div class=" self-end">
             <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</button>
         </div>
     </div>
-    <div class="flex justify-between pt-20" >
-        @for ($x = 0; $x < 3; $x++)
-            <div class="border" style="width: 416px">
-                <img src="{{ Storage::url('images/blog-image.svg') }}" alt="">
-                <div class=" flex-col p-6 space-y-6">
-                    <div class="max-w-sm space-y-2">
-                        <p class=" text-sm font-semibold">Pertandingan</p>
-                        <h4 class=" text-2xl font-bold">Persija vs Areama FC</h4>
-                        <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.</p>
+    <div class="flex lg:flex-row flex-col justify-between mt-10 lg:space-y-0 space-y-6 gap-8" >
+        @foreach($moreArticlesData as $moreArticleData)
+            <div
+                class="lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:block flex hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
+                <a href="{{ route('article.userShow', $moreArticleData['id']) }}" class="w-full h-full bg-cover hidden xs:inline">
+                    <img class="lg:rounded-bl-none lg:rounded-t-lg  rounded-l-lg object-cover w-full h-75"
+                        src="{{ $moreArticleData['image'] }}" alt="" />
+                </a>
+
+                <div class="p-5 flex flex-col place-content-center text-left">
+                    <div>
+                        <a href="#">
+                            <h5
+                                class="mb-2 text-sm xxs:text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {{ $moreArticleData['title'] }}</h5>
+                        </a>
+                        <p class=" break-words text-xs md:text-base mb-3 font-normal text-gray-700 dark:text-gray-400">
+                            {{ $moreArticleData['paragraph'] }}</p>
                     </div>
-                    <div class="flex space-x-4">
-                        <img class=" rounded-full" src="{{ Storage::url('images/profile.svg') }}" alt="">
+                    <div class="space-x-4 md:mt-3 lg:mt-10 mt-6 items-center sm:flex hidden">
+                        <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
                         <div>
-                            <p class=" font-semibold">Jamal Sigh</p>
-                            <p>11 Jan 2024</p>
+                            <p class="text-xs md:text-sm font-semibold">{{ $moreArticleData['created_by'] }}</p>
+                            <p class="text-xs md:text-sm">{{ $moreArticleData['created_at'] }}</p>
                         </div>
                     </div>
+                    <p class="text-xs md:text-sm text-gray-700 sm:hidden">{{ $moreArticleData['created_by'] }} | {{ $moreArticleData['created_at'] }}</p>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection

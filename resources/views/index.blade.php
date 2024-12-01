@@ -266,42 +266,40 @@
         {{-- blog --}}
         <div class="mt-20 mx-10">
             <div class="grid grid-row-1 space-y-4 content-center text-left">
-                <h6 class="text-base font-bold">Blog</h6>
+                <h6 class="text-base font-bold">Artikel</h6>
                 <h1 class="text-5xl font-bold">Apa Yang Baru</h1>
                 <h5 class="text-base">Berikut adalah artikel-artikel terkait SKY CLUB</h5>
             </div>
             <div class="flex lg:flex-row flex-col justify-between mt-10 lg:space-y-0 space-y-6 gap-8">
-                @for ($x = 0; $x < 3; $x++)
+                @foreach($moreArticlesData as $moreArticleData)
                     <div
                         class="lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:block flex hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
-                        <a href="#" class="w-full h-full bg-cover hidden xs:inline">
-                            <img class="lg:rounded-bl-none lg:rounded-t-lg  rounded-l-lg object-cover"
-                                src="{{ asset('assets/icons/content-2.svg') }}" alt="" />
+                        <a href="{{ route('article.userShow', $moreArticleData['id']) }}" class="w-full h-full bg-cover hidden xs:inline">
+                            <img class="lg:rounded-bl-none lg:rounded-t-lg  rounded-l-lg object-cover w-full h-75"
+                                src="{{ $moreArticleData['image'] }}" alt="" />
                         </a>
 
                         <div class="p-5 flex flex-col place-content-center text-left">
                             <div>
-                                <p class="text-xs md:text-sm font-semibold">Pertandingan</p>
                                 <a href="#">
                                     <h5
                                         class="mb-2 text-sm xxs:text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                        Noteworthy technology acquisitions 2021</h5>
+                                        {{ $moreArticleData['title'] }}</h5>
                                 </a>
-                                <p class="text-xs md:text-base mb-3 font-normal text-gray-700 dark:text-gray-400">Here are
-                                    the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological
-                                    order.</p>
+                                <p class=" break-words text-xs md:text-base mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    {{ $moreArticleData['paragraph'] }}</p>
                             </div>
                             <div class="space-x-4 md:mt-3 lg:mt-10 mt-6 items-center sm:flex hidden">
                                 <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
                                 <div>
-                                    <p class="text-xs md:text-sm font-semibold">Jamal Sigh</p>
-                                    <p class="text-xs md:text-sm">11 Jan 2024</p>
+                                    <p class="text-xs md:text-sm font-semibold">{{ $moreArticleData['created_by'] }}</p>
+                                    <p class="text-xs md:text-sm">{{ $moreArticleData['created_at'] }}</p>
                                 </div>
                             </div>
-                            <p class="text-xs md:text-sm text-gray-700 sm:hidden">Jamal Sigh | 11 Jan 2024</p>
+                            <p class="text-xs md:text-sm text-gray-700 sm:hidden">{{ $moreArticleData['created_by'] }} | {{ $moreArticleData['created_at'] }}</p>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
 
             <div class="flex justify-end my-10">

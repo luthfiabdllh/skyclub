@@ -32,7 +32,7 @@
     </div>
     <div class="mb-4 ">
         <label for="title" class="block text-sm font-medium text-gray-700">Judul Artikel</label>
-        <input type="text" id="title" name="title" required class="mt-1 block w-full px-3 py-2  sm:text-2xl font-bold bg-white shadow-lg rounded-lg space-y-6 border-0 focus:ring-0">
+        <input type="text" id="title" name="title" required class="mt-1 block w-full px-3 py-2  sm:text-2xl font-bold bg-white shadow-lg rounded-lg space-y-6 border-0 focus:ring-0" maxlength="120">
     </div>
     <div class="px-1">
         <p class="text-sm font-medium text-gray-700">Isi Artikel</p>

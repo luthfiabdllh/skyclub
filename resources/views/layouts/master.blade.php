@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SkyClub</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('header')
 </head>
 
 <body class="h-full">
@@ -22,6 +23,7 @@
     <x-bottom></x-bottom>
     <script src="{{ asset('node_modules/flowbite/dist/flowbite.min.js') }}"></script>
 </body>
-@yield('script')
+
+@stack('script')
 
 </html>

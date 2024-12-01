@@ -30,6 +30,8 @@ export default {
                 },
                 height: {
                         '45' : '180px',
+                        '70' : '280px',
+                        '75' : '300px',
                         'banner-profile' : '350px'
                 },
                 fontSize: {
