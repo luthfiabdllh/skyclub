@@ -58,6 +58,7 @@ Route::post('/field-schedule/cancel/{list_booking}', [ListBookingController::cla
 // Booking & Pembayaran
 Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
 Route::post('payment/voucher', [BookingController::class, 'useVoucher'])->name('booking.voucher');
+Route::post('payment/user-offline', [BookingController::class, 'userOffline'])->name('booking.userOffline');
 Route::post('/payment', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
 Route::put('/payment/uploud', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');

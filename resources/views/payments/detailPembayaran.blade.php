@@ -20,6 +20,8 @@
         $voucher = $booking_cart['discount'];
         $code_voucher = $booking_cart['voucher']->code ?? '';
         $list_schedules = $booking_cart['list_schedules'];
+        $user_offline = $booking_cart['user_offline'] ?? [];
+        $isAdmin = Auth()->user()->role == 'admin';
         function formatRupiah($angka)
         {
             $hasil_rupiah = 'Rp ' . number_format($angka, 0, ',', '.');
@@ -62,31 +64,118 @@
                     @endforeach
                 </div>
                 <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">
-                <div class="flex justify-between mb-4">
-                    <h5 class=" font-bold text-2xl">Metode Pembayaran</h5>
-                    {{-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5 15 7-7 7 7"/>
-                    </svg> --}}
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                        viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 9-7 7-7-7" />
-                    </svg>
-                </div>
-                <div class="flex justify-between shadow bg-white rounded-lg items-center p-2.5 text-base">
-                    <div class="flex items-center space-x-2">
-                        <img src="{{ Storage::url('images/Transfer_bank.svg') }}" alt="">
-                        <p>Transfer Bank</p>
+
+                <div x-data="{ dropDown: 'up' }">
+                    <div class="flex justify-between mb-4">
+                        <h5 class=" font-bold text-2xl">Metode Pembayaran</h5>
+                        <svg x-show="dropDown == 'up'" @click="dropDown='down'"
+                            class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m5 15 7-7 7 7" />
+                        </svg>
+                        <svg x-show="dropDown == 'down'" @click="dropDown='up'"
+                            class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 9-7 7-7-7" />
+                        </svg>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <input id="default-radio-1" type="radio" value="" name="default-radio"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            required>
-                        <label for="default-radio-1" class="ms-2 font-medium text-gray-900 dark:text-gray-300 ">
-                            {{ formatRupiah($harga_total) }}</label>
+                    <div x-show="dropDown == 'down'" {{-- <div x-show="true" --}}
+                        class="flex justify-between shadow bg-white rounded-lg items-center p-2.5 text-base">
+                        <div class="flex items-center space-x-2">
+                            <img src="{{ Storage::url('images/Transfer_bank.svg') }}" alt="">
+                            <p>Transfer Bank</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                required>
+                            <label for="default-radio-1" class="ms-2 font-medium text-gray-900 dark:text-gray-300 ">
+                                {{ formatRupiah($harga_total) }}</label>
+                        </div>
                     </div>
                 </div>
+
+                {{-- form --}}
+                @if ($isAdmin)
+                    {{-- pengisian data user untuk admin --}}
+                    <div x-data="{ dropDown: 'up', selectedUser: '{{ session('userOfflineSuccess') }}' }" class="mt-8">
+                        <div class="flex justify-between mb-4">
+                            <h5 class=" font-bold text-2xl">Masukan Data</h5>
+                            <svg x-show="dropDown == 'up'" @click="dropDown='down'"
+                                class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m5 15 7-7 7 7" />
+                            </svg>
+                            <svg x-show="dropDown == 'down'" @click="dropDown='up'"
+                                class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 9-7 7-7-7" />
+                            </svg>
+                        </div>
+
+                        <form class="w-full mx-auto mb-5" x-show="dropDown == 'down'"
+                            action="{{ route('booking.userOffline') }}" method="POST">
+                            @csrf
+                            <label for="user"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih User</label>
+                            <select id="user" x-model="selectedUser" name="user"
+                                class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
+                                <option value="nothing" selected>Belum Pernah Pesan</option>
+                                @foreach ($users_offline as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" x-show="selectedUser != 'nothing'"
+                                class="mb-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Pilih</button>
+                            @if (session()->has('userOfflineSuccess'))
+                                <p class="text-sm text-green-600 dark:text-green-500"><span class="font-medium">Sudah
+                                        Terpilih
+                                </p>
+                            @endif
+                        </form>
+
+                        <form x-data="{ name: '{{ $user_offline['name'] ?? '' }}', no_telp: '{{ $user_offline['no_telp'] ?? '' }}', email: '{{ $user_offline['email'] ?? '' }}' }" class="w-full mx-auto"
+                            x-show="dropDown == 'down' && selectedUser == 'nothing'"
+                            action="{{ route('booking.userOffline') }}" method="POST">
+                            @csrf
+                            <div class="mb-5">
+                                <label for="name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                <input type="text" id="name" name="name" x-model="name"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                    required />
+                            </div>
+                            <div class="mb-5">
+                                <label for="no_telp"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No.
+                                    Telepon</label>
+                                <input type="text" id="no_telp" name="no_telp" x-model="no_telp"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                    required />
+                            </div>
+                            <div class="mb-5">
+                                <label for="email"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                                    email</label>
+                                <input type="email" id="email" name="email" x-model="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                    placeholder="name@flowbite.com" required />
+                            </div>
+                            <button type="submit"
+                                class="mb-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Submit</button>
+                        </form>
+                        {{-- end form --}}
+                    </div>
+                @endif
+
 
             </div>
             <div class=" space-y-4" x-data="{ inputVoucher: 'false' }">
@@ -119,7 +208,8 @@
                 </form>
                 @if (session()->has('voucher'))
                     <p class="text-sm text-red-600 dark:text-red-500"><span
-                            class="font-medium">{{ session('voucher') }}</p>
+                            class="font-medium">{{ session('voucher') }}
+                    </p>
                 @elseif (session()->has('voucherSuccess'))
                     <p class="text-sm text-green-600 dark:text-green-500"><span
                             class="font-medium">{{ session('voucherSuccess') }}</p>
@@ -156,7 +246,7 @@
                         </div>
                         <div class="flex items-center justify-between">
                             <p>Biaya Transaksi</p>
-                            <p>Rp. 0</p>
+                            <p>Rp 0</p>
                         </div>
                     </div>
                     <hr class="h-px my-4 bg-gray-400 border-0 dark:bg-gray-700">

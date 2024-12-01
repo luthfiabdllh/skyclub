@@ -63,7 +63,7 @@ class Booking extends Model
     }
     public function userInfo(): BelongsTo
     {
-        return $this->belongsTo(UserInfo::class);
+        return $this->belongsTo(UserInfo::class, 'user_info');
     }
     public function review(): HasOne
     {
