@@ -33,10 +33,7 @@ class FieldScheduleController extends BaseController
 
         $field = Field::findOrFail(1);
         $fieldDescription = $field->description;
-        // $fieldDescription = FieldDescription::first();
         $fieldFasility = $field->facility->pluck('name')->toArray();
-        // dd($fieldFasility);
-        // $fieldFasility = FieldFasility_dumb::first();
         $selectedFacilities = $fieldFasility;
         // $selectedFacilities = $fieldFasility->facilities;
 
@@ -44,16 +41,17 @@ class FieldScheduleController extends BaseController
         // $slicedFacilities = json_decode($fieldFasility->facilities, true);
 
         // Ambil hanya 4 fasilitas
-        $selectedSliceFacilities = array_slice($slicedFacilities, 0, 4);
+        $selectedSliceFacilities = array_slice($slicedFacilities, 3, 4);
 
-        // dd($fieldPhotos);
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
-        // dd($schedules);
         $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        $countRating = $reviews->count();
+        $averageRating = $reviews->avg('rating');
+        // dd($reviews);
 
 
-        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'fieldPhotos', 'field'));
+        return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'countRating', 'averageRating', 'fieldPhotos', 'field'));
     }
     public function scheduleValidate(Request $request)
     {

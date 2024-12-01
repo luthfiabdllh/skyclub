@@ -40,7 +40,7 @@
                         <path
                             d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                     </svg>
-                    <p class=" font-bold text-2xl">4.9</p>
+                    <p class=" font-bold text-2xl">{{ $averageRating }}</p>
                     <span class="w-1.5 h-1.5 mx-1.5 bg-black rounded-full dark:bg-gray-400"></span>
                     <p class=" font-bold text-2xl">Lokasi</p>
                 </div>
@@ -228,8 +228,8 @@
                                     <path
                                         d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                                 </svg>
-                                <p class=" font-bold text-2xl mx-1.5">4.9</p>
-                                <p class=" font-semibold text-2xl">(120 Reviews)</p>
+                                <p class=" font-bold text-2xl mx-1.5">{{ $averageRating }}</p>
+                                <p class=" font-semibold text-2xl">({{ $countRating }} Reviews)</p>
                             </div>
                         </div>
                     </div>

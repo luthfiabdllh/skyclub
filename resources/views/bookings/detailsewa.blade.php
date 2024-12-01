@@ -1,12 +1,9 @@
 @extends('layouts.master')
 @section('content')
     @php
-        // dd($schedules);
         $schedulesArray = json_decode(json_encode($schedules), true);
-        // dd($schedulesArray);
     @endphp
     {{-- gallery --}}
-
     <div x-data="{ gallery: false }"
         class="grid grid-cols-3 grid-flow-col gap-1 sm:gap-2 md:gap-4 h-[270px] sm:h-[370px] md:h-[470px] lg:h-[670px]">
         {{-- gallery --}}
@@ -114,14 +111,15 @@
                 </div>
                 <div class="flex">
                     <div class="flex items-center border rounded-lg px-2.5">
-                        <p class="text-sm font-bold text-gray-900 dark:text-white" x-text="4.9">4.95</p>
+                        <p class="text-sm font-bold text-gray-900 dark:text-white">{{ $averageRating }}</p>
                         <svg class="ms-1 w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 22 20">
                             <path
                                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                         </svg>
                     </div>
-                    <p class="p-2.5 text-sm font-medium"><span class=" font-bold">Very Good</span> 231 Reviews</p>
+                    <p class="p-2.5 text-sm font-medium"><span class=" font-bold">Very
+                            Good - </span>{{ $countRating }} reviews</p>
                 </div>
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
@@ -332,7 +330,7 @@
             class="border px-5 py-8 bg-white rounded-2xl max-h-fit space-y-7 sticky top-2 w-[490px] min-w-[360px] hidden xl:block">
             <div>
                 <h4 class="font-bold text-2xl">Mulai dari</h4>
-                <p class=" font-bold text-4xl">Rp. 600.000,00 <span class=" text-xl">/Sesi</span></p>
+                <p class=" font-bold text-4xl">Rp. 100.000,00 <span class=" text-xl">/Sesi</span></p>
             </div>
             <template x-if="cart.length > 0">
                 <ul class=" space-y-4">
@@ -430,15 +428,15 @@
                         </div>
                     </div>
                     <div class="mt-4 space-y-4">
-                        @for ($x = 0; $x < 6; $x++)
+                        @foreach ($reviews as $review)
                             <div class="p-4 rounded-lg border">
                                 <div class="flex justify-between mb-6">
                                     <div class="flex items-center space-x-4">
                                         <img class=" rounded-full w-12 h-12"
                                             src="{{ asset('assets/images/profile.svg') }}" alt="">
                                         <div>
-                                            <p class="text-base font-bold">Budi Santoso</p>
-                                            <p class="text-base">Pemain Komunitas</p>
+                                            <p class="text-base font-bold">{{ $review->user->name }}</p>
+                                            <p class="text-base">{{ $review->user->team }}</p>
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center p-2 rounded-lg border">
@@ -450,57 +448,37 @@
                                         <p class="font-semibold text-2xl">4.8</p>
                                     </div>
                                 </div>
-                                <p>"Lapangan di SKY CLUB sangat nyaman dan aman. Permukaannya rata, jadi permainan berjalan
-                                    lebih lancar. Saya sangat puas dengan kualitasnya!"</p>
+                                <p>"{{ $review->comment }}"</p>
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
         {{-- testimoni --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            @for ($x = 0; $x < 3; $x++)
+            @foreach ($reviews as $review)
                 <div class="space-y-6 sm:space-y-8 border-b-2 pb-6 sm:border-b-0 sm:pb-0">
                     <div class="flex items-center">
-                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
-                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
-                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
-                        <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
-                        <svg class="w-4 h-4 ms-1 text-gray-300 dark:text-gray-500" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                            <path
-                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                        </svg>
+                        @for ($x = 0; $x < $review->rating; $x++)
+                            <svg class="w-4 h-4 text-yellow-300 ms-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                <path
+                                    d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                            </svg>
+                        @endfor
                     </div>
-                    <p>"Lapangan di SKY CLUB sangat nyaman dan aman. Permukaannya rata, jadi permainan berjalan
-                        lebih lancar. Saya sangat puas dengan kualitasnya!"</p>
+                    <p>{{ $review->comment }}</p>
                     <div class="flex items-center sm:block">
                         <img class=" rounded-full w-14 sm:mb-4 mr-4" src="{{ asset('assets/images/profile.svg') }}"
                             alt="">
                         <div>
-                            <p class="text-base font-bold">Budi Santoso</p>
-                            <p class="text-base">Pemain Komunitas</p>
+                            <p class="text-base font-bold">{{ $review->user->name }}</p>
+                            <p class="text-base">{{ $review->user->team }}</p>
                         </div>
                     </div>
                 </div>
-            @endfor
+            @endforeach
         </div>
         <hr class="h-px my-8 bg-gray-400 border-0 dark:bg-gray-700">
         <div class="rounded-lg border border-gray-300">

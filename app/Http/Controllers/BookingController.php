@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Field;
+use App\Models\Review;
 use App\Models\Booking;
 use App\Models\Voucher;
 use App\Models\UserInfo;
@@ -38,7 +39,10 @@ class BookingController extends BaseController
     {
         $booking_cart = $request->session()->get('cart', []);
         $users_offline = UserInfo::all();
-        return view('payments.detailPembayaran', compact('booking_cart', 'users_offline'));
+        $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        $countRating = $reviews->count();
+        $averageRating = $reviews->avg('rating');
+        return view('payments.detailPembayaran', compact('booking_cart', 'users_offline', 'averageRating', 'countRating'));
     }
 
     // menampilkan halaman uploud bukti pembayaran
