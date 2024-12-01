@@ -58,6 +58,7 @@ Route::post('/field-schedule/cancel/{list_booking}', [ListBookingController::cla
 // Booking & Pembayaran
 Route::get('/payment', [BookingController::class, 'payment'])->name('booking.payment');
 Route::post('payment/voucher', [BookingController::class, 'useVoucher'])->name('booking.voucher');
+Route::post('payment/user-offline', [BookingController::class, 'userOffline'])->name('booking.userOffline');
 Route::post('/payment', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
 Route::put('/payment/uploud', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
@@ -115,7 +116,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/cancel-booking', [AdminController::class, 'cancelBooking'])->name('admin.cancel');
     Route::put('/cancel-booking/accept/{listBooking}', [ListBookingController::class, 'acceptCancelBooking'])->name('admin.acceptCancelBooking');
     Route::put('/cancel-booking/reject/{listBooking}', [ListBookingController::class, 'rejectCancelBooking'])->name('admin.rejectCancelBooking');
-    
+
     // Admin Article
     Route::get('/admin/article', [articleConfiguration::class, 'index'])->name('admin.article');
     Route::get('/admin/article/create', [articleConfiguration::class, 'create'])->name('admin.article.create');

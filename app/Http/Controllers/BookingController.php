@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Field;
 use App\Models\Booking;
 use App\Models\Voucher;
+use App\Models\UserInfo;
 use App\Models\ListBooking;
 use Illuminate\Http\Request;
 use App\Events\BookingCreated;
@@ -14,6 +15,7 @@ use App\Events\PaymentUplouded;
 use App\Rules\VoucherValidation;
 use App\Jobs\UpdateBookingStatus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\ApproveBooking;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreBookingRequest;
@@ -35,9 +37,8 @@ class BookingController extends BaseController
     public function payment(Request $request)
     {
         $booking_cart = $request->session()->get('cart', []);
-        // $totalPrice = $booking_cart['total'];
-        // $voucher = $booking_cart['voucher'];
-        return view('payments.detailPembayaran', compact('booking_cart'));
+        $users_offline = UserInfo::all();
+        return view('payments.detailPembayaran', compact('booking_cart', 'users_offline'));
     }
 
     // menampilkan halaman uploud bukti pembayaran
@@ -81,10 +82,49 @@ class BookingController extends BaseController
     public function store(StoreBookingRequest $request)
     {
         $booking_cart = $request->session()->get('cart', []);
-        $id_voucher = $booking_cart['voucher']->id;
+        $id_voucher = $booking_cart['voucher']->id ?? 0;
         $list_booking = $booking_cart['list_schedules'];
         $rented = $booking_cart['rented'];
         $order_date = $booking_cart['order_date'];
+        $user_offline = $booking_cart['user_offline'] ?? null;
+
+        if (Auth::user()->role == 'admin') {
+            if (is_array($user_offline)) {
+                $newUser = UserInfo::create([
+                    'name' => $user_offline['name'],
+                    'no_telp' => $user_offline['no_telp'],
+                    'email' => $user_offline['email']
+                ]);
+            } else {
+                $newUser = $user_offline;
+            }
+            if (!isset($booking_cart['id_booking'])) {
+                if ($id_voucher === 0) {
+                    $newBooking = Booking::create([
+                        'order_date' => $order_date,
+                        'status' => 'accept',
+                        'rented_by' => $rented,
+                        'user_info' => $newUser->id
+                    ]);
+                } else {
+                    $newBooking = Booking::create([
+                        'order_date' => $order_date,
+                        'status' => 'accept',
+                        'rented_by' => $rented,
+                        'id_voucher' => $id_voucher,
+                        'user_info' => $newUser->id
+                    ]);
+                }
+                foreach ($list_booking as $schedule) {
+                    BookingCreated::dispatch($newBooking, $schedule);
+                }
+                UpdateBookingStatus::dispatch($newBooking->id)->delay(now()->addMinutes(5));
+                $booking_cart['id_booking'] = $newBooking->id;
+                $booking_cart['order_date'] = now();
+                $request->session()->put('cart', $booking_cart);
+            }
+            return redirect()->route('booking.paymentSuccess');
+        }
 
         if (!isset($booking_cart['id_booking'])) {
             if ($id_voucher === 0) {
@@ -109,7 +149,7 @@ class BookingController extends BaseController
             $booking_cart['order_date'] = now();
             $request->session()->put('cart', $booking_cart);
         }
-        // $request->session()->forget('cart');
+
         return redirect()->route('booking.paymentUploud');
     }
     public function acceptBooking(Booking $booking)
@@ -181,5 +221,31 @@ class BookingController extends BaseController
         $booking_cart['fullTotal'] = $totalPrice - $discountAmount;
         $request->session()->put('cart', $booking_cart);
         return redirect()->route('booking.payment')->with('voucherSuccess', 'Voucher berhasil digunakan.');
+    }
+    public function userOffline(Request $request)
+    {
+        if ($request->has('user')) {
+            $request->validate([
+                'user' => 'required'
+            ]);
+            $booking_cart = $request->session()->get('cart', []);
+            $booking_cart['user_offline'] = UserInfo::where('id', $request->user)->first();
+            $request->session()->put('cart', $booking_cart);
+            return redirect()->route('booking.payment')->with('userOfflineSuccess', $request->user);
+        }
+        $request->validate([
+            'name' => 'required',
+            'no_telp' => 'required',
+            'email' => 'required|email',
+        ]);
+        $user_offline = [
+            'name' => $request->name,
+            'no_telp' => $request->no_telp,
+            'email' => $request->email,
+        ];
+        $booking_cart = $request->session()->get('cart', []);
+        $booking_cart['user_offline'] = $user_offline;
+        $request->session()->put('cart', $booking_cart);
+        return redirect()->route('booking.payment')->with('userOfflineSuccess', 'Data user offline berhasil disimpan');
     }
 }

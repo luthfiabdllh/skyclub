@@ -28,8 +28,9 @@
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $listBooking->formatted_date . ' | ' . $listBooking->formatted_session }}
                         </td>
+                        {{-- @dd($listBooking->booking->userInfo) --}}
                         <td class="px-6 py-4">
-                            {{ $listBooking->booking->rentedBy->name }}
+                            {{ $listBooking->booking->userInfo != null ? $listBooking->booking->userInfo->name . ' (manual)' : $listBooking->booking->rentedBy->name }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $listBooking->booking->formatted_order_date }}
