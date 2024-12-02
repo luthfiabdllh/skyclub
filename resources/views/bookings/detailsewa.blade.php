@@ -267,7 +267,10 @@
                     <!-- week days -->
                     <div class="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-7 gap-2">
                         <template x-for="(day, index) in weekDays" :key="index">
-                            <div @click="selectDate(day.date)" :class="{ 'bg-red-500 text-white': isSelected(day.date) }"
+                            <div  @click="isWithinRange(day.date) && selectDate(day.date)" :class="{
+                                'bg-red-500 text-white': isSelected(day.date),
+                                'text-gray-400': !isWithinRange(day.date),
+                                }"
                                 class="cursor-pointer text-center w-16 p-2 rounded-md">
                                 <div class="text-xs font-medium" x-text="day.name"></div>
                                 <div class="text-sm font-semibold"
@@ -286,7 +289,8 @@
                     <!-- Date Picker -->
                     <div class="relative w-14 cursor-pointer">
                         <label class="flex items-center justify-center">
-                            <input type="date" x-model="selectedDate" @change="goToSelectedDate"
+                            <input type="date" x-model="selectedDate"     @change="goToSelectedDate"
+                            :min="minDate.toISOString().split('T')[0]" :max="maxDate.toISOString().split('T')[0]"
                                 class="absolute opacity-0 w-full h-full cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="w-6 h-6 text-gray-500 hover:text-gray-700">
@@ -506,7 +510,7 @@
                 dataWeekInServer: [],
                 dataDateInServer: [],
                 minDate: new Date(), // Tanggal minimum yang dapat dipilih
-                // maxDate: '2024-12-31', // Tanggal maksimum yang dapat dipilih
+                maxDate: new Date(new Date().setMonth(new Date().getMonth() + 2)),// Tanggal maksimum yang dapat dipilih
 
                 // Inisialisasi kalender mingguan
                 init() {
@@ -720,6 +724,9 @@
                 },
                 loadTimeSlots(index) {
                     this.getSchedule(index);
+                },
+                isWithinRange(date) {
+                    return date >= this.minDate && date <= this.maxDate;
                 },
             };
         }

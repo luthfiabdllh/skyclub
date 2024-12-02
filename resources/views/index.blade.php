@@ -139,12 +139,13 @@
                         <tr>
                             <td colspan="4" class="px-5 py-2 bg-transparent"></td>
                         </tr>
+                    </tbody>
                     @empty
-                        <p>Tidak ada sparing</p>
-                    @endforelse
-                </tbody>
+                    <tr>
+                        <td colspan="4" class="px-5 py-2 bg-transparent">Tidak ada Sparing</td>
+                    </tr>
+                @endforelse
             </table>
-            {{-- <p>Tidak ada sparing</p> --}}
         </div>
 
         {{-- content 3 --}}
