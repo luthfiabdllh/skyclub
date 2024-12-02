@@ -18,7 +18,7 @@
         @include('components.sidebar')
 
 
-        <main class="md:ml-64 h-auto pt-24 bg-white ">
+        <main class="md:ml-64 h-auto pt-24 bg-white">
             @yield('content')
         </main>
     </div>

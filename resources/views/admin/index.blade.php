@@ -5,6 +5,7 @@
 @endpush
 
 @section('content')
+{{-- bookings chart --}}
 <div class="bg-white shadow rounded-lg border-gray-300 dark:border-gray-60 mb-4 p-6">
     <div class="flex justify-between">
       <div>
@@ -28,10 +29,10 @@
         <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                 <li>
-                    <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-days="1" data-label="Yesterday">Yesterday</a>
+                    <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-days="2" data-label="Yesterday">Yesterday</a>
                 </li>
                 <li>
-                    <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-days="0" data-label="Today">Today</a>
+                    <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-days="1" data-label="Today">Today</a>
                 </li>
                 <li>
                     <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-days="7" data-label="Last 7 days">Last 7 days</a>
@@ -53,8 +54,10 @@
       </div>
     </div>
 </div>
+
+{{-- acceptance --}}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex items-center justify-between mb-4">
             <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Booking Terbaru</h5>
             <a href="{{ route('admin.booking')}}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
@@ -131,7 +134,7 @@
             </ul>
         </div>
     </div>
-    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex items-center justify-between mb-4">
             <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Ubah Booking</h5>
             <a href="{{ route('admin.reschedule')}}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
@@ -205,7 +208,7 @@
             </ul>
         </div>
     </div>
-    <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex items-center justify-between mb-4">
             <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Pembatalan Booking</h5>
             <a href="{{ route('admin.cancel')}}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
