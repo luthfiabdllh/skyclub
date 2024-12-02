@@ -174,33 +174,27 @@
             <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat Semuanya</button>
         </div>
     </div>
-    <div class="flex lg:flex-row flex-col justify-between mt-10 lg:space-y-0 space-y-6 gap-8" >
+    <div class="grid lg:grid-cols-3 grid-cols-1 justify-between mt-10 lg:space-y-0 space-y-6 gap-10">
         @foreach($moreArticlesData as $moreArticleData)
-            <div
-                class="lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 lg:block flex hover:shadow-xl transform hover:-translate-y-1 transition duration-300">
-                <a href="{{ route('article.userShow', $moreArticleData['id']) }}" class="w-full h-full bg-cover hidden xs:inline">
-                    <img class="lg:rounded-bl-none lg:rounded-t-lg  rounded-l-lg object-cover w-full h-75"
-                        src="{{ $moreArticleData['image'] }}" alt="" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform hover:-translate-y-1 transition duration-300 hover:shadow-xl">
+                <a class="hidden sm:block bg-cover h-72" href="{{ route('article.userShow', $moreArticleData['id']) }}">
+                    <img class="rounded-s-lg lg:rounded-none lg:rounded-t-lg h-full object-cover w-full" src="{{ $moreArticleData['image'] }}" alt="" />
                 </a>
 
-                <div class="p-5 flex flex-col place-content-center text-left">
-                    <div>
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-sm xxs:text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                {{ $moreArticleData['title'] }}</h5>
+                <div class="p-4 text-left">
+                    <div class="">
+                        <a href="{{ route('article.userShow', $moreArticleData['id']) }}">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $moreArticleData['title'] }}</h5>
                         </a>
-                        <p class=" break-words text-xs md:text-base mb-3 font-normal text-gray-700 dark:text-gray-400">
-                            {{ $moreArticleData['paragraph'] }}</p>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 break-words">{{ $moreArticleData['paragraph'] }}</p>
                     </div>
-                    <div class="space-x-4 md:mt-3 lg:mt-10 mt-6 items-center sm:flex hidden">
+                    <div class="flex space-x-4 items-center mt-10">
                         <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
                         <div>
                             <p class="text-xs md:text-sm font-semibold">{{ $moreArticleData['created_by'] }}</p>
                             <p class="text-xs md:text-sm">{{ $moreArticleData['created_at'] }}</p>
                         </div>
                     </div>
-                    <p class="text-xs md:text-sm text-gray-700 sm:hidden">{{ $moreArticleData['created_by'] }} | {{ $moreArticleData['created_at'] }}</p>
                 </div>
             </div>
         @endforeach
