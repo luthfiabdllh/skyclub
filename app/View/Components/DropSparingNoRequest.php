@@ -6,15 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DropHistorySparing extends Component
+class DropSparingNoRequest extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $req_sparing;
+    public $sparing;
     public function __construct($sparing)
     {
-        $this->req_sparing = $sparing;
+        $this->sparing = $sparing;
     }
 
     /**
@@ -22,6 +22,6 @@ class DropHistorySparing extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.drop-history-sparing');
+        return view('components.drop-sparing-no-request');
     }
 }

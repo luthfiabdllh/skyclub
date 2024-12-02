@@ -10,7 +10,8 @@
             <div class="p-8 rounded-lg border border-gray-500">
                 <div class="mb-8">
                     <div class="flex space-x-4 items-center mb-4">
-                        <img class=" rounded-full" src="{{ asset('assets/icons/profile.svg') }}" alt="">
+                        <img class=" rounded-full" src="{{ asset('storage/' . $sparing->createdBy->profile_photo) }}"
+                            alt="" width="50px">
                         <p class="font-semibold text-2xl">{{ $sparing->createdBy->team }}</p>
                     </div>
                     <p class="mb-6 text-lg">{{ $sparing->description }}</p>

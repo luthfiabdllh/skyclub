@@ -13,6 +13,20 @@ class ListBooking extends Model
     use HasFactory;
     protected $with = ['booking', 'field'];
     protected $guarded = [];
+    public function getFormattedStatusRequestAttribute()
+    {
+        if ($this->booking->status == 'accept' && $this->date <= Carbon::now()) {
+            return 'Selesai';
+        } elseif ($this->status_request == 'request-reschedule') {
+            return 'Menunggu Konfirmasi Reschedule';
+        } elseif ($this->status_request == 'request-cancel') {
+            return 'Menunggu Konfirmasi Pembatalan';
+        } elseif ($this->status_request == 'cancel') {
+            return 'Pesanan Dibatalkan';
+        } elseif ($this->status_request == 'reschedule') {
+            return 'Reschedule Berhasil';
+        }
+    }
     public function getFormattedSessionAttribute()
     {
         return str_pad($this->attributes['session'] - 1, 2, '0', STR_PAD_LEFT) . ':00 - ' . str_pad($this->attributes['session'], 2, '0', STR_PAD_LEFT) . ':00';

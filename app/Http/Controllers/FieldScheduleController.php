@@ -45,7 +45,7 @@ class FieldScheduleController extends BaseController
 
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
-        $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        $reviews = Review::with(['user:id,name,team,profile_photo'])->latest()->get();
         $countRating = $reviews->count();
         $averageRating = $reviews->avg('rating');
         // dd($reviews);

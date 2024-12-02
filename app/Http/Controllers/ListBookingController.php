@@ -121,6 +121,10 @@ class ListBookingController extends Controller
         $listBooking->update([
             'status_request' => 'cancel',
         ]);
+        // $booking = $listBooking->booking;
+        // $booking->update([
+        //     'status' => 'canceled',
+        // ]);
         $user = User::find($listBooking->booking->rented_by);
         Notification::send($user, new AcceptCancelBookingNotification($listBooking));
         return back()->with('success', 'Pembatalan booking berhasil diterima');

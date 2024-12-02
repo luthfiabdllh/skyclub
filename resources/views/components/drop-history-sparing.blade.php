@@ -1,20 +1,35 @@
 <div x-data="{ open: false, ratingSparingModal: false, rating: 5, review: '' }" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
-            <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            <img class="w-full h-full object-cover"
+                src="{{ asset('storage/field/images/' . $req_sparing->sparing->listBooking->field->photos->first()->photo) }}"
+                alt="">
         </div>
         <div class="flex items-center gap-6 ">
-            <p class="font-bold text-xl">{{ $sparing->listBooking->field->name }}</p>
+            <p class="font-bold text-xl">{{ $req_sparing->sparing->listBooking->field->name }}</p>
             <div class="border-l border-gray-400 h-7 my-auto"></div>
-            <p class="font-semibold">{{ $sparing->createdBy->team }}</p>
+            <p class="font-semibold">{{ $req_sparing->sparing->createdBy->team }}</p>
             <div class="border-l border-gray-400 h-7 my-auto"></div>
             <div>
-                <p class="font-xs ">{{ $sparing->listBooking->formatted_date }}</p>
-                <p class="font-semibold">{{ $sparing->listBooking->formatted_session }}</p>
+                <p class="font-xs ">{{ $req_sparing->sparing->listBooking->formatted_date }}</p>
+                <p class="font-semibold">{{ $req_sparing->sparing->listBooking->formatted_session }}</p>
             </div>
         </div>
-        <div class=" p-1.5 bg-red-400 text-center font-bold text-sm rounded">
-            {{ $sparing->status_sparing }}
+        <div
+            class="
+        @switch($req_sparing->sparing->status_sparing)
+                    @case('done')
+                        bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300
+                        @break
+                    @case('pending')
+                        bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300
+                        @break
+                    @default
+                        bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                @endswitch
+        {{-- p-1.5 bg-red-400 text-center font-bold text-sm rounded --}}
+        ">
+            {{ $req_sparing->sparing->formatted_status_sparing }}
         </div>
         <div>
             <button @click="open = !open" class="size-12 p-2.5 border border-black rounded-lg">
@@ -29,35 +44,67 @@
                 <div class=" space-y-7">
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">Tanggal Pemesanan</h6>
-                        <p>{{ $sparing->listBooking->formatted_date }}</p>
+                        <p>{{ $req_sparing->sparing->listBooking->formatted_date }}</p>
                     </div>
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">Alamat</h6>
-                        <p>{{ $sparing->createdBy->address }}</p>
+                        <p>{{ $req_sparing->sparing->createdBy->address }}</p>
                     </div>
                 </div>
                 <div class=" space-y-7">
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">Pemesan</h6>
-                        <p>{{ $sparing->createdBy->name }}</p>
+                        <p>{{ $req_sparing->sparing->createdBy->name }}</p>
                     </div>
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">No. Telepon</h6>
-                        <p>{{ $sparing->createdBy->no_telp }}</p>
+                        <p>{{ $req_sparing->sparing->createdBy->no_telp }}</p>
                     </div>
                 </div>
                 <div class=" space-y-7">
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">Username</h6>
-                        <p>{{ $sparing->createdBy->username }}</p>
+                        <p>{{ $req_sparing->sparing->createdBy->username }}</p>
                     </div>
                     <div class=" space-y-1">
                         <h6 class="font-semibold text-sm">Email</h6>
-                        <p>{{ $sparing->createdBy->email }}</p>
+                        <p>{{ $req_sparing->sparing->createdBy->email }}</p>
                     </div>
                 </div>
             </div>
             <div class="border-l border-gray-400 h-32 my-auto"></div>
+            <div class="flex gap-10">
+                <div class=" space-y-7">
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">Tanggal Pengajuan</h6>
+                        <p>{{ $req_sparing->created_at }}</p>
+                    </div>
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">Alamat</h6>
+                        <p>{{ $req_sparing->user->address ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class=" space-y-7">
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">Penantang</h6>
+                        <p>{{ $req_sparing->user->name }}</p>
+                    </div>
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">No. Telepon</h6>
+                        <p>{{ $req_sparing->user->no_telp }}</p>
+                    </div>
+                </div>
+                <div class=" space-y-7">
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">Username</h6>
+                        <p>{{ $req_sparing->user->username }}</p>
+                    </div>
+                    <div class=" space-y-1">
+                        <h6 class="font-semibold text-sm">Email</h6>
+                        <p>{{ $req_sparing->user->email }}</p>
+                    </div>
+                </div>
+            </div>
             {{-- <div class="flex gap-10">
                 <div class=" space-y-7">
                     <div class=" space-y-1">
@@ -93,10 +140,10 @@
         </div>
         <div class="flex space-x-28 items-center mt-8 justify-self-center">
             <div class="bg-cover rounded-full overflow-hidden group size-16">
-                <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+                <img class="w-full h-full object-cover"
+                    src="{{ $req_sparing->sparing->createdBy->formattedProfilePhoto }}" alt="">
             </div>
-            {{-- @dd($sparing->listBooking->booking->review) --}}
-            @if ($sparing->listBooking->booking->review == null)
+            @if ($req_sparing->sparing->listBooking->booking->review == null)
                 <div class="items-center">
                     <button @click="ratingSparingModal = true"
                         class="py-2 px-3 border-4 border-yellow-300 flex items-center space-x-3 rounded-lg text-yellow-300 font-bold">
@@ -109,6 +156,12 @@
                     </button>
                 </div>
             @endif
+            <div class="bg-cover rounded-full overflow-hidden group size-16">
+                <img class="w-full h-full object-cover" src="{{ $req_sparing->user->formattedProfilePhoto }}"
+                    alt="">
+            </div>
+            {{-- @dd($sparing->listBooking->booking->review) --}}
+
             <div class="bg-cover rounded-full overflow-hidden group size-16">
                 {{-- <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt=""> --}}
             </div>
@@ -158,7 +211,8 @@
                     @csrf
                     <input type="hidden" name="rating" :value='rating'>
                     <input type="hidden" name="review" :value='review'>
-                    <input type="hidden" name="booking" :value={{ $sparing->listBooking->booking->id }}>
+                    <input type="hidden" name="booking"
+                        :value={{ $req_sparing->sparing->listBooking->booking->id }}>
                     <button @click="ratingSparingModal = false"
                         class="px-4 py-2 bg-red-500 text-white rounded-md">Save</button>
                 </form>

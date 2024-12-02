@@ -109,8 +109,8 @@
                                 <div class="flex items-center text-left">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img class="w-full h-full rounded-full"
-                                            src="{{ asset('assets/images/profile.svg') }}"
-                                            alt="Profile image of Real Madrid">
+                                            src="{{ asset('storage/' . $sparing->createdBy->profile_photo) }}"
+                                            alt="Profile photo">
                                     </div>
                                     <div class="ml-3">
                                         <p class="text-gray-900 whitespace-no-wrap font-semibold">
@@ -187,15 +187,16 @@
                     :style="`transform: translateX(-${currentSlide * (100 / visibleCards)}%)`">
                     <template x-for="(slide, index) in slides" :key="index">
                         {{-- rating card --}}
-                        <div class="flex-shrink-0 w-full sm:w-1/3 p-8">
+                        {{-- <div x-data="{ profile: `storage/${slide.user.profile_photo}` }" class="flex-shrink-0 w-full sm:w-1/3 p-8"> --}}
+                        <div x-data="{ profile: `storage/${slide.user.profile_photo}` }" class="flex-shrink-0 w-full sm:w-1/3 p-8">
                             {{-- <div @click="console.log(slide)"  --}}
                             <div @click="ratingModal = true;  selectedSlide = slide"
                                 class="border border-gray-200 rounded-lg bg-white p-6 space-y-6 hover:shadow-xl transform hover:-translate-y-1 transition duration-300 cursor-pointer">
                                 <div class="text-yellow-500 text-left" x-text="'⭐'.repeat(parseInt(slide.rating))">⭐</div>
                                 <p class="text-gray-600 text-left" x-text="slide.comment"></p>
                                 <div class="flex space-x-4">
-                                    <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}"
-                                        alt="">
+                                    {{-- <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" --}}
+                                    <img class="rounded-full" :src="profile" alt="" width="50px">
                                     <div>
                                         <p class=" font-semibold text-left" x-text="slide.user.name"></p>
                                         <p class="text-gray-500 text-sm text-left" x-text="slide.user.team"></p>
@@ -235,7 +236,7 @@
                         <p class="text-gray-600 text-left mb-4" x-text="selectedSlide?.comment"></p>
                         <div class="flex space-x-4 mb-4">
                             <img class="rounded-full w-12 h-12"
-                                :src="`{{ asset('assets/images/') }}/${selectedSlide?.image}`" alt="">
+                                :src="`{{ asset('storage/') }}/${selectedSlide?.user.profile_photo}`" alt="">
                             <div>
                                 <p class="font-semibold text-left" x-text="selectedSlide?.user.name"></p>
                                 <p class="text-gray-500 text-sm text-left" x-text="selectedSlide?.user.team"></p>

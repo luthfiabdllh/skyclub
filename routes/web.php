@@ -77,6 +77,8 @@ Route::post('/review', [ReviewController::class, 'store'])->name('review.store')
 
 // profile
 Route::get('/profile-user', [ProfileUserController::class, 'index'])->name('profile.show');
+Route::put('/profile-user', [ProfileUserController::class, 'update'])->name('profile.update');
+Route::post('/profile-user/image', [ProfileUserController::class, 'updateImage'])->name('profile.updateImage');
 
 // Notification
 Route::get('/notification', [NotificationController::class, 'index'])->name('notication.index');
