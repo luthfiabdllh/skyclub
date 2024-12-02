@@ -44,10 +44,21 @@ class SparingController extends Controller
         return redirect()->route('sparing.index');
     }
 
-    public function addRequest($sparing)
+    public function addRequest(Sparing $sparing)
     {
+        $user = Auth::user();
+        $isRequest = SparingRequest::where('id_sparing', $sparing->id)->where('id_user', $user->id)->exists();
+        // $isRequest = $request;
+        // dd($isRequest);
+        if ($user->team == null) {
+            return back()->with('sparingFailed', 'Kamu Belum Mempunyai Team Silahkan Tambahkan Nama Team di Profile');
+        } elseif ($sparing->createdBy->id == $user->id) {
+            return back()->with('sparingFailed', 'Kamu Tidak Bisa Mengajukan Sparing Milik Sendiri');
+        } elseif ($isRequest) {
+            return redirect()->route('sparing.index')->with('sparingFailed', 'Kamu Sudah Pernah Mengajukan Sparing Ini');
+        }
         $sparing_request = SparingRequest::create([
-            'id_sparing' => $sparing,
+            'id_sparing' => $sparing->id,
             'id_user' => Auth::user()->id,
             'status_request' => 'waiting'
         ]);

@@ -256,7 +256,7 @@
         </div>
     </div>
 @endsection
-@section('script')
+@push('script')
     <script>
         function updateUser(id) {
             const userId = id;
@@ -266,7 +266,6 @@
             const address = document.querySelector('#address').value;
             const date_of_birth = document.querySelector('#date_of_birth').value;
             const team = document.querySelector('#team').value;
-
             axios.put('/profile-user', {
                 id: userId,
                 name: name,
@@ -276,6 +275,7 @@
                 date_of_birth: date_of_birth,
                 team: team
             }).then((response) => {
+
                 document.getElementById('alert-1').classList.remove('hidden');
             }).catch((error) => {
                 console.error(error);
@@ -299,4 +299,4 @@
                 });
         }
     </script>
-@endsection
+@endpush
