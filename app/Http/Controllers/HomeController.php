@@ -52,7 +52,7 @@ class HomeController extends Controller
         }
 
         //rating
-        $reviews = Review::with(['user:id,name,team'])->latest()->get();
+        $reviews = Review::with(['user:id,name,team,profile_photo'])->latest()->get();
         // dd($reviews->toJson());
         return view('index', compact(['sparings', 'reviews', 'moreArticlesData']));
     }

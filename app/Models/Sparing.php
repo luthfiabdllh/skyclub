@@ -12,6 +12,15 @@ class Sparing extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function getFormattedStatusSparingAttribute(): string
+    {
+        if ($this->status_sparing == 'pending') {
+            return 'Menunggu Lawan';
+        } elseif ($this->status_sparing == 'done') {
+            return 'Selesai';
+        }
+        return 'default';
+    }
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

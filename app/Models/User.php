@@ -29,6 +29,13 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function getFormattedProfilePhotoAttribute(): string
+    {
+        if (!$this->profile_photo) {
+            return asset('assets/icons/profile.svg');
+        }
+        return asset('storage/' . $this->profile_photo);
+    }
     public function article(): HasMany
     {
         return $this->hasMany(Article::class);

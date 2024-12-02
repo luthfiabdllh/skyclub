@@ -1,7 +1,27 @@
 @php
     use Carbon\Carbon;
+    // function isStatusRequest(ListBooking $listBooking)
+    // {
+    //     return $listBooking->status_request ? true : false;
+    // }
+    // function classForStatus($status)
+    // {
+    //     if ($status == 'accept') {
+    //         return 'bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300';
+    //     } elseif ($status == 'pending') {
+    //         return 'bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300';
+    //     } elseif ($status == 'reject') {
+    //         return 'bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300';
+    //     }
+    // }
 @endphp
-<div x-data="{ open: false, cancelBookingModal: false, scheduleModal: false, sparingModal: false, proofTransfer: false }" class="min-h-full bg-gray-200 shadow rounded-lg">
+<div x-data="{
+    open: false,
+    cancelBookingModal: false,
+    scheduleModal: false,
+    sparingModal: false,
+    proofTransfer: false
+}" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
             <img class="w-full h-full object-cover"
@@ -19,8 +39,42 @@
             <p class="font-semibold">{{ $sesi->field->formatted_price }}</p>
             {{-- <p class="font-semibold">Rp 1.000.000</p> --}}
         </div>
-        <div class=" p-1.5 bg-red-400 text-center font-bold text-sm rounded">
-            {{ $sesi->status_request ?? $booking->status }}
+        {{-- <span class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Red</span>
+            <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Green</span>
+            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Yellow</span> --}}
+        <div
+            class="
+            @if ($sesi->status_request) @switch($sesi->status_request)
+                    @case('reschedule')
+                        bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300
+                        @break
+                    @case('request-reschedule')
+                    @case('request-cancel')
+                        bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300
+                        @break
+                    @case('cancel')
+                        bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                        @break
+                    @default
+                        bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                @endswitch
+            @else
+                @switch($booking->status)
+                    @case('accept')
+                        bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300
+                        @break
+                    @case('pending')
+                        bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300
+                        @break
+                    @case('failed')
+                    @case('canceled')
+                        bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                        @break
+                    @default
+                        bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                @endswitch @endif
+            ">
+            {{ $sesi->status_request ?? $booking->formatted_status }}
         </div>
         <div>
             <button @click="open = !open" class="size-12 p-2.5 border border-black rounded-lg">
@@ -39,7 +93,6 @@
                 <div class=" space-y-1">
                     <h6 class="font-semibold text-sm">Alamat</h6>
                     <p>{{ $booking->rentedBy->address ?? '-' }}</p>
-                    {{-- <p>123 Sample St.Sydney</p> --}}
                 </div>
                 <div>
                     @if ($booking->status == 'accept' && $sesi->status_request == null)
@@ -95,7 +148,8 @@
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div @click.stop class="bg-white p-2 rounded-lg justify-center flex flex-col text-center">
             <div class="bg-cover rounded-lg overflow-hidden group w-79 h-45">
-                <img class="w-full h-full object-cover" src="{{ route('booking.paymentImage', basename($booking->uploud_payment)) }}" alt="">
+                <img class="w-full h-full object-cover"
+                    src="{{ route('booking.paymentImage', basename($booking->uploud_payment)) }}" alt="">
             </div>
         </div>
     </div>
@@ -169,5 +223,4 @@
             </div>
         </form>
     </div>
-
 </div>

@@ -14,6 +14,19 @@ class Booking extends Model
     use HasFactory;
     protected $with = ['rentedBy', 'voucher', 'userInfo'];
     protected $guarded = [];
+    public function getFormattedStatusAttribute()
+    {
+        $status = $this->attributes['status'];
+        if ($status == 'pending') {
+            return 'Menunggu Konfirmasi Admin';
+        } elseif ($status == 'accept') {
+            return 'Pembayaran Diterima';
+        } elseif ($status == 'failed') {
+            return 'Pembayaran Ditolak';
+        } elseif ($status == 'canceled') {
+            return 'Pesanan Dibatalkan';
+        }
+    }
     public function getFormattedOrderDateAttribute()
     {
         return Carbon::parse($this->attributes['order_date'])->format('d F Y');

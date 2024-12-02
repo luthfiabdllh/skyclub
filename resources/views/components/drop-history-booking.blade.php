@@ -1,7 +1,8 @@
 <div x-data="{ open: false, ratingBookingModal: false, rating: 5, review: '' }" class="min-h-full bg-gray-200 shadow rounded-lg">
     <div class=" bg-white rounded-lg py-8 px-6 flex justify-between items-center">
         <div class="bg-cover rounded-xl overflow-hidden group w-20 h-20">
-            <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            <img class="w-full h-full object-cover"
+                src="{{ asset('storage/field/images/' . $list_booking->field->photos->first()->photo) }}" alt="">
         </div>
         <div class="flex items-center gap-6 ">
             <p class="font-bold text-xl">{{ $list_booking->field->name }}</p>
@@ -13,8 +14,21 @@
             <div class="border-l border-gray-400 h-8 my-auto"></div>
             <p class="font-semibold">{{ $list_booking->field->formatted_price }}</p>
         </div>
-        <div class=" p-1.5 bg-red-400 text-center font-bold text-sm rounded">
-            {{ $list_booking->booking->status }}
+        <div
+            class="
+            @switch($list_booking->formatted_status_request)
+                @case('Selesai')
+                    bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300
+                    @break
+                @case('Pesanan Dibatalkan')
+                    bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+                    @break
+                @default
+                    bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
+            @endswitch
+        {{-- p-1.5 bg-red-400 text-center font-bold text-sm rounded --}}
+        ">
+            {{ $list_booking->formatted_status_request }}
         </div>
         <div>
             <button @click="open = !open" class="size-12 p-2.5 border border-black rounded-lg">
@@ -74,7 +88,9 @@
             @endif
         </div>
         <div class="bg-cover rounded-xl overflow-hidden group w-79 h-45">
-            <img class="w-full h-full object-cover" src="{{ Storage::url('images/album_1.svg') }}" alt="">
+            <img class="w-full h-full object-cover"
+                src="{{ route('booking.paymentImage', basename($list_booking->booking->uploud_payment)) }}"
+                alt="">
         </div>
     </div>
 
