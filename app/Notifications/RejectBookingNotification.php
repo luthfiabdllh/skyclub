@@ -42,7 +42,7 @@ class RejectBookingNotification extends Notification
             'booking_id' => $this->booking->id,
             'total' => $this->total,
             'payment_date' => $this->booking->created_at,
-            'message' => 'Pesanan dengan id ' . $this->booking->id . ' telah ditolak',
+            'message' => 'Mohon maaf, pesanan kamu telah ditolak',
             'type' => 'Pesanan Ditolak'
         ];
     }

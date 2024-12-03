@@ -44,7 +44,7 @@ class RejectSparingNotification extends Notification
             'schedule' => $this->request_sparing->sparing->listBooking->formatted_date,
             'session' => $this->request_sparing->sparing->listBooking->formatted_session,
             'field' => $this->request_sparing->sparing->listBooking->field->name,
-            'message' => 'Permintaan sparing dengan id ' . $this->request_sparing->id . ' telah ditolak',
+            'message' => 'Permintaan sparing kamu telah ditolak',
             'type' => 'Penolakan Sparing',
         ];
     }

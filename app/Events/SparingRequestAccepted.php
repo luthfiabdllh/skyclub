@@ -23,7 +23,7 @@ class SparingRequestAccepted
     public function __construct($sparing_req)
     {
         $this->sparing_req = $sparing_req;
-        $this->created_by = User::find($sparing_req->sparing->created_by);
+        // $this->created_by = User::find($sparing_req->sparing->created_by);
         $this->user = User::find($sparing_req->user->id);
     }
 

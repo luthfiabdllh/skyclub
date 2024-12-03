@@ -27,7 +27,7 @@ class SendNotificationForSparingRequest implements ShouldQueue
     public function handle(SparingRequestCreated $event): void
     {
         $created_by = User::find($event->sparing->created_by);
-        Notification::send($created_by, new SparingRequestNotification($event->sparing_request, true));
-        Notification::send($event->userRequest,  new SparingRequestNotification($event->sparing_request));
+        Notification::send($created_by, new SparingRequestNotification($event->sparing_request));
+        // Notification::send($event->userRequest,  new SparingRequestNotification($event->sparing_request));
     }
 }

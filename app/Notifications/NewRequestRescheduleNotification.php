@@ -42,7 +42,7 @@ class NewRequestRescheduleNotification extends Notification
             'booking_id' => $this->listBooking->id,
             'date' => $this->listBooking->formatted_date,
             'session' => $this->listBooking->formatted_session,
-            'message' => 'Pesanan dengan id ' . $this->listBooking->booking->id . ' telah diajukan untuk ubah jadwal',
+            'message' => 'Pesanan milik ' . $this->listBooking->booking->user->name . ' telah diajukan untuk ubah jadwal',
             'type' => 'Ubah Jadwal'
         ];
     }

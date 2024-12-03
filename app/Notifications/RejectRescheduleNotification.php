@@ -41,7 +41,7 @@ class RejectRescheduleNotification extends Notification
             'booking_id' => $this->listBooking->id,
             'date' => $this->listBooking->formatted_date,
             'session' => $this->listBooking->formatted_session,
-            'message' => 'Pesanan dengan id ' . $this->listBooking->booking->id . ' telah ditolak untuk ubah jadwal',
+            'message' => 'Pesanan kamu telah ditolak untuk perubahan jadwal',
             'type' => 'Ubah Jadwal'
         ];
     }

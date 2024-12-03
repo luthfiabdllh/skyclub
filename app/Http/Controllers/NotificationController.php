@@ -22,4 +22,15 @@ class NotificationController extends Controller
 
         return view('profiles.notifikasi', compact('notifications'));
     }
+
+    public function markAsRead($id)
+    {
+        // Mengambil notifikasi berdasarkan id
+        $notification = Auth::user()->notifications->where('id', $id)->first();
+
+        // Menandai notifikasi sebagai sudah dibaca
+        $notification->markAsRead();
+
+        return redirect()->route('profile.show');
+    }
 }

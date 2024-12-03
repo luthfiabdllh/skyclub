@@ -83,6 +83,7 @@ Route::post('/profile-user/image', [ProfileUserController::class, 'updateImage']
 
 // Notification
 Route::get('/notification', [NotificationController::class, 'index'])->name('notication.index');
+Route::post('/notification/read/{notification}', [NotificationController::class, 'markAsRead'])->name('notification.markAsRead');
 
 // Admin
 Route::prefix('/admin')->middleware('admin')->group(function () {

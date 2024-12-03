@@ -41,7 +41,7 @@ class RejectCancelBookingNotification extends Notification
             'booking_id' => $this->listBooking->id,
             'date' => $this->listBooking->formatted_date,
             'session' => $this->listBooking->formatted_session,
-            'message' => 'Pesanan dengan id ' . $this->listBooking->booking->id . ' telah ditolak untuk pembatalan',
+            'message' => 'Pesanan kamu telah ditolak untuk pembatalan',
             'type' => 'Pembatalan Jadwal'
         ];
     }

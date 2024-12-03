@@ -43,7 +43,7 @@ class NewBookingUserNotification extends Notification
             'booking_id' => $this->booking->id,
             'total' => $this->total,
             'payment_date' => $this->booking->created_at,
-            'message' => 'Pembayaran anda telah berhasil, silahkan cek akun anda untuk detail lebih lanjut.',
+            'message' => 'Pembayaran anda telah berhasil, silahkan menunggu konfirmasi admin.',
             'type' => 'Pembayaran'
         ];
     }

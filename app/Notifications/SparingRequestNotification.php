@@ -12,14 +12,12 @@ class SparingRequestNotification extends Notification
 {
     use Queueable;
     protected $sparing_request;
-    protected $owner;
     /**
      * Create a new notification instance.
      */
-    public function __construct(SparingRequest $sparing_request, $owner = false)
+    public function __construct(SparingRequest $sparing_request)
     {
         $this->sparing_request = $sparing_request;
-        $this->owner = $owner;
     }
 
     /**
@@ -39,10 +37,6 @@ class SparingRequestNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        $message = 'Permintaan sparing dengan id ' . $this->sparing_request->id . ' telah diajukan';
-        if ($this->owner) {
-            $message = 'Terdapat permintaan sparing dengan id ' . $this->sparing_request->id . ' yang belum direspon';
-        }
         return [
             'team1' => $this->sparing_request->sparing->createdBy->team,
             'team2' => $this->sparing_request->user->team,
@@ -50,7 +44,7 @@ class SparingRequestNotification extends Notification
             'schedule' => $this->sparing_request->sparing->listBooking->formatted_date,
             'session' => $this->sparing_request->sparing->listBooking->formatted_session,
             'field' => $this->sparing_request->sparing->listBooking->field->name,
-            'message' => $message,
+            'message' => 'Terdapat permintaan sparing oleh ' . $this->sparing_request->user->team . ' yang belum direspon',
             'type' => "Pengajuan Sparing",
         ];
     }

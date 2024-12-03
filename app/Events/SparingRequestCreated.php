@@ -23,11 +23,11 @@ class SparingRequestCreated
     /**
      * Create a new event instance.
      */
-    public function __construct($sparing, SparingRequest $sparing_request)
+    public function __construct(Sparing $sparing, SparingRequest $sparing_request)
     {
-        $this->sparing = Sparing::find($sparing);
+        $this->sparing = $sparing;
         $this->sparing_request = $sparing_request;
-        $this->userRequest = Auth::user();
+        // $this->userRequest = Auth::user();
     }
 
     /**

@@ -42,7 +42,7 @@ class AcceptBookingNotification extends Notification
             'booking_id' => $this->booking->id,
             'total' => $this->total,
             'payment_date' => $this->booking->created_at,
-            'message' => 'Pesanan dengan id ' . $this->booking->id . ' telah diterima',
+            'message' => 'Pesanan kamu telah diterima',
             'type' => 'Pesanan Berhasil'
         ];
     }

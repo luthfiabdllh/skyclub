@@ -27,6 +27,6 @@ class SendNotificationForSparingAccepted implements ShouldQueue
     public function handle(SparingRequestAccepted $event): void
     {
         Notification::send($event->user, new AcceptSparingNotification($event->sparing_req));
-        Notification::send($event->created_by, new AcceptSparingNotification($event->sparing_req));
+        // Notification::send($event->created_by, new AcceptSparingNotification($event->sparing_req));
     }
 }

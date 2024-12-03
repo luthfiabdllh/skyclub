@@ -41,7 +41,7 @@ class AcceptRescheduleNotification extends Notification
             'booking_id' => $this->listBooking->id,
             'date' => $this->listBooking->formatted_date,
             'session' => $this->listBooking->formatted_session,
-            'message' => 'Pesanan dengan id ' . $this->listBooking->booking->id . ' telah diterima untuk ubah jadwal',
+            'message' => 'Pesanan kamu telah diterima untuk perubahan jadwal',
             'type' => 'Ubah Jadwal'
         ];
     }

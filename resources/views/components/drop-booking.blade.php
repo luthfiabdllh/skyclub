@@ -96,6 +96,18 @@
                     <h6 class="font-semibold text-sm">No. Telepon</h6>
                     <p>{{ $booking->rentedBy->no_telp }}</p>
                 </div>
+
+                {{-- <div  @click="isWithinRange(day.date) && selectDate(day.date)" :class="{
+                    'bg-red-500 text-white': isSelected(day.date),
+                    'text-gray-400': !isWithinRange(day.date),
+                    }"
+                    class="cursor-pointer text-center w-16 p-2 rounded-md">
+                    <div class="text-xs font-medium" x-text="day.name"></div>
+                    <div class="text-sm font-semibold"
+                        x-text="day.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })">
+                    </div>
+                </div> --}}
+
                 <div>
                     @if ($booking->status == 'accept' && $sesi->status_request == null)
                         <a @click="cancelBookingModal = true"
@@ -210,3 +222,10 @@
         </form>
     </div>
 </div>
+@push('scripts')
+    <script>
+        function canCancel() {
+            return
+        }
+    </script>
+@endpush
