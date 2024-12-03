@@ -53,6 +53,29 @@ class BookingController extends BaseController
     }
 
     // validasi uploud bukti pembayaran
+    // public function paymentUploudValidate(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|image|max:2000'
+    //     ], [
+    //         'file.required' => 'Foto bukti pembayaran wajib diunggah.',
+    //         'file.image' => 'File yang diunggah harus berupa gambar.',
+    //         'file.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
+    //     ]);
+    //     $booking_cart = $request->session()->get('cart', []);
+    //     $max_payment = $booking_cart['order_date']->copy()->addMinutes(5)->setTimezone('Asia/Jakarta');
+    //     if ($max_payment->greaterThan(now())) {
+    //         $booking = Booking::find($booking_cart['id_booking']);
+    //         $path = $request->file('file')->store('/payments', 'local');
+    //         $booking->uploud_payment = $path;
+    //         $booking->save();
+    //         $field = Field::find(1);
+    //         PaymentUplouded::dispatch($booking, $booking_cart['total']);
+    //         return redirect()->route('booking.paymentSuccess');
+    //     }
+    //     return back()->with('timeIsOut', 'Waktu Pembayaran Telah Habis');
+    // }
+
     public function paymentUploudValidate(Request $request)
     {
         $request->validate([
@@ -62,17 +85,20 @@ class BookingController extends BaseController
             'photo.image' => 'File yang diunggah harus berupa gambar.',
             'photo.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
         ]);
+
         $booking_cart = $request->session()->get('cart', []);
         $max_payment = $booking_cart['order_date']->copy()->addMinutes(5)->setTimezone('Asia/Jakarta');
+
         if ($max_payment->greaterThan(now())) {
             $booking = Booking::find($booking_cart['id_booking']);
-            $path = $request->photo->store('/payments', 'local');
+            $path = $request->file('photo')->store('/payments', 'local');
             $booking->uploud_payment = $path;
             $booking->save();
-            $field = Field::find(1);
+
             PaymentUplouded::dispatch($booking, $booking_cart['total']);
-            return redirect()->route('booking.paymentSuccess');
+            return response()->json(['redirect_url' => route('booking.paymentSuccess')]);
         }
+
         return back()->with('timeIsOut', 'Waktu Pembayaran Telah Habis');
     }
 
