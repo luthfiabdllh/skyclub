@@ -22,8 +22,8 @@
 
     <x-bottom></x-bottom>
     <script src="{{ asset('node_modules/flowbite/dist/flowbite.min.js') }}"></script>
+    @stack('script')
 </body>
 
-@stack('script')
 
 </html>

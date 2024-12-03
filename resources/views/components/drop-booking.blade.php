@@ -1,19 +1,5 @@
 @php
     use Carbon\Carbon;
-    // function isStatusRequest(ListBooking $listBooking)
-    // {
-    //     return $listBooking->status_request ? true : false;
-    // }
-    // function classForStatus($status)
-    // {
-    //     if ($status == 'accept') {
-    //         return 'bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300';
-    //     } elseif ($status == 'pending') {
-    //         return 'bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300';
-    //     } elseif ($status == 'reject') {
-    //         return 'bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300';
-    //     }
-    // }
 @endphp
 <div x-data="{
     open: false,
@@ -172,7 +158,7 @@
     </div>
 
     <!-- Schedule Modal -->
-    <div x-show="scheduleModal" x-cloak
+    {{-- <div x-show="scheduleModal" x-cloak
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
         <form action="" method="POST" class="bg-white p-4 rounded-lg w-80">
             @csrf
@@ -195,7 +181,7 @@
                 <button type="submit" class="px-4 py-2 bg-red-700 text-white rounded-lg">Save</button>
             </div>
         </form>
-    </div>
+    </div> --}}
 
     <!-- Sparing Modal -->
     <div x-show="sparingModal" x-cloak class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -206,14 +192,14 @@
                     Tim</label>
                 <input type="text" id="nama_tim" name="team_name"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Masukan nama tim" />
+                    placeholder="Masukan nama tim" value="{{ Auth::user()->team ?? '' }}" />
             </div>
             <div class="mb-6">
                 <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi
                     Singkat</label>
                 <input type="text" id="deskripsi" name="description"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Masukan deskripsi singkat" />
+                    placeholder="Masukan deskripsi singkat" value="" />
             </div>
             <div class="flex justify-end">
                 <button @click="sparingModal = false" type="button"

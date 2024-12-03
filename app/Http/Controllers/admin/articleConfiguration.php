@@ -26,10 +26,11 @@ class articleConfiguration extends Controller
         $article = Article::findOrFail($id); // Cari data berdasarkan ID, jika tidak ada maka 404
         $content = json_decode($article->content); // Decode JSON ke dalam objek
         // dd($content);
-        return view('articles.articledetail', compact('article','content')); // Kirim data ke view
+        return view('articles.articledetail', compact('article', 'content')); // Kirim data ke view
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validate = $request->validate([
             'title' => 'required',
             'content' => 'required'
@@ -115,8 +116,6 @@ class articleConfiguration extends Controller
 
         return response()->json(['success' => 0, 'message' => 'Upload failed']);
     }
-
-
     public function fetch(Request $request)
     {
         $url = $request->input('url');
