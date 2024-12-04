@@ -71,7 +71,6 @@ class voucherConfiguration extends Controller
         ]);
 
         try {
-            $voucher = new Voucher();
             $voucher->expire_date = $request->expire_date;
             $voucher->code = $request->code;
             $voucher->quota = $request->quota;
