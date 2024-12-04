@@ -127,7 +127,7 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::post('/article/store', [articleConfiguration::class, 'store'])->name('admin.article.store');
     Route::post('/article/upload-image', [articleConfiguration::class, 'upload'])->name('admin.article.upload');
     Route::post('/article/fetch-image', [articleConfiguration::class, 'fetch'])->name('admin.article.fetch');
-    Route::get('/show-sarticle/{id}', [ArticleConfiguration::class, 'show'])->name('admin.article.show');
+    Route::get('/show-article/{id}', [ArticleConfiguration::class, 'show'])->name('admin.article.show');
     Route::delete('/article/delete/{id}', [articleConfiguration::class, 'destroy'])->name('admin.article.destroy');
     Route::get('/article/update/{id}', [articleConfiguration::class, 'update'])->name('admin.article.update');
     Route::post('/article/edit/{id}', [articleConfiguration::class, 'edit'])->name('admin.article.edit');
