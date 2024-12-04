@@ -30,7 +30,8 @@
                 <p>untuk konfirmasi penyewaan lapangan dalam waktu 1x24 jam</p>
             </div>
             <div class="flex items-stretch space-x-3">
-                <a href="" class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white">Cek Status
+                <a href="{{ route('profile.show') }}"
+                    class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white">Cek Status
                     Pembayaran</a>
                 <a href="{{ route('schedule.index') }}"
                     class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white">Pesan

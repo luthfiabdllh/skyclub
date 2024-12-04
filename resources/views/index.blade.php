@@ -109,8 +109,7 @@
                                 <div class="flex items-center text-left">
                                     <div class="flex-shrink-0 w-10 h-10">
                                         <img class="w-full h-full rounded-full"
-                                            src="{{ asset('storage/' . $sparing->createdBy->profile_photo) }}"
-                                            alt="Profile photo">
+                                            src="{{ $sparing->createdBy->formattedProfilePhoto }}" alt="Profile photo">
                                     </div>
                                     <div class="ml-3">
                                         <p class="text-gray-900 whitespace-no-wrap font-semibold">
@@ -139,11 +138,11 @@
                         <tr>
                             <td colspan="4" class="px-5 py-2 bg-transparent"></td>
                         </tr>
-                    </tbody>
-                    @empty
-                    <tr>
-                        <td colspan="4" class="px-5 py-2 bg-transparent">Tidak ada Sparing</td>
-                    </tr>
+                </tbody>
+            @empty
+                <tr>
+                    <td colspan="4" class="px-5 py-2 bg-transparent">Tidak ada Sparing</td>
+                </tr>
                 @endforelse
             </table>
         </div>
@@ -273,18 +272,23 @@
                 <h5 class="text-base">Berikut adalah artikel-artikel terkait SKY CLUB</h5>
             </div>
             <div class="grid lg:grid-cols-3 grid-cols-1 justify-between mt-10 lg:space-y-0 space-y-6 gap-8">
-                @foreach($moreArticlesData as $moreArticleData)
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform hover:-translate-y-1 transition duration-300 hover:shadow-xl">
-                        <a class="hidden sm:block bg-cover h-72" href="{{ route('article.userShow', $moreArticleData['id']) }}">
-                            <img class="rounded-s-lg lg:rounded-none lg:rounded-t-lg h-full object-cover w-full" src="{{ $moreArticleData['image'] }}" alt="" />
+                @foreach ($moreArticlesData as $moreArticleData)
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 lg:max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transform hover:-translate-y-1 transition duration-300 hover:shadow-xl">
+                        <a class="hidden sm:block bg-cover h-72"
+                            href="{{ route('article.userShow', $moreArticleData['id']) }}">
+                            <img class="rounded-s-lg lg:rounded-none lg:rounded-t-lg h-full object-cover w-full"
+                                src="{{ $moreArticleData['image'] }}" alt="" />
                         </a>
 
                         <div class="p-4 text-left">
                             <div class="">
                                 <a href="{{ route('article.userShow', $moreArticleData['id']) }}">
-                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $moreArticleData['title'] }}</h5>
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        {{ $moreArticleData['title'] }}</h5>
                                 </a>
-                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 break-words">{{ $moreArticleData['paragraph'] }}</p>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 break-words">
+                                    {{ $moreArticleData['paragraph'] }}</p>
                             </div>
                             <div class="flex space-x-4 items-center mt-10">
                                 <img class="rounded-full" src="{{ asset('assets/images/profile.svg') }}" alt="">
@@ -302,37 +306,32 @@
                 <a href="/article" type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
                     Semuanya</a>
             </div>
-        @endsection
-        @section('script')
-            <script>
-                function carousel() {
-                    return {
-                        currentSlide: 0,
-                        visibleCards: 3,
-                        slides: @json($reviews)
-                            /*[{
-                                text: "Sebagai penggemar mini soccer, saya sangat mengapresiasi lapangan di SKY CLUB. Rumput sintetisnya jelas terasa standar FIFA, membuat permainan jauh lebih menyenangkan dan aman. Tidak perlu khawatir dengan cedera, karena daya serap benturannya sangat baik. Sangat puas dengan kualitasnya!",
-                                name: "Allan Raditya Hutomo",
-                                club: "Jaya Club",
-                                image: "profile1.jpg"
-                            },]*/
-                            ,
-                        get totalSlides() {
-                            return this.slides.length;
-                        },
-                        prevSlide() {
-                            if (this.currentSlide > 0) {
-                                this.currentSlide--;
-                            }
-                        },
-                        nextSlide() {
-                            if (this.currentSlide < this.totalSlides - this.visibleCards) {
-                                this.currentSlide++;
-                            }
-                        },
-                        selectedSlide: null,
-                        ratingModal: false,
-                    };
-                }
-            </script>
-        @endsection
+        </div>
+    </div>
+@endsection
+@push('script')
+    <script>
+        function carousel() {
+            return {
+                currentSlide: 0,
+                visibleCards: 3,
+                slides: @json($reviews),
+                get totalSlides() {
+                    return this.slides.length;
+                },
+                prevSlide() {
+                    if (this.currentSlide > 0) {
+                        this.currentSlide--;
+                    }
+                },
+                nextSlide() {
+                    if (this.currentSlide < this.totalSlides - this.visibleCards) {
+                        this.currentSlide++;
+                    }
+                },
+                selectedSlide: null,
+                ratingModal: false,
+            };
+        }
+    </script>
+@endpush

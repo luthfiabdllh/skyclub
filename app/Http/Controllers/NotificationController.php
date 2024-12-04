@@ -31,6 +31,6 @@ class NotificationController extends Controller
         // Menandai notifikasi sebagai sudah dibaca
         $notification->markAsRead();
 
-        return redirect()->route('profile.show');
+        return redirect()->route('profile.show')->with(['activeTab' => 'history']);
     }
 }

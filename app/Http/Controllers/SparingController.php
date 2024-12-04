@@ -78,7 +78,7 @@ class SparingController extends Controller
             'status_sparing' => 'done'
         ]);
         SparingRequestAccepted::dispatch($sparing_req);
-        return back();
+        return back()->with(['activeTab' => 'history', 'activeBookingTab' => 'sparing']);
     }
 
     public function rejectRequest(SparingRequest $sparing_req)
@@ -88,6 +88,6 @@ class SparingController extends Controller
             'status_request' => 'rejected'
         ]);
         SparingRequestRejected::dispatch($sparing_req);
-        return back();
+        return back()->with(['activeTab' => 'history', 'activeBookingTab' => 'sparing']);
     }
 }

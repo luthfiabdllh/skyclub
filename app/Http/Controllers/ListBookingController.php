@@ -20,57 +20,6 @@ use App\Notifications\NewRequestCancelBookingNotification;
 
 class ListBookingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreListBookingRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ListBooking $listBooking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ListBooking $listBooking)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateListBookingRequest $request, ListBooking $listBooking)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function cancel(ListBooking $list_booking)
     {
         // dd($list_booking);
@@ -79,7 +28,11 @@ class ListBookingController extends Controller
 
         // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
         if ($daysDifference < 7) {
-            return back()->with('error_reschedule', 'Jadwal tidak dapat diubah karena kurang dari 7 hari dari sekarang.');
+            return back()->with([
+                'error' => 'Jadwal tidak dapat diubah karena kurang dari 7 hari dari sekarang.',
+                'activeTab' => 'history',
+                'activeBookingTab' => 'field',
+            ]);
         }
 
         $list_booking->update([

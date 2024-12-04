@@ -83,6 +83,17 @@ class FieldScheduleController extends BaseController
     }
     public function reschedule(ListBooking $list_booking)
     {
+        // Menghitung selisih hari antara tanggal saat ini dan tanggal booking
+        $daysDifference = Carbon::now()->diffInDays(Carbon::parse($list_booking->date), false);
+
+        // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
+        if ($daysDifference < 3) {
+            return back()->with([
+                'error' => 'Jadwal tidak dapat diubah karena kurang dari 3 hari dari sekarang.',
+                'activeTab' => 'history',
+                'activeBookingTab' => 'field',
+            ]);
+        }
         // Jika selisihnya 3 hari atau lebih, tampilkan halaman ubah jadwal
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
@@ -90,14 +101,6 @@ class FieldScheduleController extends BaseController
     }
     public function rescheduleValidate(Request $request, ListBooking $list_booking)
     {
-        // Menghitung selisih hari antara tanggal saat ini dan tanggal booking
-        $daysDifference = Carbon::now()->diffInDays(Carbon::parse($list_booking->date), false);
-
-        // Jika selisihnya kurang dari 3 hari, tampilkan pesan kesalahan
-        if ($daysDifference < 3) {
-            return back()->with('error_reschedule', 'Jadwal tidak dapat diubah karena kurang dari 3 hari dari sekarang.');
-        }
-
         $list_booking->update([
             'status_request' => 'request-reschedule'
         ]);

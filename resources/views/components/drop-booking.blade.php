@@ -222,10 +222,10 @@
         </form>
     </div>
 </div>
-@push('scripts')
+{{-- @push('scripts')
     <script>
         function canCancel() {
             return
         }
     </script>
-@endpush
+@endpush --}}
