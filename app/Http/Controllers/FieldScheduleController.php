@@ -91,9 +91,27 @@ class FieldScheduleController extends BaseController
             ]);
         }
         // Jika selisihnya 3 hari atau lebih, tampilkan halaman ubah jadwal
+        $fieldPhotos = Photo::all()->pluck('photo')->map(function ($photo) {
+            return asset('storage/field/images/' . $photo);
+        });
+
+        $field = Field::findOrFail(1);
+        $fieldDescription = $field->description;
+        $fieldFasility = $field->facility->pluck('name')->toArray();
+        $selectedFacilities = $fieldFasility;
+
+        $slicedFacilities = $fieldFasility;
+
+        // Ambil hanya 4 fasilitas
+        $selectedSliceFacilities = array_slice($slicedFacilities, 3, 4);
+
         $generateSchedules = new GenerateSchedule(2);
         $schedules = $generateSchedules->createSchedule();
-        return view('bookings.ubahJadwal', compact('schedules', 'generateSchedules', 'list_booking'));
+        $reviews = Review::with(['user:id,name,team,profile_photo'])->latest()->get();
+        $countRating = $reviews->count();
+        $averageRating = $reviews->avg('rating');
+
+        return view('bookings.ubahJadwal', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'countRating', 'averageRating', 'fieldPhotos', 'field', 'list_booking'));
     }
     public function rescheduleValidate(Request $request, ListBooking $list_booking)
     {

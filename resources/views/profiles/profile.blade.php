@@ -208,7 +208,7 @@
             <div x-show="activeBookingTab === 'field'" class="mt-8 space-y-10">
                 @forelse ($bookings as $booking)
                     @foreach ($booking->listBooking as $sesi)
-                        @if ($sesi->date > now() && $sesi->sparing == null && $sesi->status_request != 'cancel')
+                        @if ($sesi->sparing == null)
                             <x-drop-booking :booking="$booking" :sesi="$sesi" />
                         @endif
                     @endforeach

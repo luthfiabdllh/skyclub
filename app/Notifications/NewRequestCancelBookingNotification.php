@@ -43,7 +43,7 @@ class NewRequestCancelBookingNotification extends Notification
             'booking_id' => $this->listBooking->id,
             'date' => $this->listBooking->formatted_date,
             'session' => $this->listBooking->formatted_session,
-            'message' => 'Pesanan milik ' . $this->listBooking->booking->user->name . ' telah diajukan untuk pembatalan',
+            'message' => 'Pesanan milik ' . $this->listBooking->booking->rentedBy->name . ' telah diajukan untuk pembatalan',
             'type' => 'Pembatalan Jadwal'
         ];
     }

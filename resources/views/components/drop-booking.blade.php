@@ -60,7 +60,7 @@
                         bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300
                 @endswitch @endif
             ">
-            {{ $sesi->status_request ?? $booking->formatted_status }}
+            {{ $sesi->formattedStatusRequest ?? $booking->formatted_status }}
         </div>
         <div>
             <button @click="open = !open" class="size-12 p-2.5 border border-black rounded-lg">

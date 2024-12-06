@@ -28,7 +28,7 @@ class ProfileUserController extends Controller
             return redirect()->route('admin.index');
         }
         $data_user = Auth::user();
-        $bookings = Booking::where('rented_by', $data_user->id)->whereIn('status', ['accept', 'pending'])->whereRelation('listBooking', 'date', '>', now())->latest()->get();
+        $bookings = Booking::where('rented_by', $data_user->id)->whereIn('status', ['accept', 'pending', 'failed'])->whereRelation('listBooking', 'date', '>', now())->latest()->get();
         $sparings = Sparing::where('created_by', $data_user->id)->latest()->get();
         $id_sparings = $sparings->pluck('id');
         $request_sparing = SparingRequest::whereIn('id_sparing', $id_sparings)
