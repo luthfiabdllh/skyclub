@@ -35,10 +35,8 @@ class FieldScheduleController extends BaseController
         $fieldDescription = $field->description;
         $fieldFasility = $field->facility->pluck('name')->toArray();
         $selectedFacilities = $fieldFasility;
-        // $selectedFacilities = $fieldFasility->facilities;
 
         $slicedFacilities = $fieldFasility;
-        // $slicedFacilities = json_decode($fieldFasility->facilities, true);
 
         // Ambil hanya 4 fasilitas
         $selectedSliceFacilities = array_slice($slicedFacilities, 3, 4);
@@ -48,8 +46,6 @@ class FieldScheduleController extends BaseController
         $reviews = Review::with(['user:id,name,team,profile_photo'])->latest()->get();
         $countRating = $reviews->count();
         $averageRating = $reviews->avg('rating');
-        // dd($reviews);
-
 
         return view('bookings.detailSewa', compact('schedules', 'generateSchedules', 'fieldPhotos', 'fieldDescription', 'selectedFacilities', 'selectedSliceFacilities', 'reviews', 'countRating', 'averageRating', 'fieldPhotos', 'field'));
     }

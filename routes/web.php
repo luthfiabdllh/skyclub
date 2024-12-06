@@ -62,7 +62,6 @@ Route::post('payment/voucher', [BookingController::class, 'useVoucher'])->name('
 Route::post('payment/user-offline', [BookingController::class, 'userOffline'])->name('booking.userOffline');
 Route::post('/payment', [BookingController::class, 'store'])->name('booking.store');
 Route::get('/payment/uploud', [BookingController::class, 'paymentUploud'])->name('booking.paymentUploud');
-// Route::put('/payment/uploadImage', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
 Route::put('/payment/uploadImage', [BookingController::class, 'paymentUploudValidate'])->name('booking.paymentUploudValidate');
 Route::get('/payment/success', [BookingController::class, 'paymentSuccess'])->name('booking.paymentSuccess');
 Route::get('/payment/image/{filename}', [FileController::class, 'getPaymentUploud'])->name('booking.paymentImage');

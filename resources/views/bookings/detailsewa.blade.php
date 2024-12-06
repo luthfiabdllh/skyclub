@@ -267,9 +267,10 @@
                     <!-- week days -->
                     <div class="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-7 gap-2">
                         <template x-for="(day, index) in weekDays" :key="index">
-                            <div  @click="isWithinRange(day.date) && selectDate(day.date)" :class="{
-                                'bg-red-500 text-white': isSelected(day.date),
-                                'text-gray-400': !isWithinRange(day.date),
+                            <div @click="isWithinRange(day.date) && selectDate(day.date)"
+                                :class="{
+                                    'bg-red-500 text-white': isSelected(day.date),
+                                    'text-gray-400': !isWithinRange(day.date),
                                 }"
                                 class="cursor-pointer text-center w-16 p-2 rounded-md">
                                 <div class="text-xs font-medium" x-text="day.name"></div>
@@ -289,8 +290,8 @@
                     <!-- Date Picker -->
                     <div class="relative w-14 cursor-pointer">
                         <label class="flex items-center justify-center">
-                            <input type="date" x-model="selectedDate"     @change="goToSelectedDate"
-                            :min="minDate.toISOString().split('T')[0]" :max="maxDate.toISOString().split('T')[0]"
+                            <input type="date" x-model="selectedDate" @change="goToSelectedDate"
+                                :min="minDate.toISOString().split('T')[0]" :max="maxDate.toISOString().split('T')[0]"
                                 class="absolute opacity-0 w-full h-full cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="w-6 h-6 text-gray-500 hover:text-gray-700">
@@ -511,7 +512,7 @@
                 dataWeekInServer: [],
                 dataDateInServer: [],
                 minDate: new Date(), // Tanggal minimum yang dapat dipilih
-                maxDate: new Date(new Date().setMonth(new Date().getMonth() + 2)),// Tanggal maksimum yang dapat dipilih
+                maxDate: new Date(new Date().setMonth(new Date().getMonth() + 2)), // Tanggal maksimum yang dapat dipilih
 
                 // Inisialisasi kalender mingguan
                 init() {
@@ -524,9 +525,6 @@
                         this.dataDateInServer.push(dateObject);
                     });
                     this.updateWeekDays();
-                    // console.log(this.dataWeekInServer);
-                    // console.log(this.weekDays);
-                    // console.log(this.dataServer);
                     this.selectedDate = this.currentDate.toISOString().split('T')[
                         0]; // Set tanggal saat ini sebagai default
                     const index = this.getIndexData(this.currentDate);
@@ -558,7 +556,6 @@
                 // Memperbarui tanggal dalam seminggu
                 updateWeekDays() {
                     const startOfWeek = new Date(this.currentDate);
-                    // startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay()); // Mulai dari Senin
                     // Mengatur tanggal ke awal minggu (Senin)
                     const day = this.currentDate.getDay();
                     const diff = (day === 0 ? -6 : 1) -
@@ -582,11 +579,6 @@
                 selectDate(date) {
                     this.currentDate = new Date(date);
                     this.selectedDate = date;
-                    // console.log(date);
-                    // console.log(this.dataDateInServer);
-                    // console.log(index);
-                    // this.dataDateInServer.findIndex(dateDate => dateDate.toDateString() === date.toDateString())
-                    // console.log(this.dataServer[index].sessions);
                     const index = this.getIndexData(date);
                     this.loadTimeSlots(index);
                 },
@@ -600,11 +592,6 @@
                     });
                     this.dataDateInServer = arrayDataDate;
                     return this.dataDateInServer.findIndex(dataDate => dataDate.toDateString() === date.toDateString());
-                    // console.log(this.dataDateInServer[0]);
-                    // console.log(new Date(this.dataWeekInServer[0].date));
-                    // const dataThisWeek = this.dataWeekInServer;
-                    // return dataThisWeek.findIndex(dataDate => new Date(dataDate.date).toDateString === date
-                    //     .toDateString())
                 },
 
                 // Menandai atau membatalkan penandaan pada slot waktu dan menambahkannya ke keranjang
@@ -687,13 +674,9 @@
 
                 // Memuat slot waktu (contoh data statis)
                 getSchedule(index) {
-                    // console.log(index);
                     const schedule = this.dataWeekInServer[index];
-                    // console.log(schedule);
                     const arrayData = []
                     schedule.sessions.forEach((session, index) => {
-                        // console.log(index);
-                        // console.log(session);
                         if (index < 10 && index + 1 < 10) {
                             arrayData.push({
                                 time: `0${index}.00 - 0${index+1}.00`,

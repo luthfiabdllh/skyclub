@@ -14,18 +14,20 @@
 
 
     {{-- selector --}}
-    <div
+    <div x-data="{ selected: 'sewa' }"
         class="relative mx-auto z-10 lg:-mt-34 -mt-20 bg-white w-9/12 py-4 pl-8 pr-4 rounded-xl shadow flex flex-col space-y-6">
         <div class=" flex items-start text-base font-semibold px-3.5">
-            <button class="active:border-b-4 border-red-600 mr-8 cursor-pointer">
+            <button @click="selected = 'sewa'" :class="{ 'border-b-4 border-red-600': selected === 'sewa' }"
+                class="mr-8 cursor-pointer">
                 Sewa Lapangan
             </button>
             <div class="h-8 border-l-2 border-gray-200"></div>
-            <button class="active:border-b-4 border-red-600 ml-8 cursor-pointer">
+            <button @click="selected = 'sparing'" :class="{ 'border-b-4 border-red-600': selected === 'sparing' }"
+                class="ml-8 cursor-pointer">
                 Sparing
             </button>
         </div>
-        <form action="/" method="get">
+        <form action="{{ route('schedule.index') }}" method="get" x-show="selected === 'sewa'">
             <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
                 <div class="relative">
                     <input type="date" id="rent_date"
@@ -35,18 +37,42 @@
                         class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pilih
                         Tanggal</label>
                 </div>
-                <div class="relative">
+                {{-- <div class="relative">
                     <input type="time" id="rent_time"
                         class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="username"
                         class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Jam
                         Sewa</label>
-                </div>
+                </div> --}}
             </div>
             <div class="flex justify-end ">
                 <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
                     Ketersediaan</button>
+            </div>
+        </form>
+        <form x-show="selected === 'sparing'" action="{{ route('sparing.index') }}" method="get">
+            <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
+                <div class="relative">
+                    <input type="date" id="rent_date"
+                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " />
+                    <label for="username"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pilih
+                        Tanggal</label>
+                </div>
+                {{-- <div class="relative">
+                    <input type="time" id="rent_time"
+                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " />
+                    <label for="username"
+                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Jam
+                        Sewa</label>
+                </div> --}}
+            </div>
+            <div class="flex justify-end ">
+                <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
+                    Sparing</button>
             </div>
         </form>
     </div>
@@ -160,7 +186,8 @@
                     class="text-base mb-8 max-w-2xl font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                     SKY CLUB punya solusinya! Ikuti komunitas sparing kami dan temukan lawan tanding yang seimbang.
                     Tingkatkan skill dan nikmati pertandingan seru dengan berbagai tim di sini!</h6>
-                <a href="/sparing" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white">Lihat Selengkapnya</a>
+                <a href="/sparing" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white">Lihat
+                    Selengkapnya</a>
             </div>
         </div>
 
@@ -175,8 +202,9 @@
                 <!-- Previous Button -->
                 <button @click="prevSlide"
                     class="absolute left-1 top-1/2 transform -translate-y-1/2 bg-white border border-gray-300 rounded-full size-14 flex items-center justify-center shadow hover:bg-gray-100 z-10">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5 12h14M5 12l4-4m-4 4 4 4" />
                     </svg>
