@@ -1,4 +1,4 @@
-<div class="bg-gray-50 py-14 sm:px-28 px-10">
+<div class="bg-white shadow-lg py-14 sm:px-28 px-10">
     <div class="lg:flex justify-between ">
         <div class="mb-6">
             <img src="{{ asset('assets/icons/logo.svg') }}" alt="Sky Club">

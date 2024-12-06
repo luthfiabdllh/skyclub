@@ -1,4 +1,4 @@
-<nav class="bg-gray-50 py-2" x-data="{ isOpen: false }">
+<nav class="bg-white shadow-lg py-2" x-data="{ isOpen: false }">
     <div class="mx-auto px-6 sm:px-6 lg:px-8 ">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
@@ -35,22 +35,8 @@
                                     </span>
                                 @endif
                             </a>
-                            <div class="flex items-center space-x-2">
-                                <a href="#"
-                                    class="relative flex max-w-xs items-center border-e-2 border-red-600 text-sm pr-3">
-                                    <span class="sr-only">Cart</span>
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                        viewBox="0 0 24 24">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
-                                    </svg>
-                                    <span class="ml-2 text-base">Keranjang</span>
-                                </a>
-                            </div>
                             <!-- Profile dropdown -->
-                            <div class="relative ml-3" x-data="{ isOpen: false }">
+                            <div class="relative ml-3 border-s-2 pl-3 border-red-600" x-data="{ isOpen: false }">
                                 <div class="flex items-center space-x-2">
                                     <button type="button" @click="isOpen = !isOpen"
                                         class="relative flex max-w-xs items-center rounded-full text-sm "
