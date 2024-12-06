@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     {{-- banner --}}
-    <div class="mx-auto text-justify md:mt-6 lg:mt-8 xl:mt-10">
+    <div class="mx-auto text-justify">
         <div class="text-center bg-cover bg-no-repeat bg-center md:rounded-3xl text-white lg:h-screen  md:h-[500px]  pt-16 pb-32 shadow-inner-banner flex flex-col items-center justify-center"
             style="background-image: url('{{ Storage::url('images/banner/banner_1.png') }}');">
             <div>

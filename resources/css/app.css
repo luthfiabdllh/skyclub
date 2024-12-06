@@ -6,6 +6,10 @@
     display: none !important;
 }
 
+body::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
 .custom-scrollbar::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* Optional: just to hide the scrollbar */
