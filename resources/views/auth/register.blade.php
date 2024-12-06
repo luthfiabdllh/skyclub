@@ -1,5 +1,7 @@
 @extends('layouts.auth')
 @section('content')
+    {{-- carousel --}}
+    <x-auth-carousel />
     {{-- form Register --}}
     <div class=" w-600px">
         <img class="mb-9" src="{{ asset('assets/icons/icon_auth.svg') }}" alt="">
@@ -131,6 +133,4 @@
             </div>
         </div>
     </div>
-    {{-- carousel --}}
-    <x-auth-carousel />
 @endsection

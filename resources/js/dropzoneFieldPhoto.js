@@ -17,7 +17,7 @@ function initializeDropzoneSlider(elementId, fileIndex) {
         const myDropzone = new Dropzone(dropzoneElement, {
             url: "/admin/upload-image-slider", // Endpoint backend untuk upload
             autoProcessQueue: true, // Proses upload otomatis saat file ditambahkan
-            maxFilesize: 2, // Maksimal ukuran file dalam MB
+            maxFilesize: 5, // Maksimal ukuran file dalam MB
             acceptedFiles: ".png,.jpg,.jpeg,.gif,.svg",
             headers: {
                 "X-CSRF-TOKEN": csrfToken, // Kirim CSRF token

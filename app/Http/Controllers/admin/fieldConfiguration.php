@@ -106,7 +106,6 @@ class fieldConfiguration extends Controller
     {
         $request->validate([
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
-
         ]);
 
         if ($request->hasFile('file')) {

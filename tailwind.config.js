@@ -8,42 +8,45 @@ export default {
     ],
     theme: {
         extend: {
-                screens: {
-                        'xxs': '325px',
-                        'xs': '560px',
-                        'xxl': '1550px',
-                    },
-                boxShadow: {
-                        'inner-banner': 'inset 0 500px 130px rgba(0, 0, 0, 0.45)',
-                 },
-                padding: {
-                        '26': '104px',
-                    },
-                width: {
-                        '79' : '316px',
-                        '128': '32rem',
-                        '135' : '540px',
-                        '765px' : '765px',
-                        '512px' : '512px',
-                        '600px' : '600px',
-                        'banner-profile' : '1232px'
+            colors: {
+                    'basic': '#FAFBFC',
                 },
-                height: {
-                        '45' : '180px',
-                        '70' : '280px',
-                        '75' : '300px',
-                        'banner-profile' : '350px'
+            screens: {
+                    'xxs': '325px',
+                    'xs': '560px',
+                    'xxl': '1550px',
                 },
-                fontSize: {
-                        '56': '56px',
-                        '4.5xl': '40px',
+            boxShadow: {
+                    'inner-banner': 'inset 0 500px 130px rgba(0, 0, 0, 0.45)',
                 },
-                margin: {
-                        '17.5': '70px',
+            padding: {
+                    '26': '104px',
                 },
-                zIndex: {
-                    '100': '100',
-                  },
+            width: {
+                    '79' : '316px',
+                    '128': '32rem',
+                    '135' : '540px',
+                    '765px' : '765px',
+                    '512px' : '512px',
+                    '600px' : '600px',
+                    'banner-profile' : '1232px'
+            },
+            height: {
+                    '45' : '180px',
+                    '70' : '280px',
+                    '75' : '300px',
+                    'banner-profile' : '350px'
+            },
+            fontSize: {
+                    '56': '56px',
+                    '4.5xl': '40px',
+            },
+            margin: {
+                    '17.5': '70px',
+            },
+            zIndex: {
+                '100': '100',
+                },
         },
     },
     plugins: [
