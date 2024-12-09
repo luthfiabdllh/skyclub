@@ -20,7 +20,7 @@
                         <div class="flex items-center space-x-3 self-center">
                             <a href="/notification" class="relative rounded-full p-1 text-black focus:outline-none">
                                 <span class="sr-only">View notifications</span>
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                <svg class="h-6 w-6 hover:text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
@@ -44,7 +44,7 @@
                                         <span class="sr-only">Open user menu</span>
                                         <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->formattedProfilePhoto }}"
                                             alt="">
-                                        <span class="ml-2 font-semibold">{{ auth()->user()->name }}</span>
+                                        <span class="ml-2 font-semibold hover:text-red-600">{{ auth()->user()->name }}</span>
                                     </button>
                                 </div>
                                 <div x-show="isOpen" x-transition:enter="transition ease-out duration-100 transform"
@@ -70,9 +70,9 @@
                     @else
                         <div class="flex items-baseline space-x-2">
                             <a href="{{ route('login') }}"
-                                class="rounded-md px-5 py-2 text-sm font-medium bg-gray-200">Masuk</a>
+                                class="rounded-md px-5 py-2 text-sm font-medium bg-gray-200 hover:bg-gray-300">Masuk</a>
                             <a href="{{ route('register.index') }}"
-                                class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white">Daftar</a>
+                                class="rounded-md px-5 py-2 text-sm font-medium bg-red-600 text-white hover:bg-red-800">Daftar</a>
                         </div>
                     @endauth
                 </div>

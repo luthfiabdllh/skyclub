@@ -1,7 +1,6 @@
 <div x-data="{ activeSlide: 0, slides: ['{{ asset('assets/images/album_1.svg') }}', '{{ asset('assets/images/album_2.svg') }}', '{{ asset('assets/images/album_3.svg') }}'] }" x-init="setInterval(() => { activeSlide = (activeSlide + 1) % slides.length }, 5000)"
-    class="relative w-2/5 bg-cover overflow-hidden container hidden lg:block">
+    class="relative w-2/5 min-h-[800px] bg-cover overflow-hidden container hidden lg:block :">
     <!-- Carousel Slide -->
-
     <div class="items-stretch bg-cover rounded-xl overflow-hidden w-full h-full">
         <template x-for="(slide, index) in slides" :key="index">
             <img :src="slide" x-show="activeSlide === index"
