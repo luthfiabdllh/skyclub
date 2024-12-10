@@ -25,11 +25,17 @@ class GenerateSchedule
     }
     public function createSchedule()
     {
+        $cancelSchedule = ListBooking::where('status_request', 'cancel')->pluck('id');
         // mencari jadwal yang sudah dibooking dengan status accept
         $bookings = ListBooking::whereRelation('booking', function ($query) {
             $query
                 ->whereIn('status', ['accept', 'pending']);
-        })->get();
+        })
+            ->whereNotIn('id', $cancelSchedule)
+            ->get();
+
+        // })->where('status_request', '!=', 'cancel')->get();
+
 
         //generate schedule
         for ($i = 0; $i < $this->daysCount + 1; $i++) {

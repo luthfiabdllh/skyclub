@@ -44,7 +44,7 @@ class AdminController extends Controller
 
     public function approveBooking()
     {
-        $bookings = Booking::latest()->where('status', 'pending')->get();
+        $bookings = Booking::latest()->where('status', 'pending')->whereNotNull('uploud_payment')->get();
         $bookings = $bookings->map(function ($booking) {
             $totalPrice = $booking->listBooking->sum(function ($listBooking) {
                 return $listBooking->field->price;
@@ -71,13 +71,11 @@ class AdminController extends Controller
         $days = $request->input('days', 7); // Default to last 7 days
 
         $data = Booking::selectRaw('DATE(order_date) as date, COUNT(*) as count')
-                    ->where('order_date', '>=', now()->subDays($days)) // Ambil data untuk periode yang dipilih
-                    ->groupBy('date')
-                    ->orderBy('date', 'asc')
-                    ->get();
+            ->where('order_date', '>=', now()->subDays($days)) // Ambil data untuk periode yang dipilih
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
 
         return response()->json($data);
     }
-
-
 }
