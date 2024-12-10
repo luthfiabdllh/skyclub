@@ -323,9 +323,7 @@
 
                 <div class="flex justify-between gap-2 xl:hidden">
                     <button type="submit"
-                        class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white ">Bayar</button>
-                    <a href="#"
-                        class="border-2 border-red-600 w-full text-center py-3 rounded-lg font-bold text-red-600">+Keranjang</a>
+                        class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white hover:bg-red-800">Bayar</button>
                 </div>
             </div>
         </div>
@@ -366,7 +364,6 @@
                 <p x-text="totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })"></p>
             </div>
             <div>
-
                 <form action="{{ route('schedule.scheduleValidate') }}" method="POST">
                     @csrf
                     <template class="hidden" x-for="(item, index) in cart" :key="index">
@@ -379,9 +376,7 @@
                     </template>
                     <div class="flex space-x-4">
                         <button type="submit"
-                            class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white ">Bayar</button>
-                        <a href="#"
-                            class="border-2 border-red-600 w-full text-center py-3 rounded-lg font-bold text-red-600">+Keranjang</a>
+                            class="bg-red-600 w-full text-center py-3 rounded-lg font-bold text-white hover:bg-red-800">Bayar</button>
                     </div>
                 </form>
             </div>

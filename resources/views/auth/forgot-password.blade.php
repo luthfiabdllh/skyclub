@@ -56,11 +56,6 @@
             </div>
             <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Submit</button>
         </form>
-        <div class="flex items-center mt-10">
-            <div class="flex-grow border-t border-gray-200"></div>
-            <span class="px-4 text-gray-400">atau masuk dengan</span>
-            <div class="flex-grow border-t border-gray-200"></div>
-        </div>
     </div>
     {{-- Carousel --}}
     <x-auth-carousel />

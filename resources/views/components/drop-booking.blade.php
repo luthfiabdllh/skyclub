@@ -142,10 +142,10 @@
     </div>
 
     <!-- Proof Transfer Modal -->
-    <div x-show="proofTransfer" @click.away="proofTransfer = false"
+    <div x-show="proofTransfer" @click.away="proofTransfer = false" x-cloak
         class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div @click.stop class="bg-white p-2 rounded-lg justify-center flex flex-col text-center">
-            <div class="bg-cover rounded-lg overflow-hidden group w-79 h-45">
+            <div class="bg-cover rounded-lg overflow-hidden group w-79">
                 <img class="w-full h-full object-cover"
                     src="{{ route('booking.paymentImage', basename($booking->uploud_payment)) }}" alt="">
             </div>

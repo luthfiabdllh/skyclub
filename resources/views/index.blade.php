@@ -12,71 +12,6 @@
         </div>
     </div>
 
-
-    {{-- selector --}}
-    <div x-data="{ selected: 'sewa' }"
-        class="relative mx-auto z-10 lg:-mt-34 -mt-20 bg-white w-9/12 py-4 pl-8 pr-4 rounded-xl shadow flex flex-col space-y-6">
-        <div class=" flex items-start text-base font-semibold px-3.5">
-            <button @click="selected = 'sewa'" :class="{ 'border-b-4 border-red-600': selected === 'sewa' }"
-                class="mr-8 cursor-pointer">
-                Sewa Lapangan
-            </button>
-            <div class="h-8 border-l-2 border-gray-200"></div>
-            <button @click="selected = 'sparing'" :class="{ 'border-b-4 border-red-600': selected === 'sparing' }"
-                class="ml-8 cursor-pointer">
-                Sparing
-            </button>
-        </div>
-        <form action="{{ route('schedule.index') }}" method="get" x-show="selected === 'sewa'">
-            <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
-                <div class="relative">
-                    <input type="date" id="rent_date"
-                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="username"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pilih
-                        Tanggal</label>
-                </div>
-                {{-- <div class="relative">
-                    <input type="time" id="rent_time"
-                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="username"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Jam
-                        Sewa</label>
-                </div> --}}
-            </div>
-            <div class="flex justify-end ">
-                <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
-                    Ketersediaan</button>
-            </div>
-        </form>
-        <form x-show="selected === 'sparing'" action="{{ route('sparing.index') }}" method="get">
-            <div class="space-x-6 grid grid-flow-col justify-stretch mb-4">
-                <div class="relative">
-                    <input type="date" id="rent_date"
-                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="username"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Pilih
-                        Tanggal</label>
-                </div>
-                {{-- <div class="relative">
-                    <input type="time" id="rent_time"
-                        class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="username"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Jam
-                        Sewa</label>
-                </div> --}}
-            </div>
-            <div class="flex justify-end ">
-                <button type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
-                    Sparing</button>
-            </div>
-        </form>
-    </div>
-
     {{-- content 1 --}}
     <x-fasility-carousel />
 
@@ -89,13 +24,12 @@
             <h6 class="text-base mb-8 max-w-2xl font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                 Punya rencana berolahraga minggu ini tapi belum tahu mau main di mana? Atau tidak ada waktu untuk datang
                 langsung ke venue hanya untuk booking lapangan?</h6>
-            <a href="/field-schedule" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white">Pesan Sekarang</a>
+            <a href="/field-schedule" class="bg-red-600 rounded-lg px-6 py-3 font-semibold text-white hover:bg-red-800">Pesan Sekarang</a>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex place-self-end">
             <img class="rounded-3xl" src="{{ asset('assets/icons/content-2.svg') }}" alt="image-content">
         </div>
     </div>
-
 
     <div class=" text-center mt-24 mb-16">
         <h1 class="font-bold text-5xl mb-6">Jadwal Sparing Mini Soccer</h1>
@@ -186,8 +120,7 @@
                     class="text-base mb-8 max-w-2xl font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                     SKY CLUB punya solusinya! Ikuti komunitas sparing kami dan temukan lawan tanding yang seimbang.
                     Tingkatkan skill dan nikmati pertandingan seru dengan berbagai tim di sini!</h6>
-                <a href="/sparing" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white">Lihat
-                    Selengkapnya</a>
+                <a href="/sparing" class=" bg-red-600 rounded-lg px-6 py-3 font-semibold text-white hover:bg-red-800">Lihat Selengkapnya</a>
             </div>
         </div>
 
@@ -331,7 +264,7 @@
             </div>
 
             <div class="flex justify-end my-10">
-                <a href="/article" type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white">Lihat
+                <a href="/article" type="submit" class=" bg-red-600 rounded px-4 py-2 font-semibold text-white hover:bg-red-800">Lihat
                     Semuanya</a>
             </div>
         </div>

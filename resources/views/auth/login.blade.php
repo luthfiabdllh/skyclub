@@ -89,28 +89,13 @@
                         password?</a>
                 </div>
             </div>
-            <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full">Sign in</button>
+            <button type="submit" class=" bg-red-600 rounded py-2 font-semibold text-white w-full hover:bg-red-800">Sign in</button>
         </form>
         <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center mt-4">
             Don’t have an account <a href="/register"
                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign Up</a>
         </p>
-        <div class="flex items-center mt-10">
-            <div class="flex-grow border-t border-gray-200"></div>
-            <span class="px-4 text-gray-400">atau masuk dengan</span>
-            <div class="flex-grow border-t border-gray-200"></div>
-        </div>
-        <div class="flex mt-10 space-x-4 overflow-hidden">
-            <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ asset('assets/icons/facebook.svg') }}" alt="">
-            </div>
-            <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ asset('assets/icons/google.svg') }}" alt="">
-            </div>
-            <div class=" border w-full py-4 border-black rounded">
-                <img class="mx-auto" src="{{ asset('assets/icons/apple.svg') }}" alt="">
-            </div>
-        </div>
+
     </div>
     {{-- carousel --}}
     <x-auth-carousel />
