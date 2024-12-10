@@ -23,11 +23,7 @@
             </div>
             <div class="border-l border-gray-400 h-8 my-auto"></div>
             <p class="font-semibold">{{ $sesi->field->formatted_price }}</p>
-            {{-- <p class="font-semibold">Rp 1.000.000</p> --}}
         </div>
-        {{-- <span class="bg-red-100 text-red-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Red</span>
-            <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Green</span>
-            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Yellow</span> --}}
         <div
             class="
             @if ($sesi->status_request) @switch($sesi->status_request)
@@ -141,12 +137,12 @@
         </div>
     </div>
 
-    <!-- Proof Transfer Modal -->
-    <div x-show="proofTransfer" @click.away="proofTransfer = false" x-cloak
-        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <!-- Close Modal Button -->
+    <div x-show="proofTransfer" x-cloak
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" @click="proofTransfer = false">
         <div @click.stop class="bg-white p-2 rounded-lg justify-center flex flex-col text-center">
-            <div class="bg-cover rounded-lg overflow-hidden group w-79">
-                <img class="w-full h-full object-cover"
+            <div class="rounded-lg overflow-hidden group w-79">
+                <img class="w-full h-full"
                     src="{{ route('booking.paymentImage', basename($booking->uploud_payment)) }}" alt="">
             </div>
         </div>
